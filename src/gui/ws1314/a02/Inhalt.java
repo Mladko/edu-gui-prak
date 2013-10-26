@@ -1,5 +1,6 @@
 package gui.ws1314.a02;
 
+import java.awt.Color;
 import utilities.MausAktion;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -58,6 +59,9 @@ public class Inhalt extends JPanel {
 
         // Textformat
         this.setzeTextFormat(g2);
+        
+        // Setze weisse Hintergrundfarbe
+        this.setBackground(Color.white);
 
         // Uebergeben der Fenstergroesse und des Grafikobjekts
         this.diagramm.setzeEigenschaften(this.getSize(), g2);
