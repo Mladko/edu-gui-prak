@@ -36,6 +36,10 @@ public class ReifeDiagramm {
     private int aktJahr;
     // Tastatureingaben zu den Eigenschaften eines Weines
     private double lagerdauer, jahrgang;
+    // Farbsetzung
+    public Object[] farben = {Color.gray,
+            new GradientPaint(0, 0, Color.gray, 0, 0, Color.green),
+            Color.green, Color.yellow};
 
     /**
      * Erzeugt ein neues Legendeobjekt.
@@ -93,6 +97,36 @@ public class ReifeDiagramm {
         this.jahrgang = jahrgang;
         this.lagerdauer = lagerdauer;
     }
+    
+    /**
+     * Zeichnet das aktuelle Stadium.
+     * 
+     * @param s Stadium
+     * @param position Position
+     */
+    public void zeichneAktStadium(Stadium s, double position) {
+        // Setze Fuellfarbe
+        if (s.farbe instanceof GradientPaint) {
+            s.setzeFarbe(new GradientPaint((int) position, 
+                    (int) this.y, Color.gray, 
+                    (int) (position + s.breite), 
+                    (int) this.y, Color.green));
+        }
+        this.g.setPaint((Paint) s.farbe);
+        this.g.fill(new Rectangle.Double(
+                position, this.y, s.breite, this.h));
+        // Zuruecksetzen der Farbe
+        this.g.setPaint(Color.black);
+        // Zeichne Rahmen des aktuellen Stadiums und setze die Beschriftung
+        this.g.draw(new Rectangle.Double(
+                position, this.y, s.breite, this.h));
+        if (stadiumBeginn != this.aktJahr) {
+            this.g.drawString(
+                    Integer.toString(stadiumBeginn),
+                    (int) position,
+                    (int) (this.y + this.h + this.schriftgroesse));
+        }
+    }
 
     /**
      * Setzt die Groesse und Position der Legende.
@@ -111,11 +145,6 @@ public class ReifeDiagramm {
      * Berechnet und setzt die Groessen der Stadien.
      */
     private void setzeStadien() {
-        // Farbsetzung
-        Object[] farben = {Color.gray,
-            new GradientPaint(0, 0, Color.gray, 0, 0, Color.green),
-            Color.green, Color.yellow};
-        
         // Berechnung der Dauer
         double dauerUnreif = Math.round(this.lagerdauer / 8);
         double dauerOptimal = Math.round(this.lagerdauer / 2);
@@ -128,16 +157,16 @@ public class ReifeDiagramm {
         
         // Stadien der Trinkreife
         Stadium unreif = 
-                new Stadium("unreif", dauerUnreif, farben[0],
+                new Stadium("unreif", dauerUnreif, this.farben[0],
                         breite * dauerUnreif, this.h, this.y);
         Stadium steigernd = 
-                new Stadium("steigernd", dauerSteigernd, farben[1],
+                new Stadium("reifend", dauerSteigernd, this.farben[1],
                         breite * dauerSteigernd, this.h, this.y);
         Stadium optimal = 
-                new Stadium("optimal", dauerOptimal, farben[2],
+                new Stadium("optimal", dauerOptimal, this.farben[2],
                         breite * dauerOptimal, this.h, this.y);
         Stadium ueberlagert = 
-                new Stadium("überlagert", dauerUeberlagert, farben[3],
+                new Stadium("überlagert", dauerUeberlagert, this.farben[3],
                         breite * dauerUeberlagert, this.h, this.y);
 
         // Ablegen als globales Array
@@ -163,34 +192,15 @@ public class ReifeDiagramm {
             aktStadium.setzeX(aktPosition);
             aktStadium.setzeBeginn(stadiumBeginn);
             
-            // Setze Fuellfarbe
-            if (aktStadium.farbe instanceof GradientPaint) {
-                aktStadium.setzeFarbe(new GradientPaint((int) aktPosition, 
-                        (int) this.y, Color.gray, 
-                        (int) (aktPosition + aktStadium.breite), 
-                        (int) this.y, Color.green));
-            }
-            this.g.setPaint((Paint) aktStadium.farbe);
-            this.g.fill(new Rectangle.Double(
-                    aktPosition, this.y, aktStadium.breite, this.h));
-            // Zuruecksetzen der Farbe
-            this.g.setPaint(Color.black);
-            // Zeichne Rahmen des aktuellen Stadiums und setze die Beschriftung
-            this.g.draw(new Rectangle.Double(
-                    aktPosition, this.y, aktStadium.breite, this.h));
-            if (stadiumBeginn != this.aktJahr) {
-                this.g.drawString(
-                        Integer.toString(stadiumBeginn),
-                        (int) aktPosition,
-                        (int) (this.y + this.h + this.schriftgroesse));
-            }
+            this.zeichneAktStadium(aktStadium, aktPosition);
+
             // Berechnet Startjahr des naechsten Stadiums
             stadiumBeginn += aktStadium.dauer;
             // Berechne neue Startposition
             aktPosition += aktStadium.breite;
         }
     }
-
+    
     /**
      * Grafische Darstellung des aktuellen Jahr.
      */
