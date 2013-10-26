@@ -1,5 +1,6 @@
 package gui.ws1314.a01;
 
+import utilities.TastaturEingabe;
 import java.io.IOException;
 import javax.swing.JFrame;
 
