@@ -24,8 +24,8 @@ public class Inhalt extends JPanel {
      */
     public boolean zeichneLegende;
 
-    public final ReifeDiagramm diagramm;   // Diagramm als Inhaltskomponente.
-    private final Legende legende;  // Legende als Inhaltskomponente.
+    public final ReifeDiagramm diagramm;    // Diagramm als Inhaltskomponente.
+    private final Legende legende;          // Legende als Inhaltskomponente.
 
     /**
      * Erzeugt einen neuen Fensterinhalt
