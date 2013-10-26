@@ -18,12 +18,14 @@ import java.util.Calendar;
  */
 public class ReifeDiagramm {
 
+    /**
+     * Position und Groessen des Diagramms
+     */
+    public double x, y, b, h;    
     // Grafikobjekt
     private Graphics2D g;
     // Schriftgroesse
     private int schriftgroesse;
-    // Position und Groessen des Diagramms
-    private double x, y, b, h;
     // Groessen des Fensters
     private double fensterBreite, fensterHoehe;
     // Stadien der Trinkreife
