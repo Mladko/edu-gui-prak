@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
 
 /**
@@ -22,7 +24,7 @@ public class Inhalt extends JPanel {
      */
     public boolean zeichneLegende;
 
-    final ReifeDiagramm diagramm;   // Diagramm als Inhaltskomponente.
+    public final ReifeDiagramm diagramm;   // Diagramm als Inhaltskomponente.
     private final Legende legende;  // Legende als Inhaltskomponente.
 
     /**
@@ -32,8 +34,14 @@ public class Inhalt extends JPanel {
         // Erzeugen eines Diagramms und Legende
         this.diagramm = new ReifeDiagramm();
         this.legende = new Legende();
+        
+        // Legende soll gezeichnet werden
         this.zeichneLegende = true;
-        this.addMouseListener(new MausAktion());
+        
+        // Fuege MausAktionen hinzu
+        Object ma = new MausAktion();
+        this.addMouseListener((MouseListener) ma);
+        this.addMouseMotionListener((MouseMotionListener) ma);
     }
 
     /**
