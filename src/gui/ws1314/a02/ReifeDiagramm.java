@@ -78,6 +78,9 @@ public class ReifeDiagramm {
 
         // Aktualisierung der Groessen des Diagramms
         this.setzeDiagramm();
+        
+        // Setzt die Stadien der Trinkreife
+        this.setzeStadien();
     }
 
     /**
@@ -150,8 +153,7 @@ public class ReifeDiagramm {
      */
     private void zeichneStadien() {
         
-        // Berechnung der Laengen aller Stadien
-        this.setzeStadien();
+        // Setzt den Beginn des ersten Stadiums
         this.stadiumBeginn = (int) this.jahrgang;
 
         // Position des aktuellen Stadiums
@@ -160,8 +162,6 @@ public class ReifeDiagramm {
             // Setze x-Position und Beginn des aktuellen Stadiums
             aktStadium.setzeX(aktPosition);
             aktStadium.setzeBeginn(stadiumBeginn);
-            
-            System.out.println(aktStadium.toString());
             
             // Setze Fuellfarbe
             if (aktStadium.farbe instanceof GradientPaint) {
