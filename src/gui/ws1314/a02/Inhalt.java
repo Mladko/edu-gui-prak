@@ -1,6 +1,5 @@
 package gui.ws1314.a02;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -18,6 +17,7 @@ class Inhalt extends JPanel {
 
     final ReifeDiagramm diagramm;   // Diagramm als Inhaltskomponente.
     private final Legende legende;  // Legende als Inhaltskomponente.
+    public boolean zeichneLegende;
 
     /**
      * Erzeugt einen neuen Fensterinhalt
@@ -26,6 +26,8 @@ class Inhalt extends JPanel {
         // Erzeugen eines Diagramms und Legende
         this.diagramm = new ReifeDiagramm();
         this.legende = new Legende();
+        this.zeichneLegende = true;
+        this.addMouseListener(new MausAktion());
     }
 
     /**
@@ -52,8 +54,7 @@ class Inhalt extends JPanel {
         // Aktiviere Antialiasing (Schriftenglaettung)
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
         RenderingHints.VALUE_ANTIALIAS_ON);
-        // Setze weisse Hintergrundfarbe
-        this.setBackground(Color.white);
+
         // Textformat
         this.setzeTextFormat(g2);
 
@@ -65,7 +66,8 @@ class Inhalt extends JPanel {
 
         // Zeichne Diagramm und Legende
         this.diagramm.erstelleDiagramm();
-        this.legende.erstelleLegende();
+        if (zeichneLegende)
+            this.legende.erstelleLegende();
     }
 
 }
