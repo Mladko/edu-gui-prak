@@ -68,9 +68,6 @@ public class Inhalt extends JPanel {
         // Aktiviere Antialiasing (Schriftenglaettung)
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
         RenderingHints.VALUE_ANTIALIAS_ON);
-
-        // Textformat
-        this.setzeTextFormat(g2);
         
         // Setze weisse Hintergrundfarbe
         this.setBackground(Color.white);
@@ -78,6 +75,9 @@ public class Inhalt extends JPanel {
         // Uebergeben der Fenstergroesse und des Grafikobjekts
         this.diagramm.setzeEigenschaften(this.getSize(), g2);
         this.legende.setzeEigenschaften(this.getSize(), g2);
+        
+        // Textformat
+        this.setzeTextFormat(g2);
 
         super.paintComponent(g2);
 
