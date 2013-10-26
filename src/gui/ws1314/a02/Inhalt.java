@@ -35,6 +35,9 @@ public class Inhalt extends JPanel {
         this.diagramm = new ReifeDiagramm();
         this.legende = new Legende();
         
+        // Setze weisse Hintergrundfarbe
+        this.setBackground(Color.white);
+        
         // Legende soll gezeichnet werden
         this.zeichneLegende = true;
         
@@ -68,9 +71,6 @@ public class Inhalt extends JPanel {
         // Aktiviere Antialiasing (Schriftenglaettung)
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
         RenderingHints.VALUE_ANTIALIAS_ON);
-        
-        // Setze weisse Hintergrundfarbe
-        this.setBackground(Color.white);
 
         // Uebergeben der Fenstergroesse und des Grafikobjekts
         this.diagramm.setzeEigenschaften(this.getSize(), g2);
