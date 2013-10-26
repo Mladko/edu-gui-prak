@@ -1,5 +1,6 @@
 package gui.ws1314.a02;
 
+import utilities.MausAktion;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,7 +14,7 @@ import javax.swing.JPanel;
  * @since 2013/10/21 
  * @version 1.0
  */
-class Inhalt extends JPanel {
+public class Inhalt extends JPanel {
 
     final ReifeDiagramm diagramm;   // Diagramm als Inhaltskomponente.
     private final Legende legende;  // Legende als Inhaltskomponente.
