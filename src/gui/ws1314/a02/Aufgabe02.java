@@ -18,7 +18,7 @@ public class Aufgabe02 {
      * @throws IOException Behandlung der Ausnahmen zur Eingabeverarbeitung
      */
     public static void main(String[] args) throws IOException {
-        Fenster f = new Fenster("GUI-Aufgabe01", 20, 20, 600, 400);
+        Fenster f = new Fenster("GUI-Aufgabe02", 20, 20, 600, 400);
         f.setVisible(true);
         f.zeichneInhalt(new Inhalt());
     }
