@@ -17,39 +17,32 @@ import java.util.Calendar;
  * @version 1.0
  */
 public class ReifeDiagramm {
-
     /**
-     * Position und Groessen des Diagramms
-     */
-    public double x, y, b, h;    
+     * Stadien der Trinkreife
+     */ 
+    public Stadium[] stadien;
+    
     // Grafikobjekt
     private Graphics2D g;
     // Schriftgroesse
     private int schriftgroesse;
+    // Position und Groessen des Diagramms
+    private double x, y, b, h;
     // Groessen des Fensters
     private double fensterBreite, fensterHoehe;
-    // Stadien der Trinkreife
-    private double unreif, steigernd, optimal, ueberlagert;
-    private double[] stadien;
     // Startjahr des aktuellen Stadiums
     private int stadiumBeginn;
-    // Tastatureingaben zu den Eigenschaften eines Weines
-    private double lagerdauer, jahrgang;
     // Aktuelle Jahr
     private int aktJahr;
-    // Sammlung der Farben aller Stadien
-    private final Object[] COLORS = {Color.gray,
-        new GradientPaint(0, 0, Color.gray, 0, 0, Color.green),
-        Color.green, Color.yellow};
+    // Tastatureingaben zu den Eigenschaften eines Weines
+    private double lagerdauer, jahrgang;
 
     /**
      * Erzeugt ein neues Legendeobjekt.
      */
     public ReifeDiagramm() {
-        //this.lagerdauer = 1;
-        //this.jahrgang = 2011;
     }
-    
+
     /**
      * Stellt ein neues Digramm grafisch dar.
      */
@@ -79,17 +72,17 @@ public class ReifeDiagramm {
         // Setzt die aktuelle Schritgroesse
         FontMetrics metrics = g.getFontMetrics();
         this.schriftgroesse = metrics.getHeight();
-        
+
         // Setzt das aktuelle Jahr
         this.aktJahr = Calendar.getInstance().get(Calendar.YEAR);
-        
+
         // Aktualisierung der Groessen des Diagramms
         this.setzeDiagramm();
     }
-    
+
     /**
      * Setzt den Jahrgang und die Lagerdauer.
-     * 
+     *
      * @param jahrgang Jahrgang
      * @param lagerdauer Lagerdauer
      */
@@ -97,7 +90,7 @@ public class ReifeDiagramm {
         this.jahrgang = jahrgang;
         this.lagerdauer = lagerdauer;
     }
-    
+
     /**
      * Setzt die Groesse und Position der Legende.
      */
@@ -106,7 +99,7 @@ public class ReifeDiagramm {
         this.y = (this.fensterHoehe * 10) / 100;    // y-Position
         this.b = (this.fensterBreite * 80) / 100;   // Breite
         this.h = (this.fensterHoehe * 25) / 100;    // Hoehe
-        
+
         // Reservierter Platz fuer die Beschriftung des Diagramms
         this.h -= this.schriftgroesse;
     }
@@ -115,63 +108,86 @@ public class ReifeDiagramm {
      * Berechnet und setzt die Groessen der Stadien.
      */
     private void setzeStadien() {
-        this.unreif = Math.round(this.lagerdauer / 8);
-        this.optimal = Math.round(this.lagerdauer / 2);
-        this.steigernd = Math.round(this.lagerdauer
-                - (this.optimal + this.unreif));
-        this.ueberlagert = 1;
+        // Farbsetzung
+        Object[] farben = {Color.gray,
+            new GradientPaint(0, 0, Color.gray, 0, 0, Color.green),
+            Color.green, Color.yellow};
+        
+        // Berechnung der Dauer
+        double dauerUnreif = Math.round(this.lagerdauer / 8);
+        double dauerOptimal = Math.round(this.lagerdauer / 2);
+        double dauerSteigernd = Math.round(this.lagerdauer
+                - (dauerOptimal + dauerUnreif));
+        double dauerUeberlagert = 1;
+        
+        // Teilberechnung der Breite
+        double breite = this.b / (this.lagerdauer + 1);
+        
+        // Stadien der Trinkreife
+        Stadium unreif = 
+                new Stadium("unreif", dauerUnreif, farben[0],
+                        breite * dauerUnreif, this.h, this.y);
+        Stadium steigernd = 
+                new Stadium("steigernd", dauerSteigernd, farben[1],
+                        breite * dauerSteigernd, this.h, this.y);
+        Stadium optimal = 
+                new Stadium("optimal", dauerOptimal, farben[2],
+                        breite * dauerOptimal, this.h, this.y);
+        Stadium ueberlagert = 
+                new Stadium("überlagert", dauerUeberlagert, farben[3],
+                        breite * dauerUeberlagert, this.h, this.y);
 
-        this.stadien = new double[4];
-        this.stadien[0] = this.unreif;
-        this.stadien[1] = this.steigernd;
-        this.stadien[2] = this.optimal;
-        this.stadien[3] = this.ueberlagert;
+        // Ablegen als globales Array
+        this.stadien = new Stadium[4];
+        this.stadien[0] = unreif;
+        this.stadien[1] = steigernd;
+        this.stadien[2] = optimal;
+        this.stadien[3] = ueberlagert;
     }
 
     /**
      * Grafische Darstellung aller Stadien.
      */
     private void zeichneStadien() {
+        
         // Berechnung der Laengen aller Stadien
         this.setzeStadien();
         this.stadiumBeginn = (int) this.jahrgang;
 
         // Position des aktuellen Stadiums
         double aktPosition = this.x;
-
-        for (int i = 0; i < this.stadien.length; i++) {
-            // Berechnung der Breite
-            double breite = this.b * this.stadien[i] / (this.lagerdauer + 1);
-
+        for (Stadium aktStadium : this.stadien) {
+            // Setze x-Position und Beginn des aktuellen Stadiums
+            aktStadium.setzeX(aktPosition);
+            aktStadium.setzeBeginn(stadiumBeginn);
+            
+            System.out.println(aktStadium.toString());
+            
             // Setze Fuellfarbe
-            if (this.COLORS[i] instanceof GradientPaint) {
-                this.COLORS[i] = new GradientPaint(
-                        (int) aktPosition, (int) this.y, Color.gray,
-                        (int) (aktPosition + breite), (int) this.y, Color.green);
+            if (aktStadium.farbe instanceof GradientPaint) {
+                aktStadium.setzeFarbe(new GradientPaint((int) aktPosition, 
+                        (int) this.y, Color.gray, 
+                        (int) (aktPosition + aktStadium.breite), 
+                        (int) this.y, Color.green));
             }
-            this.g.setPaint((Paint) this.COLORS[i]);
-            this.g.fill(
-                    new Rectangle.Double(aktPosition, this.y, breite, this.h));
-
+            this.g.setPaint((Paint) aktStadium.farbe);
+            this.g.fill(new Rectangle.Double(
+                    aktPosition, this.y, aktStadium.breite, this.h));
             // Zuruecksetzen der Farbe
             this.g.setPaint(Color.black);
-
             // Zeichne Rahmen des aktuellen Stadiums und setze die Beschriftung
-            this.g.draw(
-                    new Rectangle.Double(aktPosition, this.y, breite, this.h));
-            //System.out.println(stadiumBeginn);
-            if(stadiumBeginn != this.aktJahr) {
+            this.g.draw(new Rectangle.Double(
+                    aktPosition, this.y, aktStadium.breite, this.h));
+            if (stadiumBeginn != this.aktJahr) {
                 this.g.drawString(
                         Integer.toString(stadiumBeginn),
                         (int) aktPosition,
                         (int) (this.y + this.h + this.schriftgroesse));
             }
-
             // Berechnet Startjahr des naechsten Stadiums
-            stadiumBeginn += this.stadien[i];
-
+            stadiumBeginn += aktStadium.dauer;
             // Berechne neue Startposition
-            aktPosition += breite;
+            aktPosition += aktStadium.breite;
         }
     }
 
@@ -184,7 +200,7 @@ public class ReifeDiagramm {
         // Position des Rahmens zum aktuellen Jahr
         double aktJahrPosition = (this.aktJahr - this.jahrgang) * aktJahrBreite;
 
-        if(this.aktJahr >= this.jahrgang && this.aktJahr < stadiumBeginn) {
+        if (this.aktJahr >= this.jahrgang && this.aktJahr < stadiumBeginn) {
             // Zeichne Rahmen des aktuellen Jahrs und setze Beschriftung
             this.g.setPaint(Color.red);
             this.g.draw(new Rectangle.Double(
