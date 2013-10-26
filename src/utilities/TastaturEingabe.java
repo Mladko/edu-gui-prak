@@ -23,17 +23,35 @@ public class TastaturEingabe {
     private int jahrgang;
     private int lagerdauer;
 
+    /**
+     * Erzeugt ein neues TastaturEingabe Objekt.
+     */
     public TastaturEingabe() {
     }
     
+    /**
+     * Liefert den Jahrgang.
+     * 
+     * @return Jahrgang
+     */
     public int jahrgang() {
         return this.jahrgang;
     }
     
+    /**
+     * Liefert die Lagerdauer.
+     * 
+     * @return Lagerdauer
+     */
     public int lagerdauer() {
         return this.lagerdauer;
     }
     
+    /**
+     * Prueft die Benutzereingabe und gibt Fehlermeldungen aus.
+     * 
+     * @throws IOException Fehlerbehandlung zur Benutzereingabe
+     */
     public void pruefeEingabe() throws IOException {
         String sJahrgang;
         String sLagerdauer;

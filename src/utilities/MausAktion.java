@@ -36,18 +36,38 @@ public class MausAktion implements MouseListener {
         i.repaint();
     }
 
+    /**
+     * Nicht weiter implementiert.
+     * 
+     * @param me MouseEvent
+     */
     @Override
     public void mouseClicked(MouseEvent me) {
     }
 
+    /**
+     * Nicht weiter implementiert.
+     * 
+     * @param me MouseEvent
+     */
     @Override
     public void mouseReleased(MouseEvent me) {
     }
 
+    /**
+     * Nicht weiter implementiert.
+     * 
+     * @param me MouseEvent
+     */
     @Override
     public void mouseEntered(MouseEvent me) {
     }
 
+    /**
+     * Nicht weiter implementiert.
+     * 
+     * @param me MouseEvent
+     */
     @Override
     public void mouseExited(MouseEvent me) {
     }
