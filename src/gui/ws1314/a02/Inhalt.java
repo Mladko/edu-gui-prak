@@ -17,9 +17,13 @@ import javax.swing.JPanel;
  */
 public class Inhalt extends JPanel {
 
+    /**
+     * Setzt den Status fuer das Zeichnen der Legende.
+     */
+    public boolean zeichneLegende;
+
     final ReifeDiagramm diagramm;   // Diagramm als Inhaltskomponente.
     private final Legende legende;  // Legende als Inhaltskomponente.
-    public boolean zeichneLegende;
 
     /**
      * Erzeugt einen neuen Fensterinhalt
