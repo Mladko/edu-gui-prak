@@ -32,17 +32,17 @@ public class MausAktion implements MouseListener, MouseMotionListener {
      */
     @Override
     public void mousePressed(MouseEvent me) {
-        Inhalt i = (Inhalt) me.getSource();
+        Inhalt inhalt = (Inhalt) me.getSource();
 
-        if (me.isShiftDown() && me.getButton() == 1) {
+        if (me.isShiftDown() && (me.getButton() == 1)) {
             // Shift + Linke Maustaste
-            i.zeichneLegende = true;
-        } else if (me.isShiftDown() && me.getButton() == 3) {
+            inhalt.zeichneLegende = true;
+        } else if (me.isShiftDown() && (me.getButton() == 3)) {
             // Shift + Rechte Maustaste
-            i.zeichneLegende = false;
+            inhalt.zeichneLegende = false;
         }
 
-        i.repaint();
+        inhalt.repaint();
     }
 
     /**
@@ -65,7 +65,7 @@ public class MausAktion implements MouseListener, MouseMotionListener {
         boolean farbeGeandert = false;
 
         // Aktuelles Stadium
-        Stadium s;
+        Stadium stadium;
 
         // Sind noch keine Stadien gesetzt, Abbruch.
         if (inhalt.diagramm.stadien == null) {
@@ -75,10 +75,12 @@ public class MausAktion implements MouseListener, MouseMotionListener {
         // Iteration ueber alle Stadien
         for (int i = 0; i < inhalt.diagramm.stadien.length; i++) {
 
-            s = inhalt.diagramm.stadien[i];
+            stadium = inhalt.diagramm.stadien[i];
 
-            inStadiumX = (x > s.xPos) && (x < (s.xPos + s.breite));
-            inStadiumY = (y > s.yPos) && (y < (s.yPos + s.hoehe));
+            inStadiumX = (x >= stadium.xPos) && 
+                    (x <= (stadium.xPos + stadium.breite));
+            inStadiumY = (y >= stadium.yPos) && 
+                    (y <= (stadium.yPos + stadium.hoehe));
 
             // Innerhalb eines Stadiums, Farbe noch unveraendert
             if (inStadiumX && inStadiumY && !farbeGeandert) {
@@ -111,7 +113,7 @@ public class MausAktion implements MouseListener, MouseMotionListener {
         boolean inStadiumY;
 
         // Aktuelles Stadium
-        Stadium s;
+        Stadium stadium;
 
         // Sind noch keine Stadien gesetzt, Abbruch.
         if (inhalt.diagramm.stadien == null) {
@@ -119,16 +121,19 @@ public class MausAktion implements MouseListener, MouseMotionListener {
         }
 
         // Iteration ueber alle Stadien
-        for (Stadium stadien : inhalt.diagramm.stadien) {
-            s = stadien;
+        for (Stadium aktStadium : inhalt.diagramm.stadien) {
+            stadium = aktStadium;
 
-            inStadiumX = (x > s.xPos) && (x < (s.xPos + s.breite));
-            inStadiumY = (y > s.yPos) && (y < (s.yPos + s.hoehe));
+            inStadiumX = (x > stadium.xPos) && 
+                    (x < (stadium.xPos + stadium.breite));
+            inStadiumY = (y > stadium.yPos) && 
+                    (y < (stadium.yPos + stadium.hoehe));
 
             if (inStadiumX && inStadiumY) {
                 System.out.printf("\n\t"
                         + "In den Jahren %d - %d ist der Wein %s.\n",
-                        s.beginn, s.beginn + (int) s.dauer, s.name);
+                        stadium.beginn, stadium.beginn + ((int) stadium.dauer), 
+                        stadium.name);
             }
         }
     }
