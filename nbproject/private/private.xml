@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/agribu/doc/studium/module/gui/praktikum/netbeans/GUI/src/gui/ws1314/a01/Aufgabe01.java</file>
-            <file>file:/home/agribu/doc/studium/module/gui/praktikum/netbeans/GUI/src/gui/ws1314/a01/Legende.java</file>
-            <file>file:/home/agribu/doc/studium/module/gui/praktikum/netbeans/GUI/src/gui/ws1314/a01/Inhalt.java</file>
-            <file>file:/home/agribu/doc/studium/module/gui/praktikum/netbeans/GUI/src/gui/ws1314/a01/Fenster.java</file>
-            <file>file:/home/agribu/doc/studium/module/gui/praktikum/netbeans/GUI/src/gui/ws1314/a01/ReifeDiagramm.java</file>
+            <file>file:/home/agribu/doc/studium/module/gui/praktikum/netbeans/GUI/src/utilities/MausAktion.java</file>
+            <file>file:/home/agribu/doc/studium/module/gui/praktikum/netbeans/GUI/src/gui/ws1314/a02/ReifeDiagramm.java</file>
+            <file>file:/home/agribu/doc/studium/module/gui/praktikum/netbeans/GUI/src/gui/ws1314/a02/Fenster.java</file>
+            <file>file:/home/agribu/doc/studium/module/gui/praktikum/netbeans/GUI/src/gui/ws1314/a02/Aufgabe02.java</file>
+            <file>file:/home/agribu/doc/studium/module/gui/praktikum/netbeans/GUI/src/gui/ws1314/a02/Stadium.java</file>
+            <file>file:/home/agribu/doc/studium/module/gui/praktikum/netbeans/GUI/src/utilities/TastaturEingabe.java</file>
+            <file>file:/home/agribu/doc/studium/module/gui/praktikum/netbeans/GUI/src/gui/ws1314/a02/Inhalt.java</file>
         </group>
     </open-files>
 </project-private>
