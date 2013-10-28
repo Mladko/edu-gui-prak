@@ -9,19 +9,24 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 /**
- * Implementiert Mausaktionen mit Einfluss auf das Zeichnen des Inhaltes eines
- * Fensters.
  *
- * @author Benjamin Schuermann <agribu>
- * @since 2013/10/25
- * @version 0.8
+ * @author agribu
  */
 public class MausAktion implements MouseListener, MouseMotionListener {
 
+    // Originalfarben zur Trinkreife
+    private final Object[] FARBEN = {Color.gray,
+        new GradientPaint(0, 0, Color.gray, 0, 0, Color.green),
+        Color.green, Color.yellow};
+
     /**
-     * Beeinflusst das Zeichnen der Legende der Vaterklasse Inhalt. Ist
-     * Shift+Linke Maustaste gedrueckt, so soll die Legende gezeichnet werden.
-     * Shift+Rechte Maustaste triggert das Ausblenden der Legende.
+     * Erzeugt ein Objekt zum Verarbeiten von Mausaktionen.
+     */
+    public MausAktion() {
+    }
+
+    /**
+     * Blendet die Legende ein/aus, sobald SHIFT+L/R Mouse gedrueckt wurden.
      *
      * @param me MouseEvent
      */
@@ -41,79 +46,105 @@ public class MausAktion implements MouseListener, MouseMotionListener {
     }
 
     /**
-     * Beeinflusst das Zeichnen des Diagramms der Vaterklasse Inhalt. Wurde
-     * die Maus ueber ein Trinkstadium positioniert, so wird die Farbe dessen
-     * angepasst und farbig hervorgehoben. Zudem wird ein Text zu dem Stadium
-     * ausgegeben.
-     * 
+     * Stellt einen Hover-Effekt dar, sobald die Maus ueber einem Stadium liegt.
+     *
      * @param me MouseEvent
      */
     @Override
     public void mouseMoved(MouseEvent me) {
-        Inhalt i = (Inhalt) me.getSource();
-        
-        Object[] farbenArray = {Color.gray,
-            new GradientPaint(0, 0, Color.gray, 0, 0, Color.green),
-            Color.green, Color.yellow};
+        Inhalt inhalt = (Inhalt) me.getSource();
 
         // x-/y-Position der Maus
         int x = me.getX();
         int y = me.getY();
-        
+
         // Ist die Maus innherhalb der x- und y-Bereiche eines Stadiums?
         boolean inStadiumX;
         boolean inStadiumY;
-        
+
         boolean farbeGeandert = false;
-        boolean textGesetzt = false;
-        
+
         // Aktuelles Stadium
         Stadium s;
-        
-        for (int j = 0; j < i.diagramm.stadien.length; j++) {
-            
-            s = i.diagramm.stadien[j];
-            
+
+        // Sind noch keine Stadien gesetzt, Abbruch.
+        if (inhalt.diagramm.stadien == null) {
+            return;
+        }
+
+        // Iteration ueber alle Stadien
+        for (int i = 0; i < inhalt.diagramm.stadien.length; i++) {
+
+            s = inhalt.diagramm.stadien[i];
+
             inStadiumX = (x > s.xPos) && (x < (s.xPos + s.breite));
             inStadiumY = (y > s.yPos) && (y < (s.yPos + s.hoehe));
-            
-            if(inStadiumX && inStadiumY && !farbeGeandert && !textGesetzt) {
-                i.diagramm.farben[j] = Color.orange;
+
+            // Innerhalb eines Stadiums, Farbe noch unveraendert
+            if (inStadiumX && inStadiumY && !farbeGeandert) {
+                inhalt.diagramm.farben[i] = Color.orange;
                 farbeGeandert = true;
-                textGesetzt = true;
-                i.repaint();
-                
-                System.out.printf("\n\t"
-                        + "In den Jahren %d - %d ist der Wein %s.\n"
-                        , s.beginn, s.beginn + (int) s.dauer, s.name);
-            } else {
-                i.diagramm.farben[j] = farbenArray[j];
-                i.repaint();
+                inhalt.repaint();
+            } else { // Ausserhalb eines Stadiums, Farbe wurde geaendert
+                inhalt.diagramm.farben[i] = this.FARBEN[i];
+                inhalt.repaint();
             }
         }
     }
 
     /**
-     * Nicht weiter implementiert.
-     * 
+     * Gibt einen Text aus, der bei einem Mausklick in einem Reifestadium die
+     * entsprechenden Eigenschaften liefert.
+     *
+     * @param me MouseEvent
+     */
+    @Override
+    public void mouseClicked(MouseEvent me) {
+        Inhalt inhalt = (Inhalt) me.getSource();
+
+        // x-/y-Position der Maus
+        int x = me.getX();
+        int y = me.getY();
+
+        // Ist die Maus innherhalb der x- und y-Bereiche eines Stadiums?
+        boolean inStadiumX;
+        boolean inStadiumY;
+
+        // Aktuelles Stadium
+        Stadium s;
+
+        // Sind noch keine Stadien gesetzt, Abbruch.
+        if (inhalt.diagramm.stadien == null) {
+            return;
+        }
+
+        // Iteration ueber alle Stadien
+        for (Stadium stadien : inhalt.diagramm.stadien) {
+            s = stadien;
+
+            inStadiumX = (x > s.xPos) && (x < (s.xPos + s.breite));
+            inStadiumY = (y > s.yPos) && (y < (s.yPos + s.hoehe));
+
+            if (inStadiumX && inStadiumY) {
+                System.out.printf("\n\t"
+                        + "In den Jahren %d - %d ist der Wein %s.\n",
+                        s.beginn, s.beginn + (int) s.dauer, s.name);
+            }
+        }
+    }
+
+    /**
+     * Nicht implementiert.
+     *
      * @param me MouseEvent
      */
     @Override
     public void mouseDragged(MouseEvent me) {
     }
-    
-    /**
-     * Nicht weiter implementiert.
-     * 
-     * @param me MouseEvent
-     */
-    @Override
-    public void mouseClicked(MouseEvent me) {
-    }
 
     /**
-     * Nicht weiter implementiert.
-     * 
+     * Nicht implementiert.
+     *
      * @param me MouseEvent
      */
     @Override
@@ -121,8 +152,8 @@ public class MausAktion implements MouseListener, MouseMotionListener {
     }
 
     /**
-     * Nicht weiter implementiert.
-     * 
+     * Nicht implementiert.
+     *
      * @param me MouseEvent
      */
     @Override
@@ -130,8 +161,8 @@ public class MausAktion implements MouseListener, MouseMotionListener {
     }
 
     /**
-     * Nicht weiter implementiert.
-     * 
+     * Nicht implementiert.
+     *
      * @param me MouseEvent
      */
     @Override
