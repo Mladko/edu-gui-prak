@@ -131,24 +131,24 @@ public class Stadium extends ReifeDiagramm {
         return (inStadiumX && inStadiumY);
     } 
     
-//    /**
-//     * Liefert das Objekt als lesbare Zeichenkette.
-//     * 
-//     * @return Objekt als lebare Zeichenkette
-//     */
-//    @Override
-//    public String toString() {
-//        String s = "\n"
-//                + "Typ: \t\t" + this.getClass() + "\n"
-//                + "Name: \t\t" + this.name + "\n"
-//                + "Beginn: \t" + this.beginn + "\n"
-//                + "Dauer: \t\t" + this.dauer + "\n"
-//                + "Farbe: \t\t" + this.farbe.toString() + "\n"
-//                + "x-Position: \t" + this.xPos + "\n"
-//                + "y-Position: \t" + this.yPos + "\n"
-//                + "Breite: \t" + this.breite + "\n"
-//                + "Höhe: \t\t" + this.hoehe + "\n";
-//        return s;
-//    }
+    /**
+     * Liefert das Objekt als lesbare Zeichenkette.
+     * 
+     * @return Objekt als lebare Zeichenkette
+     */
+    @Override
+    public String toString() {
+        String s = "\n"
+                + "Typ: \t\t" + this.getClass() + "\n"
+                + "Name: \t\t" + this.name + "\n"
+                + "Beginn: \t" + this.beginn + "\n"
+                + "Dauer: \t\t" + this.dauer + "\n"
+                + "Farbe: \t\t" + this.farbe.toString() + "\n"
+                + "x-Position: \t" + this.xPos + "\n"
+                + "y-Position: \t" + this.yPos + "\n"
+                + "Breite: \t" + this.breite + "\n"
+                + "Höhe: \t\t" + this.hoehe + "\n";
+        return s;
+    }
 
 }
