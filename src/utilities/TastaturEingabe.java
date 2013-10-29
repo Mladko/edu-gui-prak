@@ -10,7 +10,7 @@ import java.util.Calendar;
  * 
  * @author Benjamin Schuermann <agribu>
  * @since 2013/10/10 
- * @version 0.5
+ * @version 1.0
  */
 public class TastaturEingabe {
     
