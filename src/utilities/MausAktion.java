@@ -9,15 +9,22 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 /**
- *
+ * Mausaktionen zum Veraendern des Fensterinhaltes.
+ * 
  * @author agribu
  */
 public class MausAktion implements MouseListener, MouseMotionListener {
 
-    // Originalfarben zur Trinkreife
-    private final Object[] FARBEN = {Color.gray,
-        new GradientPaint(0, 0, Color.gray, 0, 0, Color.green),
-        Color.green, Color.yellow};
+    // Elemente der Trinkreife
+    enum Elemente {
+        unreif,
+        steigernd,
+        optimal,
+        ueberlagert,
+        ausserhalb
+    }
+    
+    Elemente istInStadium;
 
     /**
      * Erzeugt ein Objekt zum Verarbeiten von Mausaktionen.
@@ -37,12 +44,12 @@ public class MausAktion implements MouseListener, MouseMotionListener {
         if (me.isShiftDown() && (me.getButton() == 1)) {
             // Shift + Linke Maustaste
             inhalt.zeichneLegende = true;
+            inhalt.repaint();
         } else if (me.isShiftDown() && (me.getButton() == 3)) {
             // Shift + Rechte Maustaste
             inhalt.zeichneLegende = false;
+            inhalt.repaint();
         }
-
-        inhalt.repaint();
     }
 
     /**
@@ -58,40 +65,47 @@ public class MausAktion implements MouseListener, MouseMotionListener {
         int x = me.getX();
         int y = me.getY();
 
-        // Ist die Maus innherhalb der x- und y-Bereiche eines Stadiums?
-        boolean inStadiumX;
-        boolean inStadiumY;
-
-        boolean farbeGeandert = false;
+        Elemente altesStadium = istInStadium; 
+        istInStadium = Elemente.ausserhalb;
+        
+        // Zuruecksetzen der Farben
+        inhalt.diagramm.farben[0] = Color.gray;
+        inhalt.diagramm.farben[1] = new GradientPaint(0, 0, Color.gray, 0, 0, Color.green);
+        inhalt.diagramm.farben[2] = Color.green;
+        inhalt.diagramm.farben[3] = Color.yellow;
 
         // Aktuelles Stadium
-        Stadium stadium;
+        Stadium[] stadium = inhalt.diagramm.stadien;
 
         // Sind noch keine Stadien gesetzt, Abbruch.
         if (inhalt.diagramm.stadien == null) {
             return;
         }
 
-        // Iteration ueber alle Stadien
-        for (int i = 0; i < inhalt.diagramm.stadien.length; i++) {
-
-            stadium = inhalt.diagramm.stadien[i];
-
-            inStadiumX = (x >= stadium.xPos) && 
-                    (x <= (stadium.xPos + stadium.breite));
-            inStadiumY = (y >= stadium.yPos) && 
-                    (y <= (stadium.yPos + stadium.hoehe));
-
-            // Innerhalb eines Stadiums, Farbe noch unveraendert
-            if (inStadiumX && inStadiumY && !farbeGeandert) {
-                inhalt.diagramm.farben[i] = Color.orange;
-                farbeGeandert = true;
-                inhalt.repaint();
-            } else { // Ausserhalb eines Stadiums, Farbe wurde geaendert
-                inhalt.diagramm.farben[i] = this.FARBEN[i];
-                inhalt.repaint();
-            }
+        // Innerhalb eines Stadiums
+        if (stadium[0].istDrin(x, y)) {
+            inhalt.diagramm.farben[0] = 
+                    ((Color) inhalt.diagramm.farben[0]).darker();
+            istInStadium = Elemente.unreif;
+        } else if (stadium[1].istDrin(x, y)) {
+            inhalt.diagramm.farben[1] = new GradientPaint(
+                    0, 0, Color.gray.darker(), 0, 0, Color.green.darker());
+            istInStadium = Elemente.steigernd;
+        } else if (stadium[2].istDrin(x, y)) {
+            inhalt.diagramm.farben[2] = 
+                    ((Color) inhalt.diagramm.farben[2]).darker();
+            istInStadium = Elemente.optimal;
+        } else if (stadium[3].istDrin(x, y)) {
+            inhalt.diagramm.farben[3] = 
+                    ((Color) inhalt.diagramm.farben[3]).darker();
+            istInStadium = Elemente.ueberlagert;
         }
+        
+        // Bei Aenderung wird neugezeichnet
+        if (altesStadium != istInStadium) {
+            inhalt.repaint();
+        }
+
     }
 
     /**
@@ -103,39 +117,37 @@ public class MausAktion implements MouseListener, MouseMotionListener {
     @Override
     public void mouseClicked(MouseEvent me) {
         Inhalt inhalt = (Inhalt) me.getSource();
-
-        // x-/y-Position der Maus
-        int x = me.getX();
-        int y = me.getY();
-
-        // Ist die Maus innherhalb der x- und y-Bereiche eines Stadiums?
-        boolean inStadiumX;
-        boolean inStadiumY;
-
-        // Aktuelles Stadium
         Stadium stadium;
 
-        // Sind noch keine Stadien gesetzt, Abbruch.
-        if (inhalt.diagramm.stadien == null) {
-            return;
+        switch (istInStadium) {
+            case unreif:
+                stadium = inhalt.diagramm.stadien[0];
+                System.out.printf("\n\tIn den Jahren %d - %d ist es für den "
+                        + "Wein noch zu früh.\n", 
+                        stadium.beginn, 
+                        stadium.beginn + ((int) stadium.dauer) - 1);
+                break;
+            case steigernd:
+                stadium = inhalt.diagramm.stadien[1];
+                System.out.printf("\n\tIn den Jahren %d - %d steigert sich der "
+                        + "Geschmack des Weins noch.\n", 
+                        stadium.beginn, 
+                        stadium.beginn + ((int) stadium.dauer) - 1);
+                break;
+            case optimal:
+                stadium = inhalt.diagramm.stadien[2];
+                System.out.printf("\n\tIn den Jahren %d – %d hat der Wein sein "
+                        + "geschmackliches Optimum.\n", 
+                        stadium.beginn, 
+                        stadium.beginn + ((int) stadium.dauer) - 1);
+                break;
+            case ueberlagert:
+                stadium = inhalt.diagramm.stadien[3];
+                System.out.printf("\n\tAb dem Jahre %d ist der Wein überlagert.\n"
+                        , stadium.beginn - 1);
+                break;
         }
 
-        // Iteration ueber alle Stadien
-        for (Stadium aktStadium : inhalt.diagramm.stadien) {
-            stadium = aktStadium;
-
-            inStadiumX = (x > stadium.xPos) && 
-                    (x < (stadium.xPos + stadium.breite));
-            inStadiumY = (y > stadium.yPos) && 
-                    (y < (stadium.yPos + stadium.hoehe));
-
-            if (inStadiumX && inStadiumY) {
-                System.out.printf("\n\t"
-                        + "In den Jahren %d - %d ist der Wein %s.\n",
-                        stadium.beginn, stadium.beginn + ((int) stadium.dauer), 
-                        stadium.name);
-            }
-        }
     }
 
     /**
