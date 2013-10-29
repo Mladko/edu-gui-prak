@@ -11,7 +11,9 @@ import java.awt.event.MouseMotionListener;
 /**
  * Mausaktionen zum Veraendern des Fensterinhaltes.
  * 
- * @author agribu
+ * @author Benjamin Schuermann <agribu>
+ * @since 2013/10/29
+ * @version 1.0
  */
 public class MausAktion implements MouseListener, MouseMotionListener {
 
