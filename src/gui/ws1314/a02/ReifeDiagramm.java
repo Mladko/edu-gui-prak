@@ -108,9 +108,9 @@ public class ReifeDiagramm {
         // Setze Fuellfarbe
         if (s.farbe instanceof GradientPaint) {
             s.setzeFarbe(new GradientPaint((int) position, 
-                    (int) this.y, Color.gray, 
+                    (int) this.y, ((GradientPaint) s.farbe).getColor1(), 
                     (int) (position + s.breite), 
-                    (int) this.y, Color.green));
+                    (int) this.y, ((GradientPaint) s.farbe).getColor2()));
         }
         this.g.setPaint((Paint) s.farbe);
         this.g.fill(new Rectangle.Double(
@@ -158,16 +158,16 @@ public class ReifeDiagramm {
         // Stadien der Trinkreife
         Stadium unreif = 
                 new Stadium("unreif", dauerUnreif, this.farben[0],
-                        breite * dauerUnreif, this.h, this.y);
+                        breite * dauerUnreif, this.h, this.y, 0);
         Stadium steigernd = 
                 new Stadium("reifend", dauerSteigernd, this.farben[1],
-                        breite * dauerSteigernd, this.h, this.y);
+                        breite * dauerSteigernd, this.h, this.y, 1);
         Stadium optimal = 
                 new Stadium("optimal", dauerOptimal, this.farben[2],
-                        breite * dauerOptimal, this.h, this.y);
+                        breite * dauerOptimal, this.h, this.y, 2);
         Stadium ueberlagert = 
                 new Stadium("überlagert", dauerUeberlagert, this.farben[3],
-                        breite * dauerUeberlagert, this.h, this.y);
+                        breite * dauerUeberlagert, this.h, this.y, 3);
 
         // Ablegen als globales Array
         this.stadien = new Stadium[4];
