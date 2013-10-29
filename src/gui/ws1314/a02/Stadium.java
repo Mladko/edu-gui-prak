@@ -134,7 +134,7 @@ public class Stadium extends ReifeDiagramm {
     /**
      * Liefert das Objekt als lesbare Zeichenkette.
      * 
-     * @return Objekt als lebare Zeichenkette
+     * @return Objekt als lesbare Zeichenkette
      */
     @Override
     public String toString() {
