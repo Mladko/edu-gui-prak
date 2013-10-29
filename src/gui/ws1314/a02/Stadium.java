@@ -23,6 +23,11 @@ public class Stadium extends ReifeDiagramm {
      * Gesamtdauer.
      */
     public double dauer;
+    
+    /**
+     * Position im Diagramm.
+     */
+    public int position;
 
     /**
      * Farbe.
@@ -49,6 +54,7 @@ public class Stadium extends ReifeDiagramm {
      */
     hoehe;
     
+    
     /**
      * Erzeugt und initialisiert ein neues Stadium Objekt.
      * 
@@ -60,13 +66,14 @@ public class Stadium extends ReifeDiagramm {
      * @param yPos y-Position
      */
     public Stadium(String name, Double dauer, Object farbe, 
-            double breite, double hoehe, double yPos) {
+            double breite, double hoehe, double yPos, int position) {
         this.name = name;
         this.dauer = dauer;
         this.farbe = farbe;
         this.breite = breite;
         this.hoehe = hoehe;
         this.yPos = yPos;
+        this.position = position;
     }
   
     /**
@@ -114,24 +121,33 @@ public class Stadium extends ReifeDiagramm {
         return this.yPos;
     }
     
-    /**
-     * Liefert das Objekt als lesbare Zeichenkette.
-     * 
-     * @return Objekt als lebare Zeichenkette
-     */
-    @Override
-    public String toString() {
-        String s = "\n"
-                + "Typ: \t\t" + this.getClass() + "\n"
-                + "Name: \t\t" + this.name + "\n"
-                + "Beginn: \t" + this.beginn + "\n"
-                + "Dauer: \t\t" + this.dauer + "\n"
-                + "Farbe: \t\t" + this.farbe.toString() + "\n"
-                + "x-Position: \t" + this.xPos + "\n"
-                + "y-Position: \t" + this.yPos + "\n"
-                + "Breite: \t" + this.breite + "\n"
-                + "Höhe: \t\t" + this.hoehe + "\n";
-        return s;
-    }
+    public boolean istDrin(int x, int y) {
+        boolean inStadiumX = (x >= this.xPos) && 
+                (x <= (this.xPos + this.breite));
+        boolean inStadiumY = (y >= this.yPos) && 
+                (y <= (this.yPos + this.hoehe));
+        
+        return (inStadiumX && inStadiumY);
+    } 
+    
+//    /**
+//     * Liefert das Objekt als lesbare Zeichenkette.
+//     * 
+//     * @return Objekt als lebare Zeichenkette
+//     */
+//    @Override
+//    public String toString() {
+//        String s = "\n"
+//                + "Typ: \t\t" + this.getClass() + "\n"
+//                + "Name: \t\t" + this.name + "\n"
+//                + "Beginn: \t" + this.beginn + "\n"
+//                + "Dauer: \t\t" + this.dauer + "\n"
+//                + "Farbe: \t\t" + this.farbe.toString() + "\n"
+//                + "x-Position: \t" + this.xPos + "\n"
+//                + "y-Position: \t" + this.yPos + "\n"
+//                + "Breite: \t" + this.breite + "\n"
+//                + "Höhe: \t\t" + this.hoehe + "\n";
+//        return s;
+//    }
 
 }
