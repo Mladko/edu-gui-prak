@@ -64,6 +64,7 @@ public class Stadium extends ReifeDiagramm {
      * @param breite Breite
      * @param hoehe Hoehe
      * @param yPos y-Position
+     * @param position Position im Trinkreife Diagramm
      */
     public Stadium(String name, Double dauer, Object farbe, 
             double breite, double hoehe, double yPos, int position) {
