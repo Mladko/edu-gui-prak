@@ -4,8 +4,8 @@ package gui.ws1314.a02;
  * Erzeugt ein Stadium der Trinkreife.
  * 
  * @author Benjamin Schuermann <agribu>
- * @since 2013/10/26 
- * @version 0.5
+ * @since 2013/10/29
+ * @version 1.0
  */
 public class Stadium extends ReifeDiagramm {
 
