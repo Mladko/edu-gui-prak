@@ -146,7 +146,7 @@ public class MausAktion implements MouseListener, MouseMotionListener {
             case ueberlagert:
                 stadium = inhalt.diagramm.stadien[3];
                 System.out.printf("\n\tAb dem Jahre %d ist der Wein überlagert."
-                        + "\n", stadium.beginn - 1);
+                        + "\n", stadium.beginn);
                 break;
         }
 
