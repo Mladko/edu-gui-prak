@@ -18,7 +18,7 @@ import java.awt.event.MouseMotionListener;
 public class MausAktion implements MouseListener, MouseMotionListener {
 
     // Elemente der Trinkreife
-    enum Elemente {
+    private enum Elemente {
         unreif,
         steigernd,
         optimal,
@@ -145,8 +145,8 @@ public class MausAktion implements MouseListener, MouseMotionListener {
                 break;
             case ueberlagert:
                 stadium = inhalt.diagramm.stadien[3];
-                System.out.printf("\n\tAb dem Jahre %d ist der Wein überlagert.\n"
-                        , stadium.beginn - 1);
+                System.out.printf("\n\tAb dem Jahre %d ist der Wein überlagert."
+                        + "\n", stadium.beginn - 1);
                 break;
         }
 
