@@ -122,6 +122,13 @@ public class Stadium extends ReifeDiagramm {
         return this.yPos;
     }
     
+    /**
+     * Prueft, ob eine uebergebene Position innerhalb des Stadiums liegt.
+     * 
+     * @param x Position auf der x-Achse
+     * @param y Position auf der y-Achse
+     * @return Liegt die Position innerhalb des Stadiums?
+     */
     public boolean istDrin(int x, int y) {
         boolean inStadiumX = (x >= this.xPos) && 
                 (x <= (this.xPos + this.breite));
