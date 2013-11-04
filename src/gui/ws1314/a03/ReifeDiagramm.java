@@ -10,6 +10,8 @@ import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.Calendar;
 import javax.swing.JPanel;
 
@@ -51,6 +53,11 @@ public class ReifeDiagramm extends JPanel {
     public ReifeDiagramm() {
         // Setze weisse Hintergrundfarbe
         this.setBackground(Color.white);
+        
+        // Fuege MausAktionen hinzu
+        Object ma = new MausAktion();
+        this.addMouseListener((MouseListener) ma);
+        this.addMouseMotionListener((MouseMotionListener) ma);
     }
 
     /**
