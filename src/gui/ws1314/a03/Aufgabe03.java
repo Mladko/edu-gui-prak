@@ -31,6 +31,7 @@ public class Aufgabe03 {
         //</editor-fold>
 
         Fenster f = new Fenster();
+        f.getDiagramm().setzeJSpinner(f.jSpinner);
         TastaturEingabe te = new TastaturEingabe();
         f.setVisible(true);
 
@@ -39,6 +40,7 @@ public class Aufgabe03 {
             try {
                 te.pruefeEingabe();
                 f.getDiagramm().setzeEingabe(te.jahrgang(), te.lagerdauer());
+                f.jSpinner.setValue(te.lagerdauer());
                 f.getDiagramm().repaint();
             } catch (IOException ex) {
                 System.out.println(ex);

@@ -12,10 +12,10 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
@@ -27,12 +27,12 @@ import javax.swing.JPanel;
  * @version 1.0
  */
 public class Legende extends JPanel {
-    
+
     /**
      * Setzt den Status fuer das Zeichnen der Legende.
      */
     public boolean zeichneLegende;
-    
+
     // Grafikobjekt
     private Graphics2D g;
     // Schriftgroesse
@@ -56,9 +56,10 @@ public class Legende extends JPanel {
         this.zeichneLegende = true;
         // Legende soll fokussierbar sein
         this.setFocusable(true);
-        
+
         // Neuer MouseListener
         class ml extends MouseAdapter {
+
             @Override
             public void mouseClicked(MouseEvent me) {
                 ((Legende) me.getSource()).requestFocusInWindow();
@@ -73,15 +74,29 @@ public class Legende extends JPanel {
                         BorderFactory.createLineBorder(
                                 new Color(123, 170, 189), 2));
             }
-
+            
             @Override
             public void focusLost(FocusEvent fe) {
                 ((JPanel) fe.getSource()).setBorder(null);
             }
         };
         
+        KeyAdapter ka = new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                if (ke.getKeyChar() == '+') {
+                    Legende.this.zeichneLegende = true;
+                    Legende.this.repaint();
+                } else if (ke.getKeyChar() == '-') {
+                    Legende.this.zeichneLegende = false;
+                    Legende.this.repaint();
+                }
+            }
+        };
+        
         this.addMouseListener(new ml());
         this.addFocusListener(fl);
+        this.addKeyListener(ka);
     }
 
     /**
@@ -91,21 +106,20 @@ public class Legende extends JPanel {
         // Groesse eines Legendekastens, bzw. Zwischenraums
         double size = this.h / 9;
         // Beschriftungen zur Stadien der Trinkreife
-        String[] stadien = {"Zu früh", "Steigert sich noch", 
+        String[] stadien = {"Zu früh", "Steigert sich noch",
             "Optimaler Trinkzeitpunkt", "Überlagert"};
 
         // this.g.draw(new Rectangle.Double(this.x, this.y, this.b, this.h));
-        
         // Setze Titel
         this.g.drawString(
                 "Legende",
                 (int) (this.x),
                 (int) (this.y + schriftgroesse));
         
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             // Berechne Position
             this.y += size * 2;
-            
+
             // Setze Fuellfarbe
             if (this.COLORS[i] instanceof GradientPaint) {
                 this.COLORS[i] = new GradientPaint(
@@ -118,10 +132,10 @@ public class Legende extends JPanel {
 
             // Zuruecksetzen der Farbe
             this.g.setPaint(Color.black);
-            
+
             // Zeichne Aussenrahmen
             this.g.draw(new Rectangle.Double(this.x, this.y, size, size));
-            
+
             // Setze Beschriftung
             this.g.drawString(
                     stadien[i],
@@ -139,21 +153,21 @@ public class Legende extends JPanel {
     public void setzeEigenschaften(Dimension d, Graphics2D g) {
         this.fensterBreite = (int) d.width;
         this.fensterHoehe = (int) d.height;
-        
+
         // Setze Grafikobjekt
         this.g = g;
 
         // Setzt die aktuelle Schritgroesse
         FontMetrics metrics = g.getFontMetrics();
         this.schriftgroesse = metrics.getHeight();
-        
+
         // Aktualisierung der Groessen der Legende
         this.setzeLegende();
     }
-    
+
     /**
      * Setzt das Textformat des Inhalts
-     * 
+     *
      * @param g Grafikobjekt
      */
     public void setzeTextFormat(Graphics2D g) {
@@ -162,7 +176,7 @@ public class Legende extends JPanel {
         Font font = new Font("Arial", Font.PLAIN, fontSize);
         g.setFont(font);
     }
-    
+
     /**
      * Stellt den Inhalt grafisch dar.
      *
@@ -174,21 +188,22 @@ public class Legende extends JPanel {
 
         // Aktiviere Antialiasing (Schriftenglaettung)
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-        RenderingHints.VALUE_ANTIALIAS_ON);
+                RenderingHints.VALUE_ANTIALIAS_ON);
 
         // Uebergeben der Fenstergroesse und des Grafikobjekts
         this.setzeEigenschaften(this.getSize(), g2);
-        
+
         // Textformat
         this.setzeTextFormat(g2);
-
+        
         super.paintComponent(g2);
 
         // Zeichne Legende
-        if (zeichneLegende)
+        if (zeichneLegende) {
             this.erstelleLegende();
+        }
     }
-    
+
     /**
      * Setzt die Groesse und Position der Legende.
      */

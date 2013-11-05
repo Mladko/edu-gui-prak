@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gui.ws1314.a03;
+
+import javax.swing.SpinnerNumberModel;
 
 /**
  *
@@ -19,14 +20,24 @@ public class Fenster extends javax.swing.JFrame {
         initComponents();
     }
 
+    /**
+     * Liefert das ReifeDiagramm des Fensters
+     *
+     * @return ReifeDiagramm
+     */
     public ReifeDiagramm getDiagramm() {
         return this.reifeDiagramm;
     }
-    
+
+    /**
+     * Liefert die Legende des Fensters
+     *
+     * @return Legende
+     */
     public Legende getLegende() {
         return this.legende;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,18 +59,18 @@ public class Fenster extends javax.swing.JFrame {
         legende = new gui.ws1314.a03.Legende();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("GUI-Aufgabe03");
 
         jPanelTop.setLayout(new javax.swing.BoxLayout(jPanelTop, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabel.setText("Lagerdauer");
         jPanelTop.add(jLabel);
 
-        jSpinner.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                SpinnerFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                SpinnerFocusLost(evt);
+        jSpinner.setModel(new SpinnerNumberModel((int) reifeDiagramm.lagerdauer, 1, 25, 1));
+        jSpinner.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinnerStateChanged(evt);
             }
         });
         jPanelTop.add(jSpinner);
@@ -162,17 +173,10 @@ public class Fenster extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SpinnerFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SpinnerFocusGained
-        // Verdunkelt die Hintergrundfarbe, wenn fokussiert
-        evt.getComponent().setBackground(
-                evt.getComponent().getBackground().darker());
-    }//GEN-LAST:event_SpinnerFocusGained
-
-    private void SpinnerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SpinnerFocusLost
-        // Erhellt die Hintergrundfarbe, wenn fokussiert
-        evt.getComponent().setBackground(
-                evt.getComponent().getBackground().brighter());
-    }//GEN-LAST:event_SpinnerFocusLost
+    private void jSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerStateChanged
+        this.reifeDiagramm.setzeEingabe((int) this.reifeDiagramm.jahrgang, (int) jSpinner.getValue());
+        this.reifeDiagramm.repaint();
+    }//GEN-LAST:event_jSpinnerStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel;
@@ -182,7 +186,7 @@ public class Fenster extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelLeftMargin;
     private javax.swing.JPanel jPanelRightMargin;
     private javax.swing.JPanel jPanelTop;
-    private javax.swing.JSpinner jSpinner;
+    public javax.swing.JSpinner jSpinner;
     private gui.ws1314.a03.Legende legende;
     private gui.ws1314.a03.ReifeDiagramm reifeDiagramm;
     // End of variables declaration//GEN-END:variables
