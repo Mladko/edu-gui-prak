@@ -36,66 +36,74 @@ public class Fenster extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
+        jPanelTop = new javax.swing.JPanel();
+        jLabel = new javax.swing.JLabel();
+        jSpinner = new javax.swing.JSpinner();
+        jPanelRightMargin = new javax.swing.JPanel();
+        jPanelLeftMargin = new javax.swing.JPanel();
+        jPanelBottomMargin = new javax.swing.JPanel();
+        jPanelCenter = new javax.swing.JPanel();
         reifeDiagramm = new gui.ws1314.a03.ReifeDiagramm();
-        jPanel5 = new javax.swing.JPanel();
+        jPanelCenterGap = new javax.swing.JPanel();
         legende = new gui.ws1314.a03.Legende();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
+        jPanelTop.setLayout(new javax.swing.BoxLayout(jPanelTop, javax.swing.BoxLayout.LINE_AXIS));
 
-        jLabel1.setText("Lagerdauer");
-        jPanel1.add(jLabel1);
-        jPanel1.add(jSpinner1);
+        jLabel.setText("Lagerdauer");
+        jPanelTop.add(jLabel);
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
+        jSpinner.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SpinnerFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                SpinnerFocusLost(evt);
+            }
+        });
+        jPanelTop.add(jSpinner);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        getContentPane().add(jPanelTop, java.awt.BorderLayout.NORTH);
+
+        javax.swing.GroupLayout jPanelRightMarginLayout = new javax.swing.GroupLayout(jPanelRightMargin);
+        jPanelRightMargin.setLayout(jPanelRightMarginLayout);
+        jPanelRightMarginLayout.setHorizontalGroup(
+            jPanelRightMarginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 10, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanelRightMarginLayout.setVerticalGroup(
+            jPanelRightMarginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 291, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel2, java.awt.BorderLayout.LINE_END);
+        getContentPane().add(jPanelRightMargin, java.awt.BorderLayout.LINE_END);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanelLeftMarginLayout = new javax.swing.GroupLayout(jPanelLeftMargin);
+        jPanelLeftMargin.setLayout(jPanelLeftMarginLayout);
+        jPanelLeftMarginLayout.setHorizontalGroup(
+            jPanelLeftMarginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 10, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanelLeftMarginLayout.setVerticalGroup(
+            jPanelLeftMarginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 291, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel3, java.awt.BorderLayout.LINE_START);
+        getContentPane().add(jPanelLeftMargin, java.awt.BorderLayout.LINE_START);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanelBottomMarginLayout = new javax.swing.GroupLayout(jPanelBottomMargin);
+        jPanelBottomMargin.setLayout(jPanelBottomMarginLayout);
+        jPanelBottomMarginLayout.setHorizontalGroup(
+            jPanelBottomMarginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 467, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanelBottomMarginLayout.setVerticalGroup(
+            jPanelBottomMarginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 10, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel4, java.awt.BorderLayout.PAGE_END);
+        getContentPane().add(jPanelBottomMargin, java.awt.BorderLayout.PAGE_END);
 
         javax.swing.GroupLayout reifeDiagrammLayout = new javax.swing.GroupLayout(reifeDiagramm);
         reifeDiagramm.setLayout(reifeDiagrammLayout);
@@ -108,14 +116,14 @@ public class Fenster extends javax.swing.JFrame {
             .addGap(0, 139, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanelCenterGapLayout = new javax.swing.GroupLayout(jPanelCenterGap);
+        jPanelCenterGap.setLayout(jPanelCenterGapLayout);
+        jPanelCenterGapLayout.setHorizontalGroup(
+            jPanelCenterGapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 447, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanelCenterGapLayout.setVerticalGroup(
+            jPanelCenterGapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 10, Short.MAX_VALUE)
         );
 
@@ -130,39 +138,51 @@ public class Fenster extends javax.swing.JFrame {
             .addGap(0, 138, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanelCenterLayout = new javax.swing.GroupLayout(jPanelCenter);
+        jPanelCenter.setLayout(jPanelCenterLayout);
+        jPanelCenterLayout.setHorizontalGroup(
+            jPanelCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(reifeDiagramm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanelCenterGap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(legende, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        jPanelCenterLayout.setVerticalGroup(
+            jPanelCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelCenterLayout.createSequentialGroup()
                 .addComponent(reifeDiagramm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelCenterGap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(legende, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(4, 4, 4))
         );
 
-        getContentPane().add(jPanel6, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jPanelCenter, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void SpinnerFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SpinnerFocusGained
+        // Verdunkelt die Hintergrundfarbe, wenn fokussiert
+        evt.getComponent().setBackground(
+                evt.getComponent().getBackground().darker());
+    }//GEN-LAST:event_SpinnerFocusGained
+
+    private void SpinnerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SpinnerFocusLost
+        // Erhellt die Hintergrundfarbe, wenn fokussiert
+        evt.getComponent().setBackground(
+                evt.getComponent().getBackground().brighter());
+    }//GEN-LAST:event_SpinnerFocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JLabel jLabel;
+    private javax.swing.JPanel jPanelBottomMargin;
+    private javax.swing.JPanel jPanelCenter;
+    private javax.swing.JPanel jPanelCenterGap;
+    private javax.swing.JPanel jPanelLeftMargin;
+    private javax.swing.JPanel jPanelRightMargin;
+    private javax.swing.JPanel jPanelTop;
+    private javax.swing.JSpinner jSpinner;
     private gui.ws1314.a03.Legende legende;
     private gui.ws1314.a03.ReifeDiagramm reifeDiagramm;
     // End of variables declaration//GEN-END:variables

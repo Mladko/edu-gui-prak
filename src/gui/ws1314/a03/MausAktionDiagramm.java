@@ -13,7 +13,7 @@ import java.awt.event.MouseMotionListener;
  * @since 2013/10/29
  * @version 1.0
  */
-public class MausAktion implements MouseListener, MouseMotionListener {
+public class MausAktionDiagramm implements MouseListener, MouseMotionListener {
 
     // Elemente der Trinkreife
     private enum Elemente {
@@ -29,7 +29,7 @@ public class MausAktion implements MouseListener, MouseMotionListener {
     /**
      * Erzeugt ein Objekt zum Verarbeiten von Mausaktionen.
      */
-    public MausAktion() {
+    public MausAktionDiagramm() {
     }
 
     /**
@@ -102,14 +102,14 @@ public class MausAktion implements MouseListener, MouseMotionListener {
         switch (istInStadium) {
             case unreif:
                 stadium = d.stadien[0];
-                System.out.printf("\n\tIn den Jahren %d - %d ist es für den "
+                System.out.printf("\n\tIn den Jahren %d – %d ist es für den "
                         + "Wein noch zu früh.\n", 
                         stadium.beginn, 
                         stadium.beginn + ((int) stadium.dauer) - 1);
                 break;
             case steigernd:
                 stadium = d.stadien[1];
-                System.out.printf("\n\tIn den Jahren %d - %d steigert sich der "
+                System.out.printf("\n\tIn den Jahren %d – %d steigert sich der "
                         + "Geschmack des Weins noch.\n", 
                         stadium.beginn, 
                         stadium.beginn + ((int) stadium.dauer) - 1);
@@ -127,6 +127,8 @@ public class MausAktion implements MouseListener, MouseMotionListener {
                         + "\n", stadium.beginn);
                 break;
         }
+        
+        d.requestFocusInWindow();
 
     }
 

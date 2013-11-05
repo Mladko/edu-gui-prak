@@ -10,6 +10,13 @@ import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 /**
@@ -45,9 +52,36 @@ public class Legende extends JPanel {
     public Legende() {
         // Setze weisse Hintergrundfarbe
         this.setBackground(Color.white);
-        
         // Legende soll gezeichnet werden
         this.zeichneLegende = true;
+        // Legende soll fokussierbar sein
+        this.setFocusable(true);
+        
+        // Neuer MouseListener
+        class ml extends MouseAdapter {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                ((Legende) me.getSource()).requestFocusInWindow();
+            }
+        }
+
+        // Fuege neuen FocusListener hinzu
+        FocusListener fl = new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {
+                ((JPanel) fe.getSource()).setBorder(
+                        BorderFactory.createLineBorder(
+                                new Color(123, 170, 189), 2));
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                ((JPanel) fe.getSource()).setBorder(null);
+            }
+        };
+        
+        this.addMouseListener(new ml());
+        this.addFocusListener(fl);
     }
 
     /**

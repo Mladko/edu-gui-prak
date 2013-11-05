@@ -10,9 +10,12 @@ import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Calendar;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 /**
@@ -53,11 +56,30 @@ public class ReifeDiagramm extends JPanel {
     public ReifeDiagramm() {
         // Setze weisse Hintergrundfarbe
         this.setBackground(Color.white);
+        // Diagramm soll fokussierbar sein
+        this.setFocusable(true);
         
         // Fuege MausAktionen hinzu
-        Object ma = new MausAktion();
+        Object ma = new MausAktionDiagramm();
+        // Fuege neuen FocusListener hinzu
+        FocusListener fl = new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent fe) {
+                ((JPanel) fe.getSource()).setBorder(
+                        BorderFactory.createLineBorder(
+                                new Color(123, 170, 189), 2));
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                ((JPanel) fe.getSource()).setBorder(null);
+            }
+        };
+        
         this.addMouseListener((MouseListener) ma);
         this.addMouseMotionListener((MouseMotionListener) ma);
+        this.addFocusListener(fl);
     }
 
     /**
