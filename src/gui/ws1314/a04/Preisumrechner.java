@@ -6,6 +6,17 @@
 
 package gui.ws1314.a04;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
+import java.util.regex.Pattern;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.ListCellRenderer;
+import javax.swing.SwingConstants;
+
 /**
  *
  * @author agribu
@@ -30,7 +41,10 @@ public class Preisumrechner extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         textFlaschengroesse = new javax.swing.JLabel();
+        ListCellRenderer renderer = new DefaultListCellRenderer();
+        ((JLabel) renderer).setHorizontalAlignment(SwingConstants.RIGHT);
         flaschengroesse = new javax.swing.JComboBox();
+        flaschengroesse.setRenderer(renderer);
         textFlaschenpreis = new javax.swing.JLabel();
         flaschenpreis = new javax.swing.JTextField();
         jPanelButtons = new javax.swing.JPanel();
@@ -47,7 +61,7 @@ public class Preisumrechner extends javax.swing.JPanel {
         textFlaschengroesse.setText("Flaschengroesse");
         add(textFlaschengroesse, new java.awt.GridBagConstraints());
 
-        flaschengroesse.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        flaschengroesse.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0,187 l", "0,25 l", "0,375 l", "0,5 l", "0,62 l", "0,7 l", "0,75 l", "0,8 l", "1 l", "1,5 l" }));
         flaschengroesse.setPreferredSize(new java.awt.Dimension(100, 24));
         add(flaschengroesse, new java.awt.GridBagConstraints());
 
@@ -58,6 +72,7 @@ public class Preisumrechner extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 0);
         add(textFlaschenpreis, gridBagConstraints);
 
+        flaschenpreis.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         flaschenpreis.setPreferredSize(new java.awt.Dimension(100, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
@@ -81,6 +96,7 @@ public class Preisumrechner extends javax.swing.JPanel {
 
         buttonUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/arrow_up.png"))); // NOI18N
         buttonUp.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        buttonUp.setEnabled(false);
         buttonUp.setMinimumSize(new java.awt.Dimension(33, 24));
         buttonUp.setPreferredSize(new java.awt.Dimension(33, 24));
         jPanelButtons.add(buttonUp);
@@ -103,6 +119,8 @@ public class Preisumrechner extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(25, 0, 0, 0);
         add(euroFlaschenpreis, gridBagConstraints);
 
+        literpreis.setEditable(false);
+        literpreis.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         literpreis.setPreferredSize(new java.awt.Dimension(100, 24));
         literpreis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,7 +142,16 @@ public class Preisumrechner extends javax.swing.JPanel {
     }//GEN-LAST:event_literpreisActionPerformed
 
     private void buttonDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDownActionPerformed
-        // TODO add your handling code here:
+        NumberFormat nf = NumberFormat.getInstance(Locale.GERMAN);
+        double flaschenpreis;
+        double flaschengroesse;
+        try {
+            flaschenpreis = nf.parse(this.flaschenpreis.getText()).doubleValue();
+            flaschengroesse = nf.parse(this.flaschengroesse.getItemAt(this.flaschengroesse.getSelectedIndex()).toString()).doubleValue();
+            literpreis.setText(new DecimalFormat("#.00").format(1 / flaschengroesse * flaschenpreis));
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Falsche Format!", "Bitte deutsches Währungsformat einhalten!", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_buttonDownActionPerformed
 
 
@@ -142,4 +169,5 @@ public class Preisumrechner extends javax.swing.JPanel {
     private javax.swing.JLabel textFlaschenpreis;
     private javax.swing.JLabel textLiterpreis;
     // End of variables declaration//GEN-END:variables
+
 }

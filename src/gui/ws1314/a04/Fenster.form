@@ -27,7 +27,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="preisumrechner1" pref="376" max="32767" attributes="0"/>
+              <Component id="preisumrechner2" pref="376" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -36,14 +36,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="preisumrechner1" pref="276" max="32767" attributes="0"/>
+              <Component id="preisumrechner2" pref="276" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="gui.ws1314.a04.Preisumrechner" name="preisumrechner1">
+    <Component class="gui.ws1314.a04.Preisumrechner" name="preisumrechner2">
     </Component>
   </SubComponents>
 </Form>
