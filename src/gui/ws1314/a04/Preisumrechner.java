@@ -10,7 +10,6 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
-import java.util.regex.Pattern;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -148,7 +147,7 @@ public class Preisumrechner extends javax.swing.JPanel {
         try {
             flaschenpreis = nf.parse(this.flaschenpreis.getText()).doubleValue();
             flaschengroesse = nf.parse(this.flaschengroesse.getItemAt(this.flaschengroesse.getSelectedIndex()).toString()).doubleValue();
-            literpreis.setText(new DecimalFormat("#.00").format(1 / flaschengroesse * flaschenpreis));
+            literpreis.setText(new DecimalFormat("#.00").format(flaschenpreis / flaschengroesse));
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Falsche Format!", "Bitte deutsches Währungsformat einhalten!", JOptionPane.ERROR_MESSAGE);
         }
