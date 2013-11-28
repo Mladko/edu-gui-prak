@@ -65,6 +65,7 @@ public class Preisumrechner extends javax.swing.JPanel {
         literpreis = new javax.swing.JTextField();
         euroLiterpreis = new javax.swing.JLabel();
 
+        setFocusTraversalPolicy(new FocusOrder(getOrder()));
         setLayout(new java.awt.GridBagLayout());
 
         textFlaschengroesse.setText("Flaschengroesse");
@@ -182,14 +183,6 @@ public class Preisumrechner extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 3;
         add(euroLiterpreis, gridBagConstraints);
-        // Defining Focus Traversal Policy
-        Vector<Component> order = new Vector<Component>(5);
-        order.add(this.flaschengroesse);
-        order.add(this.flaschenpreis);
-        order.add(this.buttonDown);
-        order.add(this.literpreis);
-        order.add(this.buttonUp);
-        focusOrder = new FocusOrder(order);
     }// </editor-fold>//GEN-END:initComponents
 
     private void literpreisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_literpreisActionPerformed
@@ -203,7 +196,7 @@ public class Preisumrechner extends javax.swing.JPanel {
 
     private void literpreisFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_literpreisFocusLost
         JTextComponent input = literpreis;
-        String format = "^\\d+(,)?\\d{1,2}$";
+        String format = "^\\d+((,)?\\d{1,2})?$";
         String inhalt = ((JTextComponent) input).getText();
 
         if (!((JTextComponent)input).getText().matches(format)) {
@@ -241,6 +234,16 @@ public class Preisumrechner extends javax.swing.JPanel {
         preisBerechnung();
     }//GEN-LAST:event_buttonUpActionPerformed
 
+    private Vector getOrder() {
+        Vector<Component> order = new Vector<Component>(5);
+        order.add(this.flaschengroesse);
+        order.add(this.flaschenpreis);
+        order.add(this.buttonDown);
+        order.add(this.literpreis);
+        order.add(this.buttonUp);
+        return order;
+    }
+    
     private void preisBerechnung() {
         NumberFormat nf = NumberFormat.getInstance(Locale.GERMAN);
         nf.setMinimumFractionDigits(2);
@@ -299,7 +302,7 @@ public class Preisumrechner extends javax.swing.JPanel {
     private InputVerifier decimalVerifier = new InputVerifier() {
         @Override
         public boolean verify(JComponent input) {
-            String format = "^\\d+(,)?\\d{1,2}$";
+            String format = "^\\d+((,)?\\d{1,2})?$";
             String inhalt = ((JTextComponent) input).getText();
 
             if (((JTextComponent)input).getText().matches(format)) {
