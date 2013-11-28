@@ -66,6 +66,7 @@ public class Preisumrechner extends javax.swing.JPanel {
         euroLiterpreis = new javax.swing.JLabel();
 
         setFocusTraversalPolicy(new FocusOrder(getOrder()));
+        setFocusTraversalPolicyProvider(true);
         setLayout(new java.awt.GridBagLayout());
 
         textFlaschengroesse.setText("Flaschengroesse");
@@ -296,8 +297,6 @@ public class Preisumrechner extends javax.swing.JPanel {
     };
     
     private ButtonRichtung richtung;
-    
-    private static FocusOrder focusOrder;
     
     private InputVerifier decimalVerifier = new InputVerifier() {
         @Override
