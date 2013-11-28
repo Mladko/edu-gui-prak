@@ -158,11 +158,6 @@ public class Preisumrechner extends javax.swing.JPanel {
         literpreis.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         literpreis.setName("Literpreis"); // NOI18N
         literpreis.setPreferredSize(new java.awt.Dimension(100, 24));
-        literpreis.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                literpreisActionPerformed(evt);
-            }
-        });
         literpreis.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 literpreisFocusGained(evt);
@@ -185,10 +180,6 @@ public class Preisumrechner extends javax.swing.JPanel {
         gridBagConstraints.gridy = 3;
         add(euroLiterpreis, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void literpreisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_literpreisActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_literpreisActionPerformed
 
     private void buttonDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDownActionPerformed
         richtung = ButtonRichtung.UNTEN;
@@ -227,7 +218,7 @@ public class Preisumrechner extends javax.swing.JPanel {
     }//GEN-LAST:event_literpreisKeyTyped
 
     private void flaschengroesseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_flaschengroesseActionPerformed
-        preisBerechnung();
+        if (!flaschenpreis.getText().equals("") && !literpreis.getText().equals("")) preisBerechnung();
     }//GEN-LAST:event_flaschengroesseActionPerformed
 
     private void buttonUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpActionPerformed
