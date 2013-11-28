@@ -188,7 +188,7 @@ public class Preisumrechner extends javax.swing.JPanel {
 
     private void literpreisFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_literpreisFocusLost
         JTextComponent input = literpreis;
-        String format = "^\\d+((,)?\\d{1,2})?$";
+        String format = "(^\\d+((,)?\\d{1,2})?$)?";
         String inhalt = ((JTextComponent) input).getText();
 
         if (!((JTextComponent)input).getText().matches(format)) {
@@ -292,7 +292,7 @@ public class Preisumrechner extends javax.swing.JPanel {
     private InputVerifier decimalVerifier = new InputVerifier() {
         @Override
         public boolean verify(JComponent input) {
-            String format = "^\\d+((,)?\\d{1,2})?$";
+            String format = "(^\\d+((,)?\\d{1,2})?$)?";
             String inhalt = ((JTextComponent) input).getText();
 
             if (((JTextComponent)input).getText().matches(format)) {
