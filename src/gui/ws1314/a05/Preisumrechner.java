@@ -222,8 +222,16 @@ public class Preisumrechner extends javax.swing.JPanel {
     }//GEN-LAST:event_flaschengroesseActionPerformed
 
     private void buttonUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpActionPerformed
-        richtung = ButtonRichtung.OBEN;
-        preisBerechnung();
+        JTextComponent input = literpreis;
+        String format = "(\\d+(,\\d{1,2})?)?";
+        String inhalt = ((JTextComponent) input).getText();
+
+        if (!((JTextComponent)input).getText().matches(format)) {
+            literpreis.requestFocus();
+        }else{
+            richtung = ButtonRichtung.OBEN;
+            preisBerechnung();
+        } 
     }//GEN-LAST:event_buttonUpActionPerformed
 
     private Vector getOrder() {
