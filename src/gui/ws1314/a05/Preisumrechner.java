@@ -113,7 +113,7 @@ public class Preisumrechner extends javax.swing.JPanel {
         jPanelButtons.setPreferredSize(new java.awt.Dimension(100, 24));
         jPanelButtons.setLayout(new javax.swing.BoxLayout(jPanelButtons, javax.swing.BoxLayout.LINE_AXIS));
 
-        buttonDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/arrow_down.png"))); // NOI18N
+        buttonDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/icons/arrow_down.png"))); // NOI18N
         buttonDown.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         buttonDown.setMinimumSize(new java.awt.Dimension(33, 24));
         buttonDown.setPreferredSize(new java.awt.Dimension(33, 24));
@@ -125,7 +125,7 @@ public class Preisumrechner extends javax.swing.JPanel {
         jPanelButtons.add(buttonDown);
         jPanelButtons.add(buttonFiller);
 
-        buttonUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/arrow_up.png"))); // NOI18N
+        buttonUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/icons/arrow_up.png"))); // NOI18N
         buttonUp.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         buttonUp.setMinimumSize(new java.awt.Dimension(33, 24));
         buttonUp.setName(""); // NOI18N
