@@ -6,14 +6,7 @@
 
 package gui.ws1314.a06;
 
-import java.awt.Toolkit;
-import javax.swing.InputVerifier;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.JTextComponent;
-import javax.swing.text.PlainDocument;
 
 /**
  *
@@ -36,7 +29,6 @@ public class Start extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup = new javax.swing.ButtonGroup();
         contentDesktopPane = new javax.swing.JDesktopPane();
@@ -72,13 +64,15 @@ public class Start extends javax.swing.JFrame {
         addWineInternalFrame.setTitle("Wein anlegen");
         addWineInternalFrame.setVisible(false);
 
+        addWineTabbedPane.setMinimumSize(new java.awt.Dimension(681, 398));
+        addWineTabbedPane.setPreferredSize(new java.awt.Dimension(800, 505));
         addWineTabbedPane.addTab("Aufnehmen", addWinePanel1);
 
         javax.swing.GroupLayout nullPanelLayout = new javax.swing.GroupLayout(nullPanel);
         nullPanel.setLayout(nullPanelLayout);
         nullPanelLayout.setHorizontalGroup(
             nullPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 586, Short.MAX_VALUE)
+            .addGap(0, 676, Short.MAX_VALUE)
         );
         nullPanelLayout.setVerticalGroup(
             nullPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,15 +85,15 @@ public class Start extends javax.swing.JFrame {
         addWineInternalFrame.getContentPane().setLayout(addWineInternalFrameLayout);
         addWineInternalFrameLayout.setHorizontalGroup(
             addWineInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addWineTabbedPane)
+            .addComponent(addWineTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
         );
         addWineInternalFrameLayout.setVerticalGroup(
             addWineInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addWineTabbedPane)
+            .addComponent(addWineTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         contentDesktopPane.add(addWineInternalFrame);
-        addWineInternalFrame.setBounds(12, 12, 601, 537);
+        addWineInternalFrame.setBounds(12, 12, 691, 537);
         contentDesktopPane.setLayer(addWineInternalFrame, javax.swing.JLayeredPane.DRAG_LAYER);
 
         fileMenu.setMnemonic('D');
@@ -198,11 +192,11 @@ public class Start extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(contentDesktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+            .addComponent(contentDesktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(contentDesktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+            .addComponent(contentDesktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
         );
 
         pack();

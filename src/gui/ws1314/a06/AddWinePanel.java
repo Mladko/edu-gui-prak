@@ -9,7 +9,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -58,8 +62,8 @@ public class AddWinePanel extends javax.swing.JPanel {
         cbRebsorteSelect2 = new javax.swing.JComboBox();
         cbRebsorteSelect3 = new javax.swing.JComboBox();
         lbAnbaugebiet = new javax.swing.JLabel();
-        cbAnbaugebietSelect1 = new javax.swing.JComboBox();
-        cbAnbaugebietSelect2 = new javax.swing.JComboBox();
+        cbAnbaugebietSelectLand = new javax.swing.JComboBox();
+        cbAnbaugebietSelectRegion = new javax.swing.JComboBox();
         lbAlkohol = new javax.swing.JLabel();
         cbAlkohol = new javax.swing.JComboBox();
         lbLagerfaehigkeit = new javax.swing.JLabel();
@@ -72,6 +76,8 @@ public class AddWinePanel extends javax.swing.JPanel {
         btSave = new javax.swing.JButton();
         btCancel = new javax.swing.JButton();
 
+        setMinimumSize(new java.awt.Dimension(800, 371));
+        setPreferredSize(new java.awt.Dimension(800, 371));
         setLayout(new java.awt.GridBagLayout());
 
         lbBestellNr.setText("Bestellnummer");
@@ -169,32 +175,36 @@ public class AddWinePanel extends javax.swing.JPanel {
 
         cbRebsorteSelect1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbRebsorteSelect1.setAlignmentX(0.0F);
-        cbRebsorteSelect1.setMinimumSize(new java.awt.Dimension(100, 24));
-        cbRebsorteSelect1.setPreferredSize(new java.awt.Dimension(100, 24));
+        cbRebsorteSelect1.setMinimumSize(new java.awt.Dimension(150, 24));
+        cbRebsorteSelect1.setPreferredSize(new java.awt.Dimension(150, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 50, 0, 0);
         add(cbRebsorteSelect1, gridBagConstraints);
 
         cbRebsorteSelect2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbRebsorteSelect2.setMinimumSize(new java.awt.Dimension(100, 24));
-        cbRebsorteSelect2.setPreferredSize(new java.awt.Dimension(100, 24));
+        cbRebsorteSelect2.setMinimumSize(new java.awt.Dimension(150, 24));
+        cbRebsorteSelect2.setPreferredSize(new java.awt.Dimension(150, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 200, 0, 0);
         add(cbRebsorteSelect2, gridBagConstraints);
 
         cbRebsorteSelect3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbRebsorteSelect3.setMinimumSize(new java.awt.Dimension(100, 24));
-        cbRebsorteSelect3.setPreferredSize(new java.awt.Dimension(100, 24));
+        cbRebsorteSelect3.setMinimumSize(new java.awt.Dimension(150, 24));
+        cbRebsorteSelect3.setPreferredSize(new java.awt.Dimension(150, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 350, 0, 0);
         add(cbRebsorteSelect3, gridBagConstraints);
 
         lbAnbaugebiet.setText("Anbaugebiet");
@@ -204,24 +214,24 @@ public class AddWinePanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         add(lbAnbaugebiet, gridBagConstraints);
 
-        cbAnbaugebietSelect1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbAnbaugebietSelect1.setAlignmentX(0.0F);
-        cbAnbaugebietSelect1.setMinimumSize(new java.awt.Dimension(100, 24));
-        cbAnbaugebietSelect1.setPreferredSize(new java.awt.Dimension(100, 24));
+        cbAnbaugebietSelectLand.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbAnbaugebietSelectLand.setAlignmentX(0.0F);
+        cbAnbaugebietSelectLand.setMinimumSize(new java.awt.Dimension(220, 24));
+        cbAnbaugebietSelectLand.setPreferredSize(new java.awt.Dimension(220, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 50, 0, 0);
-        add(cbAnbaugebietSelect1, gridBagConstraints);
+        add(cbAnbaugebietSelectLand, gridBagConstraints);
 
-        cbAnbaugebietSelect2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbAnbaugebietSelect2.setMinimumSize(new java.awt.Dimension(100, 24));
-        cbAnbaugebietSelect2.setPreferredSize(new java.awt.Dimension(100, 24));
+        cbAnbaugebietSelectRegion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbAnbaugebietSelectRegion.setMinimumSize(new java.awt.Dimension(220, 24));
+        cbAnbaugebietSelectRegion.setPreferredSize(new java.awt.Dimension(220, 24));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-        add(cbAnbaugebietSelect2, gridBagConstraints);
+        add(cbAnbaugebietSelectRegion, gridBagConstraints);
 
         lbAlkohol.setText("Alkoholgehalt");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -280,10 +290,10 @@ public class AddWinePanel extends javax.swing.JPanel {
 
         lbEuro.setText("€");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 11;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(0, 160, 0, 0);
         add(lbEuro, gridBagConstraints);
 
         cbFlaschenGr.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -323,6 +333,7 @@ public class AddWinePanel extends javax.swing.JPanel {
 
     private void postInitComponents() {
         this.hmFormat = setFormat();
+        this.setValues();
     }
 
     private HashMap setFormat() {
@@ -332,7 +343,7 @@ public class AddWinePanel extends javax.swing.JPanel {
         hm.get(tfBestellNr).add(1, "\\d"); //Format for Document
         
         hm.put(tfJahrgang, new ArrayList<String>());
-        hm.get(tfJahrgang).add(0, "");
+        hm.get(tfJahrgang).add(0, "(((198[8-9])|(199\\d{1}))|((200\\d{1})|(201[0-3])))?");
         hm.get(tfJahrgang).add(1, "\\d");
         
         hm.put(tfName, new ArrayList<String>());
@@ -340,7 +351,7 @@ public class AddWinePanel extends javax.swing.JPanel {
         hm.get(tfName).add(1, "[\\w \\s]");
         
         hm.put(tfLagerfaehigkeit, new ArrayList<String>());
-        hm.get(tfLagerfaehigkeit).add(0, "");
+        hm.get(tfLagerfaehigkeit).add(0, "((201[3-9])|(202\\d{1})|(203[0-8]))?");
         hm.get(tfLagerfaehigkeit).add(1, "\\d");
         
         hm.put(tfFlaschenpreis, new ArrayList<String>());
@@ -357,13 +368,33 @@ public class AddWinePanel extends javax.swing.JPanel {
         return hm;
     }
 
+    private void setValues() {
+        this.hmRebsorten = new DataSetManager().parseFile("src/utilities/datasets/reb.txt");
+        this.hmLocations = new DataSetManager().parseFile("src/utilities/datasets/loc.txt");
+        
+        ArrayList<String> countries = new ArrayList<>(this.hmLocations.keySet());
+        Collections.sort(countries);
+        cbAnbaugebietSelectLand.setModel(new DefaultComboBoxModel(countries.toArray()));
+        
+        // Vorbelegungen
+        tfBestellNr.setText("000000000000");
+        tfJahrgang.setText(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
+        rbWeiss.setSelected(true);
+        cbRebsorteSelect1.setSelectedIndex(1);
+        cbAnbaugebietSelectLand.setSelectedIndex(1);
+        //cbAlkohol.setSelectedIndex(6);
+        tfJahrgang.setText(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
+        //cbFlaschenGr.setSelectedIndex(6);
+        tfFlaschenpreis.setText("0,00");
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup brGroup;
     private javax.swing.JButton btCancel;
     private javax.swing.JButton btSave;
     private javax.swing.JComboBox cbAlkohol;
-    private javax.swing.JComboBox cbAnbaugebietSelect1;
-    private javax.swing.JComboBox cbAnbaugebietSelect2;
+    private javax.swing.JComboBox cbAnbaugebietSelectLand;
+    private javax.swing.JComboBox cbAnbaugebietSelectRegion;
     private javax.swing.JComboBox cbFlaschenGr;
     private javax.swing.JComboBox cbRebsorteSelect1;
     private javax.swing.JComboBox cbRebsorteSelect2;
@@ -391,6 +422,8 @@ public class AddWinePanel extends javax.swing.JPanel {
     
     // Post-Adding Variables
     private HashMap hmFormat;
+    private HashMap hmRebsorten;
+    private HashMap hmLocations;
 
     // Inner Classes
     class UniversalDocument extends PlainDocument {
