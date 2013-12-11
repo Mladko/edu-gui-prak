@@ -1,2 +1,3 @@
 - Beim korrekten Ausfüllen der Formularfehler kommt trotzdem die Meldung "Ungültiges Zeichen" (Document).
 - Cancel Button Event funktioniert nicht, wegen statischer Methode in dem JFrame
+- default werte für die textwerte können nicht gesetzt werden, bis auf den flaschenpreis
