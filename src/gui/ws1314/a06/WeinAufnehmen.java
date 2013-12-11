@@ -423,15 +423,35 @@ public class WeinAufnehmen extends javax.swing.JPanel {
             this.tfJahrgang,
             this.tfLagerfaehigkeit,
             this.tfName};
-        
+
         for (JTextComponent tf : tfList) {
             if (tf.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, tf.getToolTipText(),"Fehlerhafte Eingabe!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, tf.getToolTipText(), "Fehlerhafte Eingabe!", JOptionPane.ERROR_MESSAGE);
                 tf.setBackground(Color.decode("#FAA598"));
                 tf.requestFocus();
                 return;
             }
         }
+
+        // Wertebereich der Lagerfaehigkeit
+        if (Integer.parseInt(this.tfLagerfaehigkeit.getText()) > (Integer.parseInt(this.tfJahrgang.getText()) + this.MAX_LAGERDAUER)
+                || Integer.parseInt(this.tfLagerfaehigkeit.getText()) < (Integer.parseInt(this.tfJahrgang.getText()) + this.MIN_LAGERDAUER)) {
+                JOptionPane.showMessageDialog(this, "Der Wert der Lagerfähigkeit liegt außerhalb des Wertebereichs!\n" 
+                        + tfLagerfaehigkeit.getToolTipText(), "Fehlerhafte Eingabe!", JOptionPane.ERROR_MESSAGE);
+                tfLagerfaehigkeit.setBackground(Color.decode("#FAA598"));
+                tfLagerfaehigkeit.requestFocus();
+                return;
+        }
+        
+        // Wertebereich des Jahrgangs
+        if (Integer.parseInt(this.tfJahrgang.getText()) > (Integer.parseInt(this.tfJahrgang.getText()) + this.MAX_JAHRGANG)
+                || Integer.parseInt(this.tfJahrgang.getText()) < (Integer.parseInt(this.tfJahrgang.getText()) + this.MIN_JAHRGANG)) {
+                JOptionPane.showMessageDialog(this, "Der Wert des Jahrgangs liegt außerhalb des Wertebereichs!\n" 
+                        + tfJahrgang.getToolTipText(), "Fehlerhafte Eingabe!", JOptionPane.ERROR_MESSAGE);
+                tfJahrgang.setBackground(Color.decode("#FAA598"));
+                tfJahrgang.requestFocus();
+                return;
+        }        
 
         //Die wohl behindertste aber funktionierende Implementation ever
         int reb1 = cbRebsorteSelect1.getSelectedIndex();
@@ -442,7 +462,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
                 || (reb1 == reb2 && reb1 + reb2 != 0)
                 || (reb2 == reb3 && reb2 + reb3 != 0)
                 || (reb1 == reb3 && reb1 + reb3 != 0)) {
-            JOptionPane.showMessageDialog(this, "Rebsorte bitte nur einmal wählen.","Fehlerhafte Eingabe!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Rebsorte bitte nur einmal wählen.", "Fehlerhafte Eingabe!", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -549,9 +569,10 @@ public class WeinAufnehmen extends javax.swing.JPanel {
 
     private void setTooltips() {
         tfBestellNr.setToolTipText("Die Bestellnummer umfasst 12 Dezimalzahlen im Format 123456789012.");
-        tfJahrgang.setToolTipText("Der Jahrgang umfasst 4 Dezimalzahlen im Format: 2001.");
+        tfJahrgang.setToolTipText("Der Jahrgang umfasst 4 Dezimalzahlen im Format: " + this.MIN_JAHRGANG + " bis " + this.MAX_JAHRGANG);
         tfName.setToolTipText("Der Name kann beliebig gewählt werden.");
-        tfLagerfaehigkeit.setToolTipText("Die Lagerfähigkeit beschreibt das Jahr, bis zu dem der Wein gelagert werden kann. Format: 2013.");
+        tfLagerfaehigkeit.setToolTipText("Die Lagerfähigkeit beschreibt das Jahr, bis zu dem der Wein gelagert werden kann. "
+                + "Format: " + (this.AKTUELLES_JAHR + this.MIN_LAGERDAUER) + " bis " + (this.AKTUELLES_JAHR + MAX_LAGERDAUER));
         tfFlaschenpreis.setToolTipText("Der Preis umfasst eine Ganzzahl mit zwei Nachkommestellen, im Format: 23,22.");
     }
 
@@ -606,20 +627,20 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     }
 
     private void saveContent() {
-    String save;
-    save = ("Bestellnummer: " + tfBestellNr.getText()
-            + "\nJahrgang: " + tfJahrgang.getText()
-            + "\nName: " + tfName.getText()
-            + "\nFarbe: " + rbSelectedColor
-            + "\nRebsorte: " + cbRebsorteSelect1.getSelectedItem().toString()
-                             + ((cbRebsorteSelect2.getSelectedIndex() == 0) ? "" : (" " + cbRebsorteSelect2.getSelectedItem().toString()))
-                             + ((cbRebsorteSelect3.getSelectedIndex() == 0) ? "" : (" " + cbRebsorteSelect2.getSelectedItem().toString()))
-            + "\nAnbaugebiet Land: " + cbAnbaugebietSelectLand.getSelectedItem().toString() + cbAnbaugebietSelectRegion.getSelectedItem().toString()
-            + "\nAlkoholgehalt: " + cbAlkohol.getSelectedItem().toString()
-            + "\nLagerfähigkeit: " + tfLagerfaehigkeit.getText()
-            + "\nFlaschengröße: " + cbFlaschenGr.getSelectedItem().toString()
-            + "\nFlaschenpreis: " + tfFlaschenpreis.getText());
-    System.out.println(save);	
+        String save;
+        save = ("Bestellnummer: " + tfBestellNr.getText()
+                + "\nJahrgang: " + tfJahrgang.getText()
+                + "\nName: " + tfName.getText()
+                + "\nFarbe: " + rbSelectedColor
+                + "\nRebsorte: " + cbRebsorteSelect1.getSelectedItem().toString()
+                + ((cbRebsorteSelect2.getSelectedIndex() == 0) ? "" : (" " + cbRebsorteSelect2.getSelectedItem().toString()))
+                + ((cbRebsorteSelect3.getSelectedIndex() == 0) ? "" : (" " + cbRebsorteSelect2.getSelectedItem().toString()))
+                + "\nAnbaugebiet Land: " + cbAnbaugebietSelectLand.getSelectedItem().toString() + cbAnbaugebietSelectRegion.getSelectedItem().toString()
+                + "\nAlkoholgehalt: " + cbAlkohol.getSelectedItem().toString()
+                + "\nLagerfähigkeit: " + tfLagerfaehigkeit.getText()
+                + "\nFlaschengröße: " + cbFlaschenGr.getSelectedItem().toString()
+                + "\nFlaschenpreis: " + tfFlaschenpreis.getText());
+        System.out.println(save);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -660,6 +681,13 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     private HashMap hmLocations;
     private String rbSelectedColor;
     UniversalChangeListener uniChangeListener = new UniversalChangeListener();
+
+    // Constants
+    private final int AKTUELLES_JAHR = Calendar.getInstance().get(Calendar.YEAR);
+    private final int MIN_JAHRGANG = AKTUELLES_JAHR - 25;
+    private final int MAX_JAHRGANG = AKTUELLES_JAHR;
+    private final int MIN_LAGERDAUER = 1;
+    private final int MAX_LAGERDAUER = 25;
 
     // Inner Classes
     class UniversalDocument extends PlainDocument {
