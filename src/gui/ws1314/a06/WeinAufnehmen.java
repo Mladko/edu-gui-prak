@@ -433,7 +433,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
             }
         }
 
-        // Wertebereich der Lagerfaehigkeit
+        // Dynamischer Wertebereich der Lagerfaehigkeit
         if (Integer.parseInt(this.tfLagerfaehigkeit.getText()) > (Integer.parseInt(this.tfJahrgang.getText()) + this.MAX_LAGERDAUER)
                 || Integer.parseInt(this.tfLagerfaehigkeit.getText()) < (Integer.parseInt(this.tfJahrgang.getText()) + this.MIN_LAGERDAUER)) {
                 JOptionPane.showMessageDialog(this, "Der Wert der Lagerfähigkeit liegt außerhalb des Wertebereichs!\n" 
@@ -443,7 +443,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
                 return;
         }
         
-        // Wertebereich des Jahrgangs
+        // Dynamischer Wertebereich des Jahrgangs
         if (Integer.parseInt(this.tfJahrgang.getText()) > (Integer.parseInt(this.tfJahrgang.getText()) + this.MAX_JAHRGANG)
                 || Integer.parseInt(this.tfJahrgang.getText()) < (Integer.parseInt(this.tfJahrgang.getText()) + this.MIN_JAHRGANG)) {
                 JOptionPane.showMessageDialog(this, "Der Wert des Jahrgangs liegt außerhalb des Wertebereichs!\n" 
