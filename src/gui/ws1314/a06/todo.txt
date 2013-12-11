@@ -1,0 +1,2 @@
+- Beim korrekten Ausfüllen der Formularfehler kommt trotzdem die Meldung "Ungültiges Zeichen" (Document).
+- Cancel Button Event funktioniert nicht, wegen statischer Methode in dem JFrame

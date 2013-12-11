@@ -22,37 +22,40 @@ import java.util.logging.Logger;
 public class DataSetManager {
 
     public HashMap<String, ArrayList<String>> parseFile(String file) {
-        HashMap<String, ArrayList<String>> hm = new HashMap<>();
-        ArrayList<String> entries = new ArrayList<>();
-        String categorie = "";
-        String currentToken = "";
+        FileReader fr = null;
+        String category = "";
         String entry = "";
-
+        String token;
+        ArrayList<String> entries = new ArrayList<>();
+        HashMap<String, ArrayList<String>> countries = new HashMap<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            currentToken = reader.readLine();
+            fr = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fr);
+            token = reader.readLine();
+            while (token != null) {
+                if (!token.equals("")) {
+                    if (!token.contains("-")) {
+                        if (!category.equals("")) {
+                            Collections.sort(entries);
+                            countries.put(category, entries);
+                            entries = new ArrayList<>();
+                        }
 
-            while (currentToken != null) {
-                if (!currentToken.equals("") && !currentToken.contains("-")) {
-                    if (!categorie.equals("")) {
-                        Collections.sort(entries);
-                        hm.put(categorie, entries);
+                        category = token;
+                    } else {
+                        StringTokenizer st = new StringTokenizer(token, "-");
+                        entry = (st.hasMoreTokens()) ? st.nextToken() : "";
+                        entries.add(entry);
                     }
-                    categorie = currentToken;
-                } else {
-                    StringTokenizer st = new StringTokenizer(currentToken, "-");
-                    entry = (st.hasMoreTokens()) ? st.nextToken() : "";
-                    entries.add(entry);
                 }
-                currentToken = reader.readLine();
+                token = reader.readLine();
             }
-
+            Collections.sort(entries);
+            countries.put(category, entries);
         } catch (IOException ex) {
             Logger.getLogger(DataSetManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return hm;
-
+        return countries;
     }
 
 }

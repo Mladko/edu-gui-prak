@@ -3,21 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gui.ws1314.a06;
 
+import java.awt.Dimension;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author agribu
  */
-public class Start extends javax.swing.JFrame {
+public class Aufgabe06 extends javax.swing.JFrame {
 
     /**
-     * Creates new form Start
+     * Creates new form Aufgabe06
      */
-    public Start() {
+    public Aufgabe06() {
         initComponents();
     }
 
@@ -30,13 +30,12 @@ public class Start extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup = new javax.swing.ButtonGroup();
-        contentDesktopPane = new javax.swing.JDesktopPane();
-        addWineInternalFrame = new javax.swing.JInternalFrame();
-        addWineTabbedPane = new javax.swing.JTabbedPane();
-        addWinePanel1 = new gui.ws1314.a06.AddWinePanel();
-        nullPanel = new javax.swing.JPanel();
-        menuBar = new javax.swing.JMenuBar();
+        dpInhalt = new javax.swing.JDesktopPane();
+        ifWeinAufnehmen = new javax.swing.JInternalFrame();
+        tpWeinAufnehmenTabs = new javax.swing.JTabbedPane();
+        pWeinAufnehmen = new gui.ws1314.a06.WeinAufnehmen();
+        pNull = new javax.swing.JPanel();
+        mbMenu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
@@ -56,45 +55,42 @@ public class Start extends javax.swing.JFrame {
             }
         });
 
-        addWineInternalFrame.setClosable(true);
-        addWineInternalFrame.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
-        addWineInternalFrame.setIconifiable(true);
-        addWineInternalFrame.setMaximizable(true);
-        addWineInternalFrame.setResizable(true);
-        addWineInternalFrame.setTitle("Wein anlegen");
-        addWineInternalFrame.setVisible(false);
+        ifWeinAufnehmen.setClosable(true);
+        ifWeinAufnehmen.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        ifWeinAufnehmen.setIconifiable(true);
+        ifWeinAufnehmen.setMaximizable(true);
+        ifWeinAufnehmen.setResizable(true);
+        ifWeinAufnehmen.setTitle("Wein aufnehmen");
+        ifWeinAufnehmen.setVisible(false);
 
-        addWineTabbedPane.setMinimumSize(new java.awt.Dimension(681, 398));
-        addWineTabbedPane.setPreferredSize(new java.awt.Dimension(800, 505));
-        addWineTabbedPane.addTab("Aufnehmen", addWinePanel1);
+        tpWeinAufnehmenTabs.addTab("Aufnehmen", pWeinAufnehmen);
 
-        javax.swing.GroupLayout nullPanelLayout = new javax.swing.GroupLayout(nullPanel);
-        nullPanel.setLayout(nullPanelLayout);
-        nullPanelLayout.setHorizontalGroup(
-            nullPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 676, Short.MAX_VALUE)
+        javax.swing.GroupLayout pNullLayout = new javax.swing.GroupLayout(pNull);
+        pNull.setLayout(pNullLayout);
+        pNullLayout.setHorizontalGroup(
+            pNullLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 655, Short.MAX_VALUE)
         );
-        nullPanelLayout.setVerticalGroup(
-            nullPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 478, Short.MAX_VALUE)
+        pNullLayout.setVerticalGroup(
+            pNullLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 431, Short.MAX_VALUE)
         );
 
-        addWineTabbedPane.addTab("", nullPanel);
+        tpWeinAufnehmenTabs.addTab("Leer", pNull);
 
-        javax.swing.GroupLayout addWineInternalFrameLayout = new javax.swing.GroupLayout(addWineInternalFrame.getContentPane());
-        addWineInternalFrame.getContentPane().setLayout(addWineInternalFrameLayout);
-        addWineInternalFrameLayout.setHorizontalGroup(
-            addWineInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addWineTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
+        javax.swing.GroupLayout ifWeinAufnehmenLayout = new javax.swing.GroupLayout(ifWeinAufnehmen.getContentPane());
+        ifWeinAufnehmen.getContentPane().setLayout(ifWeinAufnehmenLayout);
+        ifWeinAufnehmenLayout.setHorizontalGroup(
+            ifWeinAufnehmenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tpWeinAufnehmenTabs)
         );
-        addWineInternalFrameLayout.setVerticalGroup(
-            addWineInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addWineTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        ifWeinAufnehmenLayout.setVerticalGroup(
+            ifWeinAufnehmenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tpWeinAufnehmenTabs)
         );
 
-        contentDesktopPane.add(addWineInternalFrame);
-        addWineInternalFrame.setBounds(12, 12, 691, 537);
-        contentDesktopPane.setLayer(addWineInternalFrame, javax.swing.JLayeredPane.DRAG_LAYER);
+        dpInhalt.add(ifWeinAufnehmen);
+        ifWeinAufnehmen.setBounds(20, 10, 670, 490);
 
         fileMenu.setMnemonic('D');
         fileMenu.setText("Datei");
@@ -115,11 +111,11 @@ public class Start extends javax.swing.JFrame {
         });
         fileMenu.add(exitMenuItem);
 
-        menuBar.add(fileMenu);
+        mbMenu.add(fileMenu);
 
         editMenu.setMnemonic('B');
         editMenu.setText("Bearbeiten");
-        menuBar.add(editMenu);
+        mbMenu.add(editMenu);
 
         costumerMenu.setMnemonic('K');
         costumerMenu.setText("Kunden");
@@ -152,7 +148,7 @@ public class Start extends javax.swing.JFrame {
         deleteCostumerMenuItem.setText("Löschen");
         costumerMenu.add(deleteCostumerMenuItem);
 
-        menuBar.add(costumerMenu);
+        mbMenu.add(costumerMenu);
 
         wineMenu.setMnemonic('W');
         wineMenu.setText("Wein");
@@ -168,7 +164,7 @@ public class Start extends javax.swing.JFrame {
         });
         wineMenu.add(addWineMenuItem);
 
-        menuBar.add(wineMenu);
+        mbMenu.add(wineMenu);
 
         helpMenu.setMnemonic('?');
         helpMenu.setText("?");
@@ -184,64 +180,85 @@ public class Start extends javax.swing.JFrame {
         });
         helpMenu.add(infoMenuItem);
 
-        menuBar.add(helpMenu);
+        mbMenu.add(helpMenu);
 
-        setJMenuBar(menuBar);
+        setJMenuBar(mbMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(contentDesktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE)
+            .addComponent(dpInhalt, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(contentDesktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
+            .addComponent(dpInhalt, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-       beenden();
+        schliessfeldBetaetigt();
     }//GEN-LAST:event_exitMenuItemActionPerformed
-
-    private void addCostumerMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCostumerMenuItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addCostumerMenuItemActionPerformed
-
-    private void infoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoMenuItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_infoMenuItemActionPerformed
 
     private void fileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fileMenuActionPerformed
 
-    private void addWineMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addWineMenuItemActionPerformed
-        addWineInternalFrame.setVisible(true);
-    }//GEN-LAST:event_addWineMenuItemActionPerformed
+    private void addCostumerMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCostumerMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addCostumerMenuItemActionPerformed
 
     private void editCostumerMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCostumerMenuItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_editCostumerMenuItemActionPerformed
 
+    private void addWineMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addWineMenuItemActionPerformed
+        ifWeinAufnehmen.setVisible(true);
+    }//GEN-LAST:event_addWineMenuItemActionPerformed
+
+    private void infoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_infoMenuItemActionPerformed
+
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        beenden();
+        schliessfeldBetaetigt();
     }//GEN-LAST:event_formWindowClosing
 
+    public void closeWeinAufnehmen() {
 
-    private void schliessfeldBetaetigt(java.awt.event.WindowEvent evt) {
-        beenden();
+        if (beenden() == JOptionPane.YES_OPTION) {
+            return;
+        }
+        pWeinAufnehmen.setVisible(false);
+        clearAll();
     }
 
-    private void beenden() {
+    private void schliessfeldBetaetigt() {
+        if (beenden() == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
+
+    private int beenden() {
         int antwort = JOptionPane.showConfirmDialog(
-            this,"Wollen Sie wirklich das Fenster schließen?","Fenster schließen.",
-            JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-        if (antwort == JOptionPane.YES_OPTION) System.exit(0);
+                this, "Wollen Sie wirklich das Fenster schließen?", "Fenster schließen.",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        return antwort;
     }
-    
+
+    private void clearAll() {
+        dim = this.getSize();
+
+        this.getContentPane().removeAll();
+        initComponents();
+        pWeinAufnehmen.postInitComponents();
+
+        this.setSize(dim);
+    //aenderung.reset();
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -258,43 +275,39 @@ public class Start extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Start.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Aufgabe06.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new Start().setVisible(true);
+                new Aufgabe06().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addCostumerMenuItem;
-    private javax.swing.JInternalFrame addWineInternalFrame;
     private javax.swing.JMenuItem addWineMenuItem;
-    private gui.ws1314.a06.AddWinePanel addWinePanel1;
-    private javax.swing.JTabbedPane addWineTabbedPane;
-    private javax.swing.ButtonGroup buttonGroup;
-    private javax.swing.JDesktopPane contentDesktopPane;
     private javax.swing.JMenu costumerMenu;
     private javax.swing.JMenuItem deleteCostumerMenuItem;
+    private javax.swing.JDesktopPane dpInhalt;
     private javax.swing.JMenuItem editCostumerMenuItem;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JInternalFrame ifWeinAufnehmen;
     private javax.swing.JMenuItem infoMenuItem;
-    private javax.swing.JMenuBar menuBar;
-    private javax.swing.JPanel nullPanel;
+    private javax.swing.JMenuBar mbMenu;
+    private javax.swing.JPanel pNull;
+    private gui.ws1314.a06.WeinAufnehmen pWeinAufnehmen;
+    private javax.swing.JTabbedPane tpWeinAufnehmenTabs;
     private javax.swing.JMenu wineMenu;
     // End of variables declaration//GEN-END:variables
+
+    private Dimension dim;
 }
