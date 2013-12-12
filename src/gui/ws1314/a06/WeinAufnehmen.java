@@ -458,8 +458,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         int reb2 = cbRebsorteSelect2.getSelectedIndex();
         int reb3 = cbRebsorteSelect3.getSelectedIndex();
 
-        if (reb1 + reb2 + reb3 == 0
-                || (reb1 == reb2 && reb1 + reb2 != 0)
+        if ((reb1 == reb2 && reb1 + reb2 != 0)
                 || (reb2 == reb3 && reb2 + reb3 != 0)
                 || (reb1 == reb3 && reb1 + reb3 != 0)) {
             JOptionPane.showMessageDialog(this, "Rebsorte bitte nur einmal wählen.", "Fehlerhafte Eingabe!", JOptionPane.ERROR_MESSAGE);
