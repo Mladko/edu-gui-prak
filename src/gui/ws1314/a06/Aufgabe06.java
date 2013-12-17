@@ -19,6 +19,7 @@ public class Aufgabe06 extends javax.swing.JFrame {
      */
     public Aufgabe06() {
         initComponents();
+        postInitComponents();
     }
 
     /**
@@ -33,8 +34,6 @@ public class Aufgabe06 extends javax.swing.JFrame {
         dpInhalt = new javax.swing.JDesktopPane();
         ifWeinAufnehmen = new javax.swing.JInternalFrame();
         tpWeinAufnehmenTabs = new javax.swing.JTabbedPane();
-        pWeinAufnehmen = new gui.ws1314.a06.WeinAufnehmen();
-        pNull = new javax.swing.JPanel();
         mbMenu = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         exitMenuItem = new javax.swing.JMenuItem();
@@ -61,22 +60,7 @@ public class Aufgabe06 extends javax.swing.JFrame {
         ifWeinAufnehmen.setMaximizable(true);
         ifWeinAufnehmen.setResizable(true);
         ifWeinAufnehmen.setTitle("Wein aufnehmen");
-        ifWeinAufnehmen.setVisible(false);
-
-        tpWeinAufnehmenTabs.addTab("Aufnehmen", pWeinAufnehmen);
-
-        javax.swing.GroupLayout pNullLayout = new javax.swing.GroupLayout(pNull);
-        pNull.setLayout(pNullLayout);
-        pNullLayout.setHorizontalGroup(
-            pNullLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 655, Short.MAX_VALUE)
-        );
-        pNullLayout.setVerticalGroup(
-            pNullLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 431, Short.MAX_VALUE)
-        );
-
-        tpWeinAufnehmenTabs.addTab("Leer", pNull);
+        ifWeinAufnehmen.setVisible(true);
 
         javax.swing.GroupLayout ifWeinAufnehmenLayout = new javax.swing.GroupLayout(ifWeinAufnehmen.getContentPane());
         ifWeinAufnehmen.getContentPane().setLayout(ifWeinAufnehmenLayout);
@@ -226,7 +210,12 @@ public class Aufgabe06 extends javax.swing.JFrame {
         schliessfeldBetaetigt();
     }//GEN-LAST:event_formWindowClosing
 
-    public void closeWeinAufnehmen() {
+    private void postInitComponents() {
+        pWeinAufnehmen = new WeinAufnehmen();
+        tpWeinAufnehmenTabs.addTab("Aufnehmen", pWeinAufnehmen);
+    }
+    
+    private void closeWeinAufnehmen() {
 
         if (beenden() == JOptionPane.YES_OPTION) {
             return;
@@ -248,12 +237,12 @@ public class Aufgabe06 extends javax.swing.JFrame {
         return antwort;
     }
 
-    private void clearAll() {
+    public void clearAll() {
         dim = this.getSize();
 
         this.getContentPane().removeAll();
         initComponents();
-        pWeinAufnehmen.postInitComponents();
+        //pWeinAufnehmen.postInitComponents();
 
         this.setSize(dim);
     //aenderung.reset();
@@ -303,11 +292,10 @@ public class Aufgabe06 extends javax.swing.JFrame {
     private javax.swing.JInternalFrame ifWeinAufnehmen;
     private javax.swing.JMenuItem infoMenuItem;
     private javax.swing.JMenuBar mbMenu;
-    private javax.swing.JPanel pNull;
-    private gui.ws1314.a06.WeinAufnehmen pWeinAufnehmen;
     private javax.swing.JTabbedPane tpWeinAufnehmenTabs;
     private javax.swing.JMenu wineMenu;
     // End of variables declaration//GEN-END:variables
 
     private Dimension dim;
+    private javax.swing.JPanel pWeinAufnehmen;
 }

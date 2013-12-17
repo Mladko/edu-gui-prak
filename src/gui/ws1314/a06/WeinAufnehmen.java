@@ -8,6 +8,7 @@ package gui.ws1314.a06;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Toolkit;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -83,6 +84,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         add(lbBestellNr, gridBagConstraints);
 
+        tfBestellNr.setEditable(false);
         tfBestellNr.setToolTipText("");
         tfBestellNr.setAlignmentX(0.0F);
         tfBestellNr.setMinimumSize(new java.awt.Dimension(220, 24));
@@ -433,7 +435,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
             }
         }
 
-        // Dynamischer Wertebereich der Lagerfaehigkeit
+        // Dynamischer Wertebereich der Lagerfaehigkeit        
         if (Integer.parseInt(this.tfLagerfaehigkeit.getText()) > (Integer.parseInt(this.tfJahrgang.getText()) + this.MAX_LAGERDAUER)
                 || Integer.parseInt(this.tfLagerfaehigkeit.getText()) < (Integer.parseInt(this.tfJahrgang.getText()) + this.MIN_LAGERDAUER)) {
                 JOptionPane.showMessageDialog(this, "Der Wert der Lagerfähigkeit liegt außerhalb des Wertebereichs!\n" 
@@ -442,10 +444,10 @@ public class WeinAufnehmen extends javax.swing.JPanel {
                 tfLagerfaehigkeit.requestFocus();
                 return;
         }
-        
+
         // Dynamischer Wertebereich des Jahrgangs
-        if (Integer.parseInt(this.tfJahrgang.getText()) > (Integer.parseInt(this.tfJahrgang.getText()) + this.MAX_JAHRGANG)
-                || Integer.parseInt(this.tfJahrgang.getText()) < (Integer.parseInt(this.tfJahrgang.getText()) + this.MIN_JAHRGANG)) {
+        if (Integer.parseInt(this.tfJahrgang.getText()) > this.MAX_JAHRGANG
+                || Integer.parseInt(this.tfJahrgang.getText()) < this.MIN_JAHRGANG) {
                 JOptionPane.showMessageDialog(this, "Der Wert des Jahrgangs liegt außerhalb des Wertebereichs!\n" 
                         + tfJahrgang.getToolTipText(), "Fehlerhafte Eingabe!", JOptionPane.ERROR_MESSAGE);
                 tfJahrgang.setBackground(Color.decode("#FAA598"));
@@ -510,7 +512,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfFlaschenpreisFocusGained
 
-    public void postInitComponents() {
+    private void postInitComponents() {
         this.hmFormat = setFormatHashMap();
         this.setValues();
         this.setDefaults();
@@ -519,21 +521,22 @@ public class WeinAufnehmen extends javax.swing.JPanel {
 
     private HashMap setFormatHashMap() {
         HashMap<Component, ArrayList<String>> hm = new HashMap<>();
-        hm.put(tfBestellNr, new ArrayList<String>());
-        hm.get(tfBestellNr).add(0, "(\\d{12})?"); //Format for InputVerifier
-        hm.get(tfBestellNr).add(1, "\\d"); //Format for Document
+//        INFO: BestellNr. is now auto-generated
+//        hm.put(tfBestellNr, new ArrayList<String>());
+//        hm.get(tfBestellNr).add(0, "(\\d{10})?"); //Format for InputVerifier
+//        hm.get(tfBestellNr).add(1, "\\d+"); //Format for Document
 
         hm.put(tfJahrgang, new ArrayList<String>());
         hm.get(tfJahrgang).add(0, "(((198[8-9])|(199\\d{1}))|((200\\d{1})|(201[0-3])))?");
-        hm.get(tfJahrgang).add(1, "\\d");
+        hm.get(tfJahrgang).add(1, "\\d+");
 
         hm.put(tfName, new ArrayList<String>());
         hm.get(tfName).add(0, "((\\w)?(\\s)?)*");
-        hm.get(tfName).add(1, "[\\w\\s]");
+        hm.get(tfName).add(1, "[\\w\\s]+");
 
         hm.put(tfLagerfaehigkeit, new ArrayList<String>());
         hm.get(tfLagerfaehigkeit).add(0, "((201[3-9])|(202\\d{1})|(203[0-8]))?");
-        hm.get(tfLagerfaehigkeit).add(1, "\\d");
+        hm.get(tfLagerfaehigkeit).add(1, "\\d+");
 
         hm.put(tfFlaschenpreis, new ArrayList<String>());
         hm.get(tfFlaschenpreis).add(0, "(^\\d+(,)?\\d{0,2}$|,)?");
@@ -555,11 +558,21 @@ public class WeinAufnehmen extends javax.swing.JPanel {
 
         this.hmLocations.put("", new ArrayList<String>()); // Empty Selection for Index 0
 
-        ((ArrayList<String>) this.hmRebsorten.get("rot")).add(""); // Empty Selection for Index 0
-        ((ArrayList<String>) this.hmRebsorten.get("weiss")).add(""); // Empty Selection for Index 0
-        ((ArrayList<String>) this.hmRebsorten.get("rose")).add(""); // Empty Selection for Index 0
+        ArrayList<String> alRot = (ArrayList<String>) this.hmRebsorten.get("rot");
+        ArrayList<String> alWeiss = (ArrayList<String>) this.hmRebsorten.get("weiss");
+        ArrayList<String> alRose = (ArrayList<String>) this.hmRebsorten.get("rose");
+        
+        // Fehlerbehandlung "NullPointerException" des GUI Editors
+        if (alRot == null || alWeiss == null || alRose == null){
+            return;
+        }
+
+        alRot.add(""); // Empty Selection for Index 0
+        alWeiss.add(""); // Empty Selection for Index 0
+        alRose.add(""); // Empty Selection for Index 0
 
         ArrayList<String> countries = new ArrayList<>(this.hmLocations.keySet());
+        
         Collections.sort(countries);
         cbAnbaugebietSelectLand.setModel(new DefaultComboBoxModel(countries.toArray()));
 
@@ -567,7 +580,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     }
 
     private void setTooltips() {
-        tfBestellNr.setToolTipText("Die Bestellnummer umfasst 12 Dezimalzahlen im Format 123456789012.");
+        tfBestellNr.setToolTipText("Die Bestellnummer wird automatisch generiert und umfasst 10 Dezimalzahlen im Format YYYYMM####");
         tfJahrgang.setToolTipText("Der Jahrgang umfasst 4 Dezimalzahlen im Format: " + this.MIN_JAHRGANG + " bis " + this.MAX_JAHRGANG);
         tfName.setToolTipText("Der Name kann beliebig gewählt werden.");
         tfLagerfaehigkeit.setToolTipText("Die Lagerfähigkeit beschreibt das Jahr, bis zu dem der Wein gelagert werden kann. "
@@ -576,15 +589,17 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     }
 
     private void setDefaults() {
-        tfBestellNr.setText("000000000000"); //FIXME not shown
-        tfJahrgang.setText(String.valueOf(Calendar.getInstance().get(Calendar.YEAR))); //FIXME not shown
+        tfBestellNr.setText(Integer.toString(AKTUELLES_JAHR) 
+                + Integer.toString(AKTUELLER_MONAT) 
+                + df.format(addCounter));
+        tfJahrgang.setText(Integer.toString(AKTUELLES_JAHR));
 
         rbWeiss.setSelected(true);
         this.setColor("weiss");
 
         cbAnbaugebietSelectLand.setSelectedIndex(3); //Frankreich
         cbAlkohol.setSelectedIndex(8);
-        tfJahrgang.setText(String.valueOf(Calendar.getInstance().get(Calendar.YEAR))); //FIXME not shown
+        tfJahrgang.setText(String.valueOf(AKTUELLES_JAHR));
         cbFlaschenGr.setSelectedIndex(6);
         tfFlaschenpreis.setText("0,00");
         tfLagerfaehigkeit.setText("");
@@ -638,8 +653,11 @@ public class WeinAufnehmen extends javax.swing.JPanel {
                 + "\nAlkoholgehalt: " + cbAlkohol.getSelectedItem().toString()
                 + "\nLagerfähigkeit: " + tfLagerfaehigkeit.getText()
                 + "\nFlaschengröße: " + cbFlaschenGr.getSelectedItem().toString()
-                + "\nFlaschenpreis: " + tfFlaschenpreis.getText());
+                + "\nFlaschenpreis: " + tfFlaschenpreis.getText())
+                + "\n-----------------------------------------";
         System.out.println(save);
+        
+        this.addCounter++;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -679,10 +697,13 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     private HashMap hmRebsorten;
     private HashMap hmLocations;
     private String rbSelectedColor;
+    private int addCounter = 0;
+    private DecimalFormat df = new DecimalFormat("0000");
     UniversalChangeListener uniChangeListener = new UniversalChangeListener();
 
     // Constants
     private final int AKTUELLES_JAHR = Calendar.getInstance().get(Calendar.YEAR);
+    private final int AKTUELLER_MONAT = Calendar.getInstance().get(Calendar.MONTH);
     private final int MIN_JAHRGANG = AKTUELLES_JAHR - 25;
     private final int MAX_JAHRGANG = AKTUELLES_JAHR;
     private final int MIN_LAGERDAUER = 1;
