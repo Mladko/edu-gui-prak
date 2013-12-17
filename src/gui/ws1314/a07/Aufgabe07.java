@@ -212,7 +212,10 @@ public class Aufgabe07 extends javax.swing.JFrame {
 
     private void postInitComponents() {
         pWeinAufnehmen = new WeinAufnehmen();
+        pWeinDiagramm = new WeinDiagramm();
+        
         tpWeinAufnehmenTabs.addTab("Aufnehmen", pWeinAufnehmen);
+        tpWeinAufnehmenTabs.addTab("Trinkreife", pWeinDiagramm);
     }
     
     private void closeWeinAufnehmen() {
@@ -298,4 +301,5 @@ public class Aufgabe07 extends javax.swing.JFrame {
 
     private Dimension dim;
     private javax.swing.JPanel pWeinAufnehmen;
+    private javax.swing.JPanel pWeinDiagramm;
 }

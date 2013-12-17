@@ -5,6 +5,8 @@
  */
 package gui.ws1314.a07;
 
+import utilities.UniversalChangeListener;
+import utilities.DataSetManager;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Toolkit;
