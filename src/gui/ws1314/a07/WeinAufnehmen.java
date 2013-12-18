@@ -531,25 +531,28 @@ public class WeinAufnehmen extends javax.swing.JPanel {
             }
         }
 
-        // Dynamischer Wertebereich der Lagerfaehigkeit        
-        if (Integer.parseInt(this.tfLagerfaehigkeit.getText()) > (Integer.parseInt(this.tfJahrgang.getText()) + this.MAX_LAGERDAUER)
-                || Integer.parseInt(this.tfLagerfaehigkeit.getText()) < (Integer.parseInt(this.tfJahrgang.getText()) + this.MIN_LAGERDAUER)) {
-                JOptionPane.showMessageDialog(this, "Der Wert der Lagerfähigkeit liegt außerhalb des Wertebereichs!\n" 
+        try {
+            // Dynamischer Wertebereich der Lagerfaehigkeit        
+            if (Integer.parseInt(this.tfLagerfaehigkeit.getText()) > (Integer.parseInt(this.tfJahrgang.getText()) + this.MAX_LAGERDAUER)
+                    || Integer.parseInt(this.tfLagerfaehigkeit.getText()) < (Integer.parseInt(this.tfJahrgang.getText()) + this.MIN_LAGERDAUER)) {
+                JOptionPane.showMessageDialog(this, "Der Wert der Lagerfähigkeit liegt außerhalb des Wertebereichs!\n"
                         + tfLagerfaehigkeit.getToolTipText(), "Fehlerhafte Eingabe!", JOptionPane.ERROR_MESSAGE);
                 tfLagerfaehigkeit.setBackground(Color.decode("#FAA598"));
                 tfLagerfaehigkeit.requestFocus();
                 return;
-        }
+            }
 
-        // Dynamischer Wertebereich des Jahrgangs
-        if (Integer.parseInt(this.tfJahrgang.getText()) > this.MAX_JAHRGANG
-                || Integer.parseInt(this.tfJahrgang.getText()) < this.MIN_JAHRGANG) {
-                JOptionPane.showMessageDialog(this, "Der Wert des Jahrgangs liegt außerhalb des Wertebereichs!\n" 
+            // Dynamischer Wertebereich des Jahrgangs
+            if (Integer.parseInt(this.tfJahrgang.getText()) > this.MAX_JAHRGANG
+                    || Integer.parseInt(this.tfJahrgang.getText()) < this.MIN_JAHRGANG) {
+                JOptionPane.showMessageDialog(this, "Der Wert des Jahrgangs liegt außerhalb des Wertebereichs!\n"
                         + tfJahrgang.getToolTipText(), "Fehlerhafte Eingabe!", JOptionPane.ERROR_MESSAGE);
                 tfJahrgang.setBackground(Color.decode("#FAA598"));
                 tfJahrgang.requestFocus();
                 return;
-        }        
+            }
+        } catch (NumberFormatException e) {
+        }
 
         //Die wohl behindertste aber funktionierende Implementation ever
         int reb1 = cbRebsorteSelect1.getSelectedIndex();
@@ -574,9 +577,12 @@ public class WeinAufnehmen extends javax.swing.JPanel {
 
     private void tfJahrgangFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfJahrgangFocusLost
         ((JTextComponent) evt.getComponent()).select(0, 0);
-        
-        this.jahrgang = Integer.parseInt(tfJahrgang.getText());
-        
+
+        try {
+            this.jahrgang = Integer.parseInt(tfJahrgang.getText());
+        } catch (NumberFormatException e) {
+        }
+
         this.weinDiagramm.getDiagramm().jahrgang = this.jahrgang;
         this.weinDiagramm.getDiagramm().repaint();
     }//GEN-LAST:event_tfJahrgangFocusLost
@@ -588,7 +594,10 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     private void tfLagerfaehigkeitFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfLagerfaehigkeitFocusLost
         ((JTextComponent) evt.getComponent()).select(0, 0);
 
-        this.lagerdauer = Integer.parseInt(tfLagerfaehigkeit.getText()) - this.jahrgang;
+        try {
+            this.lagerdauer = Integer.parseInt(tfLagerfaehigkeit.getText()) - this.jahrgang;
+        } catch (NumberFormatException e) {
+        }
         this.weinDiagramm.getDiagramm().lagerdauer = this.lagerdauer;
         this.weinDiagramm.jSpinner.setValue((int) this.weinDiagramm.getDiagramm().lagerdauer);
         this.weinDiagramm.repaint();
@@ -611,7 +620,9 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     }//GEN-LAST:event_tfLagerfaehigkeitFocusGained
 
     private void cbFlaschenGrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFlaschenGrActionPerformed
-        if (!tfFlaschenpreis.getText().equals("") && !literpreis.getText().equals("")) preisBerechnung();
+        if (!tfFlaschenpreis.getText().equals("") && !literpreis.getText().equals("")) {
+            preisBerechnung();
+        }
     }//GEN-LAST:event_cbFlaschenGrActionPerformed
 
     private void tfFlaschenpreisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfFlaschenpreisFocusGained
@@ -619,7 +630,9 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     }//GEN-LAST:event_tfFlaschenpreisFocusGained
 
     private void tfFlaschenpreisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfFlaschenpreisKeyTyped
-        if (!((String) literpreis.getText()).isEmpty()) literpreis.setText(null);
+        if (!((String) literpreis.getText()).isEmpty()) {
+            literpreis.setText(null);
+        }
     }//GEN-LAST:event_tfFlaschenpreisKeyTyped
 
     private void buttonDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDownActionPerformed
@@ -632,9 +645,9 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         String format = "(\\d+(,\\d{1,2})?)?";
         String inhalt = ((JTextComponent) input).getText();
 
-        if (!((JTextComponent)input).getText().matches(format)) {
+        if (!((JTextComponent) input).getText().matches(format)) {
             literpreis.requestFocus();
-        }else{
+        } else {
             richtung = ButtonRichtung.OBEN;
             preisBerechnung();
         }
@@ -649,18 +662,20 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         String format = "(^\\d+((,)?\\d{1,2})?$)?";
         String inhalt = ((JTextComponent) input).getText();
 
-        if (!((JTextComponent)input).getText().matches(format)) {
+        if (!((JTextComponent) input).getText().matches(format)) {
             JOptionPane.showMessageDialog(null,
-                "Bitte eine Dezimalzahl mit maximal zwei Nachkommastellen fuer "
-                + ((JTextComponent) input).getName()
-                + " eingeben.",
-                "Formatfehler", JOptionPane.WARNING_MESSAGE);
+                    "Bitte eine Dezimalzahl mit maximal zwei Nachkommastellen fuer "
+                    + ((JTextComponent) input).getName()
+                    + " eingeben.",
+                    "Formatfehler", JOptionPane.WARNING_MESSAGE);
             literpreis.requestFocus();
         }
     }//GEN-LAST:event_literpreisFocusLost
 
     private void literpreisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_literpreisKeyTyped
-        if (!((String) tfFlaschenpreis.getText()).isEmpty()) tfFlaschenpreis.setText(null);
+        if (!((String) tfFlaschenpreis.getText()).isEmpty()) {
+            tfFlaschenpreis.setText(null);
+        }
     }//GEN-LAST:event_literpreisKeyTyped
 
     private void postInitComponents() {
@@ -695,7 +710,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
             ((JTextComponent) c).setDocument(
                     new UniversalDocument(hm.get(c).get(1)));
         }
-        
+
         tfJahrgang.setInputVerifier(new MinMaxVerifier());
         tfLagerfaehigkeit.setInputVerifier(new MinMaxVerifier());
 
@@ -711,9 +726,9 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         ArrayList<String> alRot = (ArrayList<String>) this.hmRebsorten.get("rot");
         ArrayList<String> alWeiss = (ArrayList<String>) this.hmRebsorten.get("weiss");
         ArrayList<String> alRose = (ArrayList<String>) this.hmRebsorten.get("rose");
-        
+
         // Fehlerbehandlung "NullPointerException" des GUI Editors
-        if (alRot == null || alWeiss == null || alRose == null){
+        if (alRot == null || alWeiss == null || alRose == null) {
             return;
         }
 
@@ -722,7 +737,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         alRose.add(""); // Empty Selection for Index 0
 
         ArrayList<String> countries = new ArrayList<>(this.hmLocations.keySet());
-        
+
         Collections.sort(countries);
         cbAnbaugebietSelectLand.setModel(new DefaultComboBoxModel(countries.toArray()));
 
@@ -739,8 +754,8 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     }
 
     private void setDefaults() {
-        tfBestellNr.setText(Integer.toString(AKTUELLES_JAHR) 
-                + Integer.toString(AKTUELLER_MONAT) 
+        tfBestellNr.setText(Integer.toString(AKTUELLES_JAHR)
+                + Integer.toString(AKTUELLER_MONAT)
                 + DECIMAL_FORMAT.format(addCounter));
         tfJahrgang.setText(Integer.toString(AKTUELLES_JAHR));
 
@@ -807,22 +822,25 @@ public class WeinAufnehmen extends javax.swing.JPanel {
                 + "\nPreis pro Liter: " + textLiterpreis.getText()
                 + "\n-----------------------------------------");
         System.out.println(save);
-        
+
         this.addCounter++;
     }
-    
+
     public void setDia(WeinDiagramm dia) {
         this.weinDiagramm = dia;
     }
-    
+
     public void setJahrgang(int jahrgang) {
         this.jahrgang = jahrgang;
     }
-    
+
     public void setLagerfaehigkeit(int lagerdauer) {
-        tfLagerfaehigkeit.setText(String.valueOf(Integer.parseInt(tfJahrgang.getText()) + lagerdauer));
+        try {
+            tfLagerfaehigkeit.setText(String.valueOf(Integer.parseInt(tfJahrgang.getText()) + lagerdauer));
+        } catch (NumberFormatException e) {
+        }
         this.repaint();
-    }                                      
+    }
 
     private Vector getOrder() {
         Vector<Component> order = new Vector<Component>(5);
@@ -833,7 +851,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         order.add(this.buttonUp);
         return order;
     }
-    
+
     private void preisBerechnung() {
         NumberFormat nf = NumberFormat.getInstance(Locale.GERMAN);
         nf.setMinimumFractionDigits(2);
@@ -862,17 +880,29 @@ public class WeinAufnehmen extends javax.swing.JPanel {
             default:
                 return;
         }
-                
+
     }
-    
+
     private void setDynamicTooltips(JTextComponent jtc, JTextComponent jtcTarget, int min, int max) {
         if (jtc == tfJahrgang) {
-            jtcTarget.setToolTipText("Fehler im Format: " +  min + " bis " + max);
+            if (jtcTarget == tfLagerfaehigkeit) {
+                tfLagerfaehigkeit.setToolTipText("Die Lagerfähigkeit beschreibt das Jahr, bis zu dem der Wein gelagert werden kann. "
+                        + "Format: " + min + " bis " + max);
+            } else if (jtcTarget == tfJahrgang) {
+                tfJahrgang.setToolTipText("Der Jahrgang umfasst 4 Dezimalzahlen im Format: " + min + " bis " + max);
+            }
+        } else if (jtc == tfLagerfaehigkeit) {
+            if (jtcTarget == tfLagerfaehigkeit) {
+                tfLagerfaehigkeit.setToolTipText("Die Lagerfähigkeit beschreibt das Jahr, bis zu dem der Wein gelagert werden kann. "
+                        + "Format: " + min + " bis " + max);
+            } else if (jtcTarget == tfJahrgang) {
+                tfJahrgang.setToolTipText("Der Jahrgang umfasst 4 Dezimalzahlen im Format: " + min + " bis " + max);
+            }
         } else {
-            jtc.setToolTipText("Der Wert muss zwischen " + min + " und " + max + " liegen.");
-        } 
+            jtc.setToolTipText("Fehler im Format: Der Wert muss zwischen " + min + " und " + max + " liegen.");
+        }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgFarben;
     private javax.swing.JButton btCancel;
@@ -920,7 +950,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     private final int MIN_LAGERDAUER = 1;
     private final int MAX_LAGERDAUER = 25;
     private final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0000");
-    
+
     // Post-Adding Variables
     private HashMap hmFormat;
     private HashMap hmRebsorten;
@@ -931,8 +961,8 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     private WeinDiagramm weinDiagramm;
     private int jahrgang = Calendar.getInstance().get(Calendar.YEAR);
     private int lagerdauer = 0;
-    
-    private int minLagerFaehigkeit = AKTUELLES_JAHR +  MIN_LAGERDAUER;
+
+    private int minLagerFaehigkeit = AKTUELLES_JAHR + MIN_LAGERDAUER;
     private int maxLagerFaehigkeit = AKTUELLES_JAHR + MAX_LAGERDAUER;
     private int minJahr = MIN_JAHRGANG;
     private int maxJahr = MAX_JAHRGANG;
@@ -987,19 +1017,23 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         }
 
     }
-    
+
     class MinMaxVerifier extends InputVerifier {
-        
+
         @Override
         public boolean verify(JComponent input) {
             if ((JTextComponent) input == tfJahrgang) {
-                int jahrgang = Integer.parseInt(((JTextComponent) input).getText());
-                
-                if (jahrgang >= WeinAufnehmen.this.minJahr && jahrgang<= WeinAufnehmen.this.maxJahr) {
+                int jahrgang = 0;
+                try {
+                    jahrgang = Integer.parseInt(((JTextComponent) input).getText());
+                } catch (NumberFormatException e) {
+                }
+
+                if (jahrgang >= WeinAufnehmen.this.minJahr && jahrgang <= WeinAufnehmen.this.maxJahr) {
                     WeinAufnehmen.this.minLagerFaehigkeit = jahrgang + MIN_LAGERDAUER;
                     WeinAufnehmen.this.maxLagerFaehigkeit = jahrgang + MAX_LAGERDAUER;
                     WeinAufnehmen.this.setDynamicTooltips((JTextComponent) input, WeinAufnehmen.this.tfLagerfaehigkeit, WeinAufnehmen.this.minLagerFaehigkeit, WeinAufnehmen.this.maxLagerFaehigkeit);
-                 
+
                     input.setBackground(Color.white);
                     return true;
                 } else {
@@ -1007,13 +1041,17 @@ public class WeinAufnehmen extends javax.swing.JPanel {
                     return false;
                 }
             } else if ((JTextComponent) input == tfLagerfaehigkeit) {
-                int lagerfaehigkeit = Integer.parseInt(((JTextComponent) input).getText());
-                
+                int lagerfaehigkeit = 0;
+                try {
+                    lagerfaehigkeit = Integer.parseInt(((JTextComponent) input).getText());
+                } catch (NumberFormatException e) {
+                }
+
                 if (lagerfaehigkeit >= WeinAufnehmen.this.minLagerFaehigkeit && lagerfaehigkeit <= WeinAufnehmen.this.maxLagerFaehigkeit) {
                     WeinAufnehmen.this.minJahr = lagerfaehigkeit - 25;
                     WeinAufnehmen.this.maxJahr = lagerfaehigkeit - 1;
                     WeinAufnehmen.this.setDynamicTooltips((JTextComponent) input, WeinAufnehmen.this.tfLagerfaehigkeit, WeinAufnehmen.this.minJahr, WeinAufnehmen.this.maxJahr);
-                    
+
                     input.setBackground(Color.white);
                     return true;
                 } else {
@@ -1021,10 +1059,10 @@ public class WeinAufnehmen extends javax.swing.JPanel {
                     return false;
                 }
             }
-            
+
             return true;
         }
-            
+
         public void printErrorMessage(JComponent input) {
             JOptionPane.showMessageDialog(null, "Bitte das Format einhalten!\n"
                     + ((JTextComponent) input).getToolTipText(),
@@ -1033,77 +1071,80 @@ public class WeinAufnehmen extends javax.swing.JPanel {
             input.setBackground(Color.decode("#FAA598"));
         }
     }
-    
+
     private enum ButtonRichtung {
+
         UNTEN,
         OBEN
     };
-    
+
     private ButtonRichtung richtung;
-    
+
     private InputVerifier decimalVerifier = new InputVerifier() {
         @Override
         public boolean verify(JComponent input) {
             String format = "(^\\d+((,)?\\d{1,2})?$)?";
             String inhalt = ((JTextComponent) input).getText();
 
-            if (((JTextComponent)input).getText().matches(format)) {
+            if (((JTextComponent) input).getText().matches(format)) {
                 input.setBackground(Color.white);
                 return true;
             } else {
                 input.setBackground(Color.decode("#FAA598"));
-                JOptionPane.showMessageDialog(null, 
-                        "Bitte eine Dezimalzahl mit maximal zwei Nachkommastellen fuer " 
-                                + ((JTextComponent) input).getName() 
-                                + " eingeben.",
+                JOptionPane.showMessageDialog(null,
+                        "Bitte eine Dezimalzahl mit maximal zwei Nachkommastellen fuer "
+                        + ((JTextComponent) input).getName()
+                        + " eingeben.",
                         "Formatfehler!", JOptionPane.WARNING_MESSAGE);
                 return false;
             }
         }
     };
-    
+
     class FocusOrder extends FocusTraversalPolicy {
+
         Vector<Component> order;
 
         public FocusOrder(Vector<Component> order) {
-          this.order = new Vector<Component>(order.size());
-          this.order.addAll(order);
+            this.order = new Vector<Component>(order.size());
+            this.order.addAll(order);
         }
 
         @Override
         public Component getComponentAfter(Container focusCycleRoot,
-            Component aComponent) {
-          int idx = (order.indexOf(aComponent) + 1) % order.size();
-          return order.get(idx);
+                Component aComponent) {
+            int idx = (order.indexOf(aComponent) + 1) % order.size();
+            return order.get(idx);
         }
 
         @Override
         public Component getComponentBefore(Container focusCycleRoot,
-            Component aComponent) {
-          int idx = order.indexOf(aComponent) - 1;
-          if (idx < 0) {
-            idx = order.size() - 1;
-          }
-          return order.get(idx);
+                Component aComponent) {
+            int idx = order.indexOf(aComponent) - 1;
+            if (idx < 0) {
+                idx = order.size() - 1;
+            }
+            return order.get(idx);
         }
 
         @Override
         public Component getDefaultComponent(Container focusCycleRoot) {
-          return order.get(0);
+            return order.get(0);
         }
 
         @Override
         public Component getLastComponent(Container focusCycleRoot) {
-          return order.lastElement();
+            return order.lastElement();
         }
 
         @Override
         public Component getFirstComponent(Container focusCycleRoot) {
-          return order.get(0);
-        } 
+            return order.get(0);
+        }
     }
-    
+
     class DecimalDocument extends PlainDocument {
+
         @Override
         public void insertString(int offs, String s, AttributeSet a) throws BadLocationException {
             for (int i = 0; i < s.length(); i++) {

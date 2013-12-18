@@ -4,7 +4,7 @@
 
  - Tooltips durch InputVerifier werden nicht vernünftig gesetzt. Prüfen!
 
- - NumberFormats durch fehlende try-catch vom Integer.parseInt prüfen!
+ - try-catch bisher ohne catch Implementierung vom Integer.parseInt!
  
 
 Optional:
