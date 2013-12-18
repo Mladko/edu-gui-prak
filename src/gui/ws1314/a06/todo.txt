@@ -1,5 +1,0 @@
-- Cancel Button Event funktioniert nicht, wegen statischer Methode in dem JFrame
-
-- bearbeitungsmodus der textfelder auf copy/paste/cut einarbeiten mit shortcuts
-- STRG+A markiert den text
-- Prüfe, ob Preis 0,00 sein darf
