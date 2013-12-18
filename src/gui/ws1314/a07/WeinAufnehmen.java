@@ -9,16 +9,26 @@ import utilities.UniversalChangeListener;
 import utilities.DataSetManager;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
+import java.awt.FocusTraversalPolicy;
 import java.awt.Toolkit;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.ListCellRenderer;
+import javax.swing.SwingConstants;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.JTextComponent;
@@ -70,13 +80,23 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         cbAlkohol = new javax.swing.JComboBox();
         lbLagerfaehigkeit = new javax.swing.JLabel();
         tfLagerfaehigkeit = new javax.swing.JTextField();
-        tfFlaschenpreis = new javax.swing.JTextField();
-        lbFlaschenGr = new javax.swing.JLabel();
-        lbEuro = new javax.swing.JLabel();
-        cbFlaschenGr = new javax.swing.JComboBox();
-        lbFlaschenpreis = new javax.swing.JLabel();
         btSave = new javax.swing.JButton();
         btCancel = new javax.swing.JButton();
+        textFlaschengroesse = new javax.swing.JLabel();
+        ListCellRenderer renderer = new DefaultListCellRenderer();
+        ((JLabel) renderer).setHorizontalAlignment(SwingConstants.RIGHT);
+        cbFlaschenGr = new javax.swing.JComboBox();
+        cbFlaschenGr.setRenderer(renderer);
+        textFlaschenpreis = new javax.swing.JLabel();
+        tfFlaschenpreis = new javax.swing.JTextField();
+        jPanelButtons = new javax.swing.JPanel();
+        buttonDown = new javax.swing.JButton();
+        buttonFiller = new javax.swing.Box.Filler(new java.awt.Dimension(33, 24), new java.awt.Dimension(33, 24), new java.awt.Dimension(32767, 0));
+        buttonUp = new javax.swing.JButton();
+        textLiterpreis = new javax.swing.JLabel();
+        euroFlaschenpreis = new javax.swing.JLabel();
+        literpreis = new javax.swing.JTextField();
+        euroLiterpreis = new javax.swing.JLabel();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -311,65 +331,9 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 50, 0, 0);
         add(tfLagerfaehigkeit, gridBagConstraints);
-
-        tfFlaschenpreis.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        tfFlaschenpreis.setToolTipText("");
-        tfFlaschenpreis.setAlignmentX(0.0F);
-        tfFlaschenpreis.setMinimumSize(new java.awt.Dimension(100, 24));
-        tfFlaschenpreis.setPreferredSize(new java.awt.Dimension(100, 24));
-        tfFlaschenpreis.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tfFlaschenpreisFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tfFlaschenpreisFocusLost(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 50, 0, 0);
-        add(tfFlaschenpreis, gridBagConstraints);
-
-        lbFlaschenGr.setText("Flaschengröße");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
-        add(lbFlaschenGr, gridBagConstraints);
-
-        lbEuro.setText("€");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 160, 0, 0);
-        add(lbEuro, gridBagConstraints);
-
-        cbFlaschenGr.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0,187 l", "0,25 l", "0,375 l", "0,5 l", "0,62 l", "0,7 l", "0,75 l", "0,8 l", "1 l", "1,5 l " }));
-        cbFlaschenGr.setAlignmentX(0.0F);
-        cbFlaschenGr.setMinimumSize(new java.awt.Dimension(100, 24));
-        cbFlaschenGr.setPreferredSize(new java.awt.Dimension(100, 24));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 50, 0, 0);
-        add(cbFlaschenGr, gridBagConstraints);
-
-        lbFlaschenpreis.setText("Flaschenpreis");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
-        add(lbFlaschenpreis, gridBagConstraints);
 
         btSave.setText("Speichern");
         btSave.addActionListener(new java.awt.event.ActionListener() {
@@ -378,7 +342,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridy = 14;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(50, 0, 0, 0);
         add(btSave, gridBagConstraints);
@@ -391,10 +355,140 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridy = 14;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(50, 0, 0, 0);
         add(btCancel, gridBagConstraints);
+
+        textFlaschengroesse.setText("Flaschengroesse");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        add(textFlaschengroesse, gridBagConstraints);
+
+        cbFlaschenGr.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0,187 l", "0,25 l", "0,375 l", "0,5 l", "0,62 l", "0,7 l", "0,75 l", "0,8 l", "1 l", "1,5 l" }));
+        cbFlaschenGr.setSelectedIndex(6);
+        cbFlaschenGr.setMinimumSize(new java.awt.Dimension(100, 24));
+        cbFlaschenGr.setPreferredSize(new java.awt.Dimension(100, 24));
+        cbFlaschenGr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbFlaschenGrActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 50, 0, 0);
+        add(cbFlaschenGr, gridBagConstraints);
+
+        textFlaschenpreis.setText("Flaschenpreis");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        add(textFlaschenpreis, gridBagConstraints);
+
+        tfFlaschenpreis.setDocument(new DecimalDocument()
+        );
+        tfFlaschenpreis.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        tfFlaschenpreis.setInputVerifier(decimalVerifier);
+        tfFlaschenpreis.setMinimumSize(new java.awt.Dimension(100, 24));
+        tfFlaschenpreis.setName("Flaschenpreis"); // NOI18N
+        tfFlaschenpreis.setPreferredSize(new java.awt.Dimension(100, 24));
+        tfFlaschenpreis.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfFlaschenpreisFocusGained(evt);
+            }
+        });
+        tfFlaschenpreis.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfFlaschenpreisKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 50, 0, 0);
+        add(tfFlaschenpreis, gridBagConstraints);
+
+        jPanelButtons.setMinimumSize(new java.awt.Dimension(100, 24));
+        jPanelButtons.setPreferredSize(new java.awt.Dimension(100, 24));
+        jPanelButtons.setLayout(new javax.swing.BoxLayout(jPanelButtons, javax.swing.BoxLayout.LINE_AXIS));
+
+        buttonDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/icons/arrow_down.png"))); // NOI18N
+        buttonDown.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        buttonDown.setMinimumSize(new java.awt.Dimension(33, 24));
+        buttonDown.setPreferredSize(new java.awt.Dimension(33, 24));
+        buttonDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDownActionPerformed(evt);
+            }
+        });
+        jPanelButtons.add(buttonDown);
+        jPanelButtons.add(buttonFiller);
+
+        buttonUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/icons/arrow_up.png"))); // NOI18N
+        buttonUp.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        buttonUp.setMinimumSize(new java.awt.Dimension(33, 24));
+        buttonUp.setName(""); // NOI18N
+        buttonUp.setPreferredSize(new java.awt.Dimension(33, 24));
+        buttonUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUpActionPerformed(evt);
+            }
+        });
+        jPanelButtons.add(buttonUp);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 50, 0, 0);
+        add(jPanelButtons, gridBagConstraints);
+
+        textLiterpreis.setText("Preis pro l");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 13;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        add(textLiterpreis, gridBagConstraints);
+
+        euroFlaschenpreis.setText("€");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 160, 0, 0);
+        add(euroFlaschenpreis, gridBagConstraints);
+
+        literpreis.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        literpreis.setMinimumSize(new java.awt.Dimension(100, 24));
+        literpreis.setName("Literpreis"); // NOI18N
+        literpreis.setPreferredSize(new java.awt.Dimension(100, 24));
+        literpreis.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                literpreisFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                literpreisFocusLost(evt);
+            }
+        });
+        literpreis.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                literpreisKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 13;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 50, 0, 0);
+        add(literpreis, gridBagConstraints);
+
+        euroLiterpreis.setText("€");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 13;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 160, 0, 0);
+        add(euroLiterpreis, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbAnbaugebietSelectLandItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbAnbaugebietSelectLandItemStateChanged
@@ -496,14 +590,9 @@ public class WeinAufnehmen extends javax.swing.JPanel {
 
         this.lagerdauer = Integer.parseInt(tfLagerfaehigkeit.getText()) - this.jahrgang;
         this.weinDiagramm.getDiagramm().lagerdauer = this.lagerdauer;
-        System.out.println(this.weinDiagramm.getDiagramm().lagerdauer);
         this.weinDiagramm.jSpinner.setValue((int) this.weinDiagramm.getDiagramm().lagerdauer);
         this.weinDiagramm.repaint();
     }//GEN-LAST:event_tfLagerfaehigkeitFocusLost
-
-    private void tfFlaschenpreisFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfFlaschenpreisFocusLost
-        ((JTextComponent) evt.getComponent()).select(0, 0);
-    }//GEN-LAST:event_tfFlaschenpreisFocusLost
 
     private void tfBestellNrFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfBestellNrFocusGained
         ((JTextComponent) evt.getComponent()).selectAll();
@@ -521,9 +610,58 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         ((JTextComponent) evt.getComponent()).selectAll();
     }//GEN-LAST:event_tfLagerfaehigkeitFocusGained
 
+    private void cbFlaschenGrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFlaschenGrActionPerformed
+        if (!tfFlaschenpreis.getText().equals("") && !literpreis.getText().equals("")) preisBerechnung();
+    }//GEN-LAST:event_cbFlaschenGrActionPerformed
+
     private void tfFlaschenpreisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfFlaschenpreisFocusGained
-        // TODO add your handling code here:
+        tfFlaschenpreis.selectAll();
     }//GEN-LAST:event_tfFlaschenpreisFocusGained
+
+    private void tfFlaschenpreisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfFlaschenpreisKeyTyped
+        if (!((String) literpreis.getText()).isEmpty()) literpreis.setText(null);
+    }//GEN-LAST:event_tfFlaschenpreisKeyTyped
+
+    private void buttonDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDownActionPerformed
+        richtung = ButtonRichtung.UNTEN;
+        preisBerechnung();
+    }//GEN-LAST:event_buttonDownActionPerformed
+
+    private void buttonUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpActionPerformed
+        JTextComponent input = literpreis;
+        String format = "(\\d+(,\\d{1,2})?)?";
+        String inhalt = ((JTextComponent) input).getText();
+
+        if (!((JTextComponent)input).getText().matches(format)) {
+            literpreis.requestFocus();
+        }else{
+            richtung = ButtonRichtung.OBEN;
+            preisBerechnung();
+        }
+    }//GEN-LAST:event_buttonUpActionPerformed
+
+    private void literpreisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_literpreisFocusGained
+        literpreis.selectAll();
+    }//GEN-LAST:event_literpreisFocusGained
+
+    private void literpreisFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_literpreisFocusLost
+        JTextComponent input = literpreis;
+        String format = "(^\\d+((,)?\\d{1,2})?$)?";
+        String inhalt = ((JTextComponent) input).getText();
+
+        if (!((JTextComponent)input).getText().matches(format)) {
+            JOptionPane.showMessageDialog(null,
+                "Bitte eine Dezimalzahl mit maximal zwei Nachkommastellen fuer "
+                + ((JTextComponent) input).getName()
+                + " eingeben.",
+                "Formatfehler", JOptionPane.WARNING_MESSAGE);
+            literpreis.requestFocus();
+        }
+    }//GEN-LAST:event_literpreisFocusLost
+
+    private void literpreisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_literpreisKeyTyped
+        if (!((String) tfFlaschenpreis.getText()).isEmpty()) tfFlaschenpreis.setText(null);
+    }//GEN-LAST:event_literpreisKeyTyped
 
     private void postInitComponents() {
         this.hmFormat = setFormatHashMap();
@@ -534,10 +672,6 @@ public class WeinAufnehmen extends javax.swing.JPanel {
 
     private HashMap setFormatHashMap() {
         HashMap<Component, ArrayList<String>> hm = new HashMap<>();
-//        INFO: BestellNr. is now auto-generated
-//        hm.put(tfBestellNr, new ArrayList<String>());
-//        hm.get(tfBestellNr).add(0, "(\\d{10})?"); //Format for InputVerifier
-//        hm.get(tfBestellNr).add(1, "\\d+"); //Format for Document
 
         hm.put(tfJahrgang, new ArrayList<String>());
         hm.get(tfJahrgang).add(0, "(((198[8-9])|(199\\d{1}))|((200\\d{1})|(201[0-3])))?");
@@ -666,8 +800,9 @@ public class WeinAufnehmen extends javax.swing.JPanel {
                 + "\nAlkoholgehalt: " + cbAlkohol.getSelectedItem().toString()
                 + "\nLagerfähigkeit: " + tfLagerfaehigkeit.getText()
                 + "\nFlaschengröße: " + cbFlaschenGr.getSelectedItem().toString()
-                + "\nFlaschenpreis: " + tfFlaschenpreis.getText())
-                + "\n-----------------------------------------";
+                + "\nFlaschenpreis: " + tfFlaschenpreis.getText()
+                + "\nPreis pro Liter: " + textLiterpreis.getText()
+                + "\n-----------------------------------------");
         System.out.println(save);
         
         this.addCounter++;
@@ -682,14 +817,58 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     }
     
     public void setLagerfaehigkeit(int lagerdauer) {
-        tfLagerfaehigkeit.setText(String.valueOf((int) (AKTUELLES_JAHR + lagerdauer)));
+        tfLagerfaehigkeit.setText(String.valueOf(Integer.parseInt(tfJahrgang.getText()) + lagerdauer));
         this.repaint();
-    }
+    }                                      
 
+    private Vector getOrder() {
+        Vector<Component> order = new Vector<Component>(5);
+        order.add(this.cbFlaschenGr);
+        order.add(this.tfFlaschenpreis);
+        order.add(this.buttonDown);
+        order.add(this.literpreis);
+        order.add(this.buttonUp);
+        return order;
+    }
+    
+    private void preisBerechnung() {
+        NumberFormat nf = NumberFormat.getInstance(Locale.GERMAN);
+        nf.setMinimumFractionDigits(2);
+        nf.setMaximumFractionDigits(2);
+        nf.setGroupingUsed(false); //Tausender Trenner disable
+
+        switch (richtung) {
+            case UNTEN:
+                try {
+                    double preisProFlasche = nf.parse(this.tfFlaschenpreis.getText()).doubleValue();
+                    double flaschengr = nf.parse(this.cbFlaschenGr.getItemAt(this.cbFlaschenGr.getSelectedIndex()).toString()).doubleValue();
+                    literpreis.setText(nf.format(preisProFlasche / flaschengr));
+                } catch (ParseException ex) {
+                    JOptionPane.showMessageDialog(this, "Falsche Format!", "Bitte deutsches Währungsformat fuer Flaschenpreis einhalten!", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            case OBEN:
+                try {
+                    double preisProLiter = nf.parse(this.literpreis.getText()).doubleValue();
+                    double flaschengr = nf.parse(this.cbFlaschenGr.getItemAt(this.cbFlaschenGr.getSelectedIndex()).toString()).doubleValue();
+                    tfFlaschenpreis.setText(nf.format(preisProLiter * flaschengr));
+                } catch (ParseException ex) {
+                    JOptionPane.showMessageDialog(this, "Falsche Format!", "Bitte deutsches Währungsformat fuer Literpreis einhalten!", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            default:
+                return;
+        }
+                
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgFarben;
     private javax.swing.JButton btCancel;
     private javax.swing.JButton btSave;
+    private javax.swing.JButton buttonDown;
+    private javax.swing.Box.Filler buttonFiller;
+    private javax.swing.JButton buttonUp;
     private javax.swing.JComboBox cbAlkohol;
     private javax.swing.JComboBox cbAnbaugebietSelectLand;
     private javax.swing.JComboBox cbAnbaugebietSelectRegion;
@@ -697,20 +876,24 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     private javax.swing.JComboBox cbRebsorteSelect1;
     private javax.swing.JComboBox cbRebsorteSelect2;
     private javax.swing.JComboBox cbRebsorteSelect3;
+    private javax.swing.JLabel euroFlaschenpreis;
+    private javax.swing.JLabel euroLiterpreis;
+    private javax.swing.JPanel jPanelButtons;
     private javax.swing.JLabel lbAlkohol;
     private javax.swing.JLabel lbAnbaugebiet;
     private javax.swing.JLabel lbBestellNr;
-    private javax.swing.JLabel lbEuro;
     private javax.swing.JLabel lbFarbe;
-    private javax.swing.JLabel lbFlaschenGr;
-    private javax.swing.JLabel lbFlaschenpreis;
     private javax.swing.JLabel lbJahrgang;
     private javax.swing.JLabel lbLagerfaehigkeit;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbRebsorte;
+    private javax.swing.JTextField literpreis;
     private javax.swing.JRadioButton rbRose;
     private javax.swing.JRadioButton rbRot;
     private javax.swing.JRadioButton rbWeiss;
+    private javax.swing.JLabel textFlaschengroesse;
+    private javax.swing.JLabel textFlaschenpreis;
+    private javax.swing.JLabel textLiterpreis;
     private javax.swing.JTextField tfBestellNr;
     private javax.swing.JTextField tfFlaschenpreis;
     private javax.swing.JTextField tfJahrgang;
@@ -787,5 +970,86 @@ public class WeinAufnehmen extends javax.swing.JPanel {
             input.setBackground(Color.decode("#FAA598"));
         }
 
+    }
+    
+    private enum ButtonRichtung {
+        UNTEN,
+        OBEN
+    };
+    
+    private ButtonRichtung richtung;
+    
+    private InputVerifier decimalVerifier = new InputVerifier() {
+        @Override
+        public boolean verify(JComponent input) {
+            String format = "(^\\d+((,)?\\d{1,2})?$)?";
+            String inhalt = ((JTextComponent) input).getText();
+
+            if (((JTextComponent)input).getText().matches(format)) {
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(null, 
+                        "Bitte eine Dezimalzahl mit maximal zwei Nachkommastellen fuer " 
+                                + ((JTextComponent) input).getName() 
+                                + " eingeben.",
+                        "Formatfehler!", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+        }
+    };
+    
+    class FocusOrder extends FocusTraversalPolicy {
+        Vector<Component> order;
+
+        public FocusOrder(Vector<Component> order) {
+          this.order = new Vector<Component>(order.size());
+          this.order.addAll(order);
+        }
+
+        @Override
+        public Component getComponentAfter(Container focusCycleRoot,
+            Component aComponent) {
+          int idx = (order.indexOf(aComponent) + 1) % order.size();
+          return order.get(idx);
+        }
+
+        @Override
+        public Component getComponentBefore(Container focusCycleRoot,
+            Component aComponent) {
+          int idx = order.indexOf(aComponent) - 1;
+          if (idx < 0) {
+            idx = order.size() - 1;
+          }
+          return order.get(idx);
+        }
+
+        @Override
+        public Component getDefaultComponent(Container focusCycleRoot) {
+          return order.get(0);
+        }
+
+        @Override
+        public Component getLastComponent(Container focusCycleRoot) {
+          return order.lastElement();
+        }
+
+        @Override
+        public Component getFirstComponent(Container focusCycleRoot) {
+          return order.get(0);
+        } 
+    }
+    
+    class DecimalDocument extends PlainDocument {
+        @Override
+        public void insertString(int offs, String s, AttributeSet a) throws BadLocationException {
+            for (int i = 0; i < s.length(); i++) {
+                if (!s.matches("^\\d+(,)?\\d{0,2}$|,")) {
+                    Toolkit.getDefaultToolkit().beep();
+                    System.out.println("Visual Bell: Ungültiges Zeichen!");
+                    return;
+                }
+            }
+            super.insertString(offs, s, a);
+        }
     }
 }
