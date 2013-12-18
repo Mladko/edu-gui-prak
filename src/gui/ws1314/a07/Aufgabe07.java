@@ -60,7 +60,7 @@ public class Aufgabe07 extends javax.swing.JFrame {
         ifWeinAufnehmen.setMaximizable(true);
         ifWeinAufnehmen.setResizable(true);
         ifWeinAufnehmen.setTitle("Wein aufnehmen");
-        ifWeinAufnehmen.setVisible(true);
+        ifWeinAufnehmen.setVisible(false);
 
         javax.swing.GroupLayout ifWeinAufnehmenLayout = new javax.swing.GroupLayout(ifWeinAufnehmen.getContentPane());
         ifWeinAufnehmen.getContentPane().setLayout(ifWeinAufnehmenLayout);

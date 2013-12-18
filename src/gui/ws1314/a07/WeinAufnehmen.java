@@ -840,7 +840,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
                 + "\nLagerfähigkeit: " + tfLagerfaehigkeit.getText()
                 + "\nFlaschengröße: " + cbFlaschenGr.getSelectedItem().toString()
                 + "\nFlaschenpreis: " + tfFlaschenpreis.getText()
-                + "\nPreis pro Liter: " + textLiterpreis.getText()
+                + "\nPreis pro Liter: " + literpreis.getText()
                 + "\n-----------------------------------------");
         System.out.println(save);
 
@@ -1099,7 +1099,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         OBEN
     };
 
-    private ButtonRichtung richtung;
+    private ButtonRichtung richtung = ButtonRichtung.UNTEN;
 
     private InputVerifier decimalVerifier = new InputVerifier() {
         @Override
