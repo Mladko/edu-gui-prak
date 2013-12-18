@@ -7,6 +7,7 @@
 package gui.ws1314.a07;
 
 import javax.swing.SpinnerNumberModel;
+import gui.ws1314.a07.diagramm.*;
 
 /**
  *
@@ -19,6 +20,7 @@ public class WeinDiagramm extends javax.swing.JPanel {
      */
     public WeinDiagramm() {
         initComponents();
+        this.getDiagramm().setzeJSpinner(this.jSpinner);
     }
 
     /**
@@ -154,11 +156,38 @@ public class WeinDiagramm extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerStateChanged
-        this.reifeDiagramm.setzeEingabe((int) this.reifeDiagramm.jahrgang, (int) jSpinner.getValue());
+        this.reifeDiagramm.setzeEingabe((int) this.reifeDiagramm.jahrgang, (int) this.jSpinner.getValue());
+        this.weinAufnehmen.setLagerfaehigkeit((int) this.jSpinner.getValue());
         this.reifeDiagramm.repaint();
     }//GEN-LAST:event_jSpinnerStateChanged
 
+    /**
+     * Liefert das ReifeDiagramm des Fensters
+     *
+     * @return ReifeDiagramm
+     */
+    public ReifeDiagramm getDiagramm() {
+        return this.reifeDiagramm;
+    }
+    
+    public void setzeWerte(int jahrgang, int lagerdauer) {
+        this.reifeDiagramm.setzeEingabe(jahrgang, lagerdauer);
+    }
 
+    /**
+     * Liefert die Legende des Fensters
+     *
+     * @return Legende
+     */
+    public Legende getLegende() {
+        return this.legende;
+    }
+    
+    public void setWeinAufnehmen(WeinAufnehmen wa) {
+        this.weinAufnehmen = wa;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel;
     private javax.swing.JPanel jPanelBottomMargin;
@@ -171,4 +200,6 @@ public class WeinDiagramm extends javax.swing.JPanel {
     private gui.ws1314.a07.diagramm.Legende legende;
     private gui.ws1314.a07.diagramm.ReifeDiagramm reifeDiagramm;
     // End of variables declaration//GEN-END:variables
+
+    private WeinAufnehmen weinAufnehmen;
 }

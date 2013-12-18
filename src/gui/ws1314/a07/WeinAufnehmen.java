@@ -480,6 +480,11 @@ public class WeinAufnehmen extends javax.swing.JPanel {
 
     private void tfJahrgangFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfJahrgangFocusLost
         ((JTextComponent) evt.getComponent()).select(0, 0);
+        
+        this.jahrgang = Integer.parseInt(tfJahrgang.getText());
+        
+        this.weinDiagramm.getDiagramm().jahrgang = this.jahrgang;
+        this.weinDiagramm.getDiagramm().repaint();
     }//GEN-LAST:event_tfJahrgangFocusLost
 
     private void tfNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfNameFocusLost
@@ -488,6 +493,12 @@ public class WeinAufnehmen extends javax.swing.JPanel {
 
     private void tfLagerfaehigkeitFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfLagerfaehigkeitFocusLost
         ((JTextComponent) evt.getComponent()).select(0, 0);
+
+        this.lagerdauer = Integer.parseInt(tfLagerfaehigkeit.getText()) - this.jahrgang;
+        this.weinDiagramm.getDiagramm().lagerdauer = this.lagerdauer;
+        System.out.println(this.weinDiagramm.getDiagramm().lagerdauer);
+        this.weinDiagramm.jSpinner.setValue((int) this.weinDiagramm.getDiagramm().lagerdauer);
+        this.weinDiagramm.repaint();
     }//GEN-LAST:event_tfLagerfaehigkeitFocusLost
 
     private void tfFlaschenpreisFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfFlaschenpreisFocusLost
@@ -593,7 +604,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     private void setDefaults() {
         tfBestellNr.setText(Integer.toString(AKTUELLES_JAHR) 
                 + Integer.toString(AKTUELLER_MONAT) 
-                + df.format(addCounter));
+                + DECIMAL_FORMAT.format(addCounter));
         tfJahrgang.setText(Integer.toString(AKTUELLES_JAHR));
 
         rbWeiss.setSelected(true);
@@ -661,6 +672,19 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         
         this.addCounter++;
     }
+    
+    public void setDia(WeinDiagramm dia) {
+        this.weinDiagramm = dia;
+    }
+    
+    public void setJahrgang(int jahrgang) {
+        this.jahrgang = jahrgang;
+    }
+    
+    public void setLagerfaehigkeit(int lagerdauer) {
+        tfLagerfaehigkeit.setText(String.valueOf((int) (AKTUELLES_JAHR + lagerdauer)));
+        this.repaint();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgFarben;
@@ -700,8 +724,10 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     private HashMap hmLocations;
     private String rbSelectedColor;
     private int addCounter = 0;
-    private DecimalFormat df = new DecimalFormat("0000");
     UniversalChangeListener uniChangeListener = new UniversalChangeListener();
+    private WeinDiagramm weinDiagramm;
+    private int jahrgang = Calendar.getInstance().get(Calendar.YEAR);
+    private int lagerdauer = 0;
 
     // Constants
     private final int AKTUELLES_JAHR = Calendar.getInstance().get(Calendar.YEAR);
@@ -710,6 +736,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     private final int MAX_JAHRGANG = AKTUELLES_JAHR;
     private final int MIN_LAGERDAUER = 1;
     private final int MAX_LAGERDAUER = 25;
+    private final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0000");
 
     // Inner Classes
     class UniversalDocument extends PlainDocument {

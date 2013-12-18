@@ -216,6 +216,9 @@ public class Aufgabe07 extends javax.swing.JFrame {
         
         tpWeinAufnehmenTabs.addTab("Aufnehmen", pWeinAufnehmen);
         tpWeinAufnehmenTabs.addTab("Trinkreife", pWeinDiagramm);
+        
+        this.pWeinAufnehmen.setDia(pWeinDiagramm);
+        this.pWeinDiagramm.setWeinAufnehmen(pWeinAufnehmen);
     }
     
     private void closeWeinAufnehmen() {
@@ -280,6 +283,8 @@ public class Aufgabe07 extends javax.swing.JFrame {
             }
         });
     }
+    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addCostumerMenuItem;
@@ -300,6 +305,6 @@ public class Aufgabe07 extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private Dimension dim;
-    private javax.swing.JPanel pWeinAufnehmen;
-    private javax.swing.JPanel pWeinDiagramm;
+    private WeinAufnehmen pWeinAufnehmen;
+    private WeinDiagramm pWeinDiagramm;
 }
