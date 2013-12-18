@@ -348,6 +348,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         add(btSave, gridBagConstraints);
 
         btCancel.setText("Abbrechen");
+        btCancel.setEnabled(false);
         btCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCancelActionPerformed(evt);
