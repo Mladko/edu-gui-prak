@@ -510,9 +510,9 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     }//GEN-LAST:event_rbRoseActionPerformed
 
     private void btCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelActionPerformed
-        if (uniChangeListener.hasChanged()) {
-//            Aufgabe06.closeWeinAufnehmen(); // FIXME static content in frame
-        }
+//        if (uniChangeListener.hasChanged()) {
+////            Aufgabe06.closeWeinAufnehmen(); // FIXME static content in frame
+//        }
     }//GEN-LAST:event_btCancelActionPerformed
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
@@ -695,6 +695,9 @@ public class WeinAufnehmen extends javax.swing.JPanel {
             ((JTextComponent) c).setDocument(
                     new UniversalDocument(hm.get(c).get(1)));
         }
+        
+        tfJahrgang.setInputVerifier(new MinMaxVerifier());
+        tfLagerfaehigkeit.setInputVerifier(new MinMaxVerifier());
 
         return hm;
     }
@@ -749,7 +752,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         tfJahrgang.setText(String.valueOf(AKTUELLES_JAHR));
         cbFlaschenGr.setSelectedIndex(6);
         tfFlaschenpreis.setText("0,00");
-        tfLagerfaehigkeit.setText("");
+        tfLagerfaehigkeit.setText(String.valueOf(AKTUELLES_JAHR + MAX_LAGERDAUER));
         tfName.setText("");
     }
 
@@ -862,6 +865,14 @@ public class WeinAufnehmen extends javax.swing.JPanel {
                 
     }
     
+    private void setDynamicTooltips(JTextComponent jtc, JTextComponent jtcTarget, int min, int max) {
+        if (jtc == tfJahrgang) {
+            jtcTarget.setToolTipText("Fehler im Format: " +  min + " bis " + max);
+        } else {
+            jtc.setToolTipText("Der Wert muss zwischen " + min + " und " + max + " liegen.");
+        } 
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgFarben;
     private javax.swing.JButton btCancel;
@@ -901,17 +912,6 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     private javax.swing.JTextField tfName;
     // End of variables declaration//GEN-END:variables
 
-    // Post-Adding Variables
-    private HashMap hmFormat;
-    private HashMap hmRebsorten;
-    private HashMap hmLocations;
-    private String rbSelectedColor;
-    private int addCounter = 0;
-    UniversalChangeListener uniChangeListener = new UniversalChangeListener();
-    private WeinDiagramm weinDiagramm;
-    private int jahrgang = Calendar.getInstance().get(Calendar.YEAR);
-    private int lagerdauer = 0;
-
     // Constants
     private final int AKTUELLES_JAHR = Calendar.getInstance().get(Calendar.YEAR);
     private final int AKTUELLER_MONAT = Calendar.getInstance().get(Calendar.MONTH);
@@ -920,6 +920,22 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     private final int MIN_LAGERDAUER = 1;
     private final int MAX_LAGERDAUER = 25;
     private final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0000");
+    
+    // Post-Adding Variables
+    private HashMap hmFormat;
+    private HashMap hmRebsorten;
+    private HashMap hmLocations;
+    private String rbSelectedColor;
+    private int addCounter = 0;
+    private UniversalChangeListener uniChangeListener = new UniversalChangeListener();
+    private WeinDiagramm weinDiagramm;
+    private int jahrgang = Calendar.getInstance().get(Calendar.YEAR);
+    private int lagerdauer = 0;
+    
+    private int minLagerFaehigkeit = AKTUELLES_JAHR +  MIN_LAGERDAUER;
+    private int maxLagerFaehigkeit = AKTUELLES_JAHR + MAX_LAGERDAUER;
+    private int minJahr = MIN_JAHRGANG;
+    private int maxJahr = MAX_JAHRGANG;
 
     // Inner Classes
     class UniversalDocument extends PlainDocument {
@@ -972,6 +988,52 @@ public class WeinAufnehmen extends javax.swing.JPanel {
 
     }
     
+    class MinMaxVerifier extends InputVerifier {
+        
+        @Override
+        public boolean verify(JComponent input) {
+            if ((JTextComponent) input == tfJahrgang) {
+                int jahrgang = Integer.parseInt(((JTextComponent) input).getText());
+                
+                if (jahrgang >= WeinAufnehmen.this.minJahr && jahrgang<= WeinAufnehmen.this.maxJahr) {
+                    WeinAufnehmen.this.minLagerFaehigkeit = jahrgang + MIN_LAGERDAUER;
+                    WeinAufnehmen.this.maxLagerFaehigkeit = jahrgang + MAX_LAGERDAUER;
+                    WeinAufnehmen.this.setDynamicTooltips((JTextComponent) input, WeinAufnehmen.this.tfLagerfaehigkeit, WeinAufnehmen.this.minLagerFaehigkeit, WeinAufnehmen.this.maxLagerFaehigkeit);
+                 
+                    input.setBackground(Color.white);
+                    return true;
+                } else {
+                    this.printErrorMessage(input);
+                    return false;
+                }
+            } else if ((JTextComponent) input == tfLagerfaehigkeit) {
+                int lagerfaehigkeit = Integer.parseInt(((JTextComponent) input).getText());
+                
+                if (lagerfaehigkeit >= WeinAufnehmen.this.minLagerFaehigkeit && lagerfaehigkeit <= WeinAufnehmen.this.maxLagerFaehigkeit) {
+                    WeinAufnehmen.this.minJahr = lagerfaehigkeit - 25;
+                    WeinAufnehmen.this.maxJahr = lagerfaehigkeit - 1;
+                    WeinAufnehmen.this.setDynamicTooltips((JTextComponent) input, WeinAufnehmen.this.tfLagerfaehigkeit, WeinAufnehmen.this.minJahr, WeinAufnehmen.this.maxJahr);
+                    
+                    input.setBackground(Color.white);
+                    return true;
+                } else {
+                    this.printErrorMessage(input);
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+            
+        public void printErrorMessage(JComponent input) {
+            JOptionPane.showMessageDialog(null, "Bitte das Format einhalten!\n"
+                    + ((JTextComponent) input).getToolTipText(),
+                    "Formatfehler!", JOptionPane.WARNING_MESSAGE);
+
+            input.setBackground(Color.decode("#FAA598"));
+        }
+    }
+    
     private enum ButtonRichtung {
         UNTEN,
         OBEN
@@ -986,8 +1048,10 @@ public class WeinAufnehmen extends javax.swing.JPanel {
             String inhalt = ((JTextComponent) input).getText();
 
             if (((JTextComponent)input).getText().matches(format)) {
+                input.setBackground(Color.white);
                 return true;
             } else {
+                input.setBackground(Color.decode("#FAA598"));
                 JOptionPane.showMessageDialog(null, 
                         "Bitte eine Dezimalzahl mit maximal zwei Nachkommastellen fuer " 
                                 + ((JTextComponent) input).getName() 
