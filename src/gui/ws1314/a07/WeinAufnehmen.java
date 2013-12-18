@@ -398,6 +398,9 @@ public class WeinAufnehmen extends javax.swing.JPanel {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tfFlaschenpreisFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfFlaschenpreisFocusLost(evt);
+            }
         });
         tfFlaschenpreis.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -662,9 +665,10 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         String format = "(^\\d+((,)?\\d{1,2})?$)?";
         String inhalt = ((JTextComponent) input).getText();
 
-        if (!((JTextComponent) input).getText().matches(format)) {
+        if (!((JTextComponent) input).getText().matches(format) || 
+                ((JTextComponent) input).getText().contains("0,00")) {
             JOptionPane.showMessageDialog(null,
-                    "Bitte eine Dezimalzahl mit maximal zwei Nachkommastellen fuer "
+                    "Bitte eine Dezimalzahl größer 0,00 und mit maximal zwei Nachkommastellen für "
                     + ((JTextComponent) input).getName()
                     + " eingeben.",
                     "Formatfehler", JOptionPane.WARNING_MESSAGE);
@@ -677,6 +681,22 @@ public class WeinAufnehmen extends javax.swing.JPanel {
             tfFlaschenpreis.setText(null);
         }
     }//GEN-LAST:event_literpreisKeyTyped
+
+    private void tfFlaschenpreisFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfFlaschenpreisFocusLost
+        JTextComponent input = tfFlaschenpreis;
+        String format = "(^\\d+((,)?\\d{1,2})?$)?";
+        String inhalt = ((JTextComponent) input).getText();
+
+        if (!((JTextComponent) input).getText().matches(format) || 
+                ((JTextComponent) input).getText().contains("0,00")) {
+            JOptionPane.showMessageDialog(null,
+                    "Bitte eine Dezimalzahl größer 0,00 und mit maximal zwei Nachkommastellen für "
+                    + ((JTextComponent) input).getName()
+                    + " eingeben.",
+                    "Formatfehler", JOptionPane.WARNING_MESSAGE);
+            tfFlaschenpreis.requestFocus();
+        }
+    }//GEN-LAST:event_tfFlaschenpreisFocusLost
 
     private void postInitComponents() {
         this.hmFormat = setFormatHashMap();
@@ -766,9 +786,10 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         cbAlkohol.setSelectedIndex(8);
         tfJahrgang.setText(String.valueOf(AKTUELLES_JAHR));
         cbFlaschenGr.setSelectedIndex(6);
-        tfFlaschenpreis.setText("0,00");
+        tfFlaschenpreis.setText("3,75");
         tfLagerfaehigkeit.setText(String.valueOf(AKTUELLES_JAHR + MAX_LAGERDAUER));
         tfName.setText("");
+        literpreis.setText("5,00");
     }
 
     private void addListener() {

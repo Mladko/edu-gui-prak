@@ -1,9 +1,5 @@
  - Cancel Button Event funktioniert nicht, wegen statischer Methode in dem JFrame
 
- - Prüfung: Preis darf nicht 0,00 sein
-
- - Tooltips durch InputVerifier werden nicht vernünftig gesetzt. Prüfen!
-
  - try-catch bisher ohne catch Implementierung vom Integer.parseInt!
  
 
@@ -11,4 +7,4 @@ Optional:
 
  - bearbeitungsmodus der textfelder auf copy/paste/cut einarbeiten mit shortcuts
 
- - STRG+A markiert den text
+ - zusätzlich: STRG+A markiert den text
