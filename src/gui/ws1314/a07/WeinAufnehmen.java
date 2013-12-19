@@ -348,7 +348,6 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         add(btSave, gridBagConstraints);
 
         btCancel.setText("Abbrechen");
-        btCancel.setEnabled(false);
         btCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCancelActionPerformed(evt);
@@ -514,9 +513,9 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     }//GEN-LAST:event_rbRoseActionPerformed
 
     private void btCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelActionPerformed
-//        if (uniChangeListener.hasChanged()) {
-//            Fenster.closeWeinAufnehmen(); // FIXME static content in frame
-//        }
+        if (this.uniChangeListener.hasChanged()) {
+            parentFenster.closeWeinAufnehmen(this.uniChangeListener);
+        }
     }//GEN-LAST:event_btCancelActionPerformed
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
@@ -873,6 +872,10 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         order.add(this.buttonUp);
         return order;
     }
+    
+    public void setFenster(Fenster f) {
+        this.parentFenster = f;
+    }
 
     private void preisBerechnung() {
         NumberFormat nf = NumberFormat.getInstance(Locale.GERMAN);
@@ -981,6 +984,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     private int addCounter = 0;
     private UniversalChangeListener uniChangeListener = new UniversalChangeListener();
     private WeinDiagramm weinDiagramm;
+    private Fenster parentFenster;
     private int jahrgang = Calendar.getInstance().get(Calendar.YEAR);
     private int lagerdauer = 0;
 

@@ -7,6 +7,7 @@ package gui.ws1314.a07;
 
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
+import utilities.UniversalChangeListener;
 
 /**
  *
@@ -183,7 +184,7 @@ public class Fenster extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-        schliessfeldBetaetigt();
+        this.schliessfeldBetaetigt();
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void fileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuActionPerformed
@@ -199,7 +200,9 @@ public class Fenster extends javax.swing.JFrame {
     }//GEN-LAST:event_editCostumerMenuItemActionPerformed
 
     private void addWineMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addWineMenuItemActionPerformed
-        ifWeinAufnehmen.setVisible(true);
+        this.ifWeinAufnehmen.setVisible(true);
+        this.tpWeinAufnehmenTabs.addTab("Aufnehmen", pWeinAufnehmen);
+        this.tpWeinAufnehmenTabs.addTab("Trinkreife", pWeinDiagramm);
     }//GEN-LAST:event_addWineMenuItemActionPerformed
 
     private void infoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoMenuItemActionPerformed
@@ -207,7 +210,7 @@ public class Fenster extends javax.swing.JFrame {
     }//GEN-LAST:event_infoMenuItemActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        schliessfeldBetaetigt();
+        this.schliessfeldBetaetigt();
     }//GEN-LAST:event_formWindowClosing
 
     private void postInitComponents() {
@@ -219,14 +222,16 @@ public class Fenster extends javax.swing.JFrame {
         
         this.pWeinAufnehmen.setDia(pWeinDiagramm);
         this.pWeinDiagramm.setWeinAufnehmen(pWeinAufnehmen);
+        this.pWeinAufnehmen.setFenster(this);
     }
     
-    public void closeWeinAufnehmen() {
-
-        if (beenden() == JOptionPane.YES_OPTION) {
+    public void closeWeinAufnehmen(UniversalChangeListener ucl) {
+        this.ucl = ucl;
+        
+        if (beenden() != JOptionPane.YES_OPTION) {
             return;
         }
-        pWeinAufnehmen.setVisible(false);
+        this.ifWeinAufnehmen.setVisible(false);
         clearAll();
     }
 
@@ -251,7 +256,7 @@ public class Fenster extends javax.swing.JFrame {
         //pWeinAufnehmen.postInitComponents();
 
         this.setSize(dim);
-    //aenderung.reset();
+        this.ucl.reset();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -275,4 +280,5 @@ public class Fenster extends javax.swing.JFrame {
     private Dimension dim;
     private WeinAufnehmen pWeinAufnehmen;
     private WeinDiagramm pWeinDiagramm;
+    private UniversalChangeListener ucl;
 }

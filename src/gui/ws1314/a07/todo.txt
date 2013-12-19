@@ -1,5 +1,3 @@
- - Cancel Button Event funktioniert nicht, wegen statischer Methode in dem JFrame
-
  - try-catch bisher ohne catch Implementierung vom Integer.parseInt!
  
 
