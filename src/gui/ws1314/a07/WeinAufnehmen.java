@@ -515,7 +515,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
 
     private void btCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelActionPerformed
 //        if (uniChangeListener.hasChanged()) {
-////            Aufgabe06.closeWeinAufnehmen(); // FIXME static content in frame
+//            Fenster.closeWeinAufnehmen(); // FIXME static content in frame
 //        }
     }//GEN-LAST:event_btCancelActionPerformed
 

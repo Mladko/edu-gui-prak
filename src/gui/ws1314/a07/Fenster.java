@@ -221,7 +221,7 @@ public class Fenster extends javax.swing.JFrame {
         this.pWeinDiagramm.setWeinAufnehmen(pWeinAufnehmen);
     }
     
-    private void closeWeinAufnehmen() {
+    public void closeWeinAufnehmen() {
 
         if (beenden() == JOptionPane.YES_OPTION) {
             return;
