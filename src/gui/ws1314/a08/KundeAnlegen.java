@@ -388,7 +388,7 @@ public class KundeAnlegen extends javax.swing.JPanel {
     }//GEN-LAST:event_tfVornameFocusGained
 
     private void tfVornameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfVornameFocusLost
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).select(0, 0);
     }//GEN-LAST:event_tfVornameFocusLost
 
     private void tfNachnameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfNachnameFocusGained
@@ -396,71 +396,71 @@ public class KundeAnlegen extends javax.swing.JPanel {
     }//GEN-LAST:event_tfNachnameFocusGained
 
     private void tfNachnameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfNachnameFocusLost
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).select(0, 0);
     }//GEN-LAST:event_tfNachnameFocusLost
 
     private void tfStrasseFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfStrasseFocusGained
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).selectAll();
     }//GEN-LAST:event_tfStrasseFocusGained
 
     private void tfStrasseFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfStrasseFocusLost
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).select(0, 0);
     }//GEN-LAST:event_tfStrasseFocusLost
 
     private void tfHausnrFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfHausnrFocusGained
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).selectAll();
     }//GEN-LAST:event_tfHausnrFocusGained
 
     private void tfHausnrFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfHausnrFocusLost
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).select(0, 0);
     }//GEN-LAST:event_tfHausnrFocusLost
 
     private void tfPLZFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfPLZFocusGained
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).selectAll();
     }//GEN-LAST:event_tfPLZFocusGained
 
     private void tfPLZFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfPLZFocusLost
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).select(0, 0);
     }//GEN-LAST:event_tfPLZFocusLost
 
     private void tfOrtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfOrtFocusGained
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).selectAll();
     }//GEN-LAST:event_tfOrtFocusGained
 
     private void tfOrtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfOrtFocusLost
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).select(0, 0);
     }//GEN-LAST:event_tfOrtFocusLost
 
     private void tfTeleNrFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfTeleNrFocusGained
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).selectAll();
     }//GEN-LAST:event_tfTeleNrFocusGained
 
     private void tfTeleNrFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfTeleNrFocusLost
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).select(0, 0);
     }//GEN-LAST:event_tfTeleNrFocusLost
 
     private void tfKtInhaberFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfKtInhaberFocusGained
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).selectAll();
     }//GEN-LAST:event_tfKtInhaberFocusGained
 
     private void tfKtInhaberFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfKtInhaberFocusLost
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).select(0, 0);
     }//GEN-LAST:event_tfKtInhaberFocusLost
 
     private void tfKtNrFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfKtNrFocusGained
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).selectAll();
     }//GEN-LAST:event_tfKtNrFocusGained
 
     private void tfKtNrFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfKtNrFocusLost
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).select(0, 0);
     }//GEN-LAST:event_tfKtNrFocusLost
 
     private void tfBLZFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfBLZFocusGained
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).selectAll();
     }//GEN-LAST:event_tfBLZFocusGained
 
     private void tfBLZFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfBLZFocusLost
-        // TODO add your handling code here:
+        ((JTextComponent) evt.getComponent()).select(0, 0);
     }//GEN-LAST:event_tfBLZFocusLost
 
     private void postInitComponents() {
@@ -549,7 +549,22 @@ public class KundeAnlegen extends javax.swing.JPanel {
     }
     
     private void saveContent() {
-
+        ArrayList<String> al = new ArrayList<>();
+        al.add(tfKdNr.getText());
+        al.add(cbAnrede.getSelectedItem().toString());
+        al.add(tfVorname.getText());
+        al.add(tfNachname.getText());
+        al.add(tfStrasse.getText());
+        al.add(tfHausnr.getText());
+        al.add(tfPLZ.getText());
+        al.add(tfOrt.getText());
+        al.add(tfTeleNr.getText());
+        al.add(tfKtInhaber.getText());
+        al.add(tfKtNr.getText());
+        al.add(tfBLZ.getText());
+        al.add(tfKreditInstitut.getText());
+        
+        parentFenster.setDataMap("Kunden", al);
         this.addCounter++;
     }
 

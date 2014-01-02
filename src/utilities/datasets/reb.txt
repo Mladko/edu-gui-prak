@@ -1,4 +1,4 @@
-weiss
+Weiß
 -Albariño
 -Bacchus
 -Blanc de Blancs
@@ -52,7 +52,7 @@ weiss
 -Welschriesling
 -Zweigelt
 
-rot
+Rot
 -Bardolino
 -Beaujolais
 -Blaufränkisch
@@ -91,7 +91,7 @@ rot
 -Valpolicella
 -Zinfandel
 
-rose
+Rose
 -Badisch Rotgold
 -Heckenklescher
 -Rotling

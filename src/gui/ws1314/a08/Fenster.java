@@ -6,6 +6,8 @@
 package gui.ws1314.a08;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import utilities.UniversalChangeListener;
 
@@ -83,7 +85,7 @@ public class Fenster extends javax.swing.JFrame {
         ifWeinAufnehmen.setBounds(20, 10, 670, 490);
 
         ifKundeAnlegen.setTitle("Kunde anlegen");
-        ifKundeAnlegen.setVisible(true);
+        ifKundeAnlegen.setVisible(false);
 
         javax.swing.GroupLayout ifKundeAnlegenLayout = new javax.swing.GroupLayout(ifKundeAnlegen.getContentPane());
         ifKundeAnlegen.getContentPane().setLayout(ifKundeAnlegenLayout);
@@ -239,7 +241,8 @@ public class Fenster extends javax.swing.JFrame {
     }//GEN-LAST:event_fileMenuActionPerformed
 
     private void addCostumerMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCostumerMenuItemActionPerformed
-        // TODO add your handling code here:
+        this.ifKundeAnlegen.setVisible(true);
+        this.tpKundeAnlegenTabs.addTab("Anlegen", pKundeAnlegen);
     }//GEN-LAST:event_addCostumerMenuItemActionPerformed
 
     private void editCostumerMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editCostumerMenuItemActionPerformed
@@ -281,6 +284,9 @@ public class Fenster extends javax.swing.JFrame {
         this.pWeinDiagramm.setWeinAufnehmen(pWeinAufnehmen);
         this.pWeinAufnehmen.setFenster(this);
         this.pKundeAnlegen.setFenster(this);
+        
+        this.hmDataMap.put("Weine", new ArrayList<ArrayList<String>>());
+        this.hmDataMap.put("Kunden", new ArrayList<ArrayList<String>>());
     }
     
     public void closeWeinAufnehmen(UniversalChangeListener ucl) {
@@ -317,6 +323,10 @@ public class Fenster extends javax.swing.JFrame {
         this.ucl.reset();
     }
 
+    public void setDataMap(String identifier, ArrayList<String> al) {
+        hmDataMap.get(identifier).add(al);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addCostumerMenuItem;
     private javax.swing.JMenuItem addWineMenuItem;
@@ -345,4 +355,6 @@ public class Fenster extends javax.swing.JFrame {
     private WeinDiagramm pWeinDiagramm;
     private KundeAnlegen pKundeAnlegen;
     private UniversalChangeListener ucl;
+    private HashMap<String, ArrayList<ArrayList<String>>> hmDataMap = new HashMap<>();
+    
 }

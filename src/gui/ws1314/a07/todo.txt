@@ -1,8 +1,9 @@
  - try-catch bisher ohne catch Implementierung vom Integer.parseInt!
+ - dynamische Jahreszahlen stimmen nicht, auch Tooltips nicht
+ - Umlaute im Name nicht möglich
  
 
 Optional:
 
  - bearbeitungsmodus der textfelder auf copy/paste/cut einarbeiten mit shortcuts
-
  - zusätzlich: STRG+A markiert den text
