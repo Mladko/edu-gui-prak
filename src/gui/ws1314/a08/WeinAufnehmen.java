@@ -846,23 +846,23 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     }
     
     private void saveContent() {
-        ArrayList<String> al = new ArrayList<String>();
-        al.add(tfBestellNr.getText());
-        al.add(tfJahrgang.getText());
-        al.add(tfName.getText());
-        al.add(this.rbSelectedColor);
-        al.add((cbRebsorteSelect1.getSelectedIndex() == 0) ? "" : (cbRebsorteSelect1.getSelectedItem().toString() + " "));
-        al.add((cbRebsorteSelect2.getSelectedIndex() == 0) ? "" : (cbRebsorteSelect2.getSelectedItem().toString() + " "));
-        al.add((cbRebsorteSelect3.getSelectedIndex() == 0) ? "" : cbRebsorteSelect2.getSelectedItem().toString());
-        al.add(cbAnbaugebietSelectLand.getSelectedItem().toString());
-        al.add(cbAnbaugebietSelectRegion.getSelectedItem().toString());
-        al.add(cbAlkohol.getSelectedItem().toString());
-        al.add(tfLagerfaehigkeit.getText());
-        al.add(cbFlaschenGr.getSelectedItem().toString());
-        al.add(tfFlaschenpreis.getText());
-        al.add(tfLiterpreis.getText());
+        ArrayList<String> alWein = new ArrayList<String>();
+        alWein.add(tfBestellNr.getText());
+        alWein.add(tfJahrgang.getText());
+        alWein.add(tfName.getText());
+        alWein.add(this.rbSelectedColor);
+        alWein.add((cbRebsorteSelect1.getSelectedIndex() == 0) ? "" : (cbRebsorteSelect1.getSelectedItem().toString() + " "));
+        alWein.add((cbRebsorteSelect2.getSelectedIndex() == 0) ? "" : (cbRebsorteSelect2.getSelectedItem().toString() + " "));
+        alWein.add((cbRebsorteSelect3.getSelectedIndex() == 0) ? "" : cbRebsorteSelect3.getSelectedItem().toString());
+        alWein.add(cbAnbaugebietSelectLand.getSelectedItem().toString());
+        alWein.add(cbAnbaugebietSelectRegion.getSelectedItem().toString());
+        alWein.add(cbAlkohol.getSelectedItem().toString());
+        alWein.add(tfLagerfaehigkeit.getText());
+        alWein.add(cbFlaschenGr.getSelectedItem().toString());
+        alWein.add(tfFlaschenpreis.getText());
+        alWein.add(tfLiterpreis.getText());
 
-        parentFenster.setDataMap("Weine", al);
+        parentFenster.setDataMap("Weine", alWein);
         this.addCounter++;
     }
 
