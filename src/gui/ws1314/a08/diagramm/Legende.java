@@ -74,13 +74,13 @@ public class Legende extends JPanel {
                         BorderFactory.createLineBorder(
                                 new Color(123, 170, 189), 2));
             }
-            
+
             @Override
             public void focusLost(FocusEvent fe) {
                 ((JPanel) fe.getSource()).setBorder(null);
             }
         };
-        
+
         KeyAdapter ka = new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent ke) {
@@ -93,7 +93,7 @@ public class Legende extends JPanel {
                 }
             }
         };
-        
+
         this.addMouseListener(new ml());
         this.addFocusListener(fl);
         this.addKeyListener(ka);
@@ -115,7 +115,7 @@ public class Legende extends JPanel {
                 "Legende",
                 (int) (this.x),
                 (int) (this.y + schriftgroesse));
-        
+
         for (int i = 0; i < 4; i++) {
             // Berechne Position
             this.y += size * 2;
@@ -195,7 +195,7 @@ public class Legende extends JPanel {
 
         // Textformat
         this.setzeTextFormat(g2);
-        
+
         super.paintComponent(g2);
 
         // Zeichne Legende
@@ -213,5 +213,5 @@ public class Legende extends JPanel {
         this.b = (this.fensterBreite * 80) / 100;   // Breite
         this.h = (this.fensterHoehe * 80) / 100;    // Hoehe      
     }
-    
+
 }

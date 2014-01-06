@@ -10,7 +10,7 @@ import java.awt.event.MouseMotionListener;
 
 /**
  * Mausaktionen zum Veraendern des Fensterinhaltes.
- * 
+ *
  * @author Benjamin Schuermann <agribu>
  * @since 2013/10/29
  * @version 1.0
@@ -19,13 +19,14 @@ public class MausAktion implements MouseListener, MouseMotionListener {
 
     // Elemente der Trinkreife
     private enum Elemente {
+
         unreif,
         steigernd,
         optimal,
         ueberlagert,
         ausserhalb
     }
-    
+
     Elemente istInStadium;
 
     /**
@@ -67,9 +68,9 @@ public class MausAktion implements MouseListener, MouseMotionListener {
         int x = me.getX();
         int y = me.getY();
 
-        Elemente altesStadium = istInStadium; 
+        Elemente altesStadium = istInStadium;
         istInStadium = Elemente.ausserhalb;
-        
+
         // Zuruecksetzen der Farben
         inhalt.diagramm.farben[0] = Color.gray;
         inhalt.diagramm.farben[1] = new GradientPaint(0, 0, Color.gray, 0, 0, Color.green);
@@ -86,23 +87,23 @@ public class MausAktion implements MouseListener, MouseMotionListener {
 
         // Innerhalb eines Stadiums
         if (stadium[0].istDrin(x, y)) {
-            inhalt.diagramm.farben[0] = 
-                    ((Color) inhalt.diagramm.farben[0]).darker();
+            inhalt.diagramm.farben[0]
+                    = ((Color) inhalt.diagramm.farben[0]).darker();
             istInStadium = Elemente.unreif;
         } else if (stadium[1].istDrin(x, y)) {
             inhalt.diagramm.farben[1] = new GradientPaint(
                     0, 0, Color.gray.darker(), 0, 0, Color.green.darker());
             istInStadium = Elemente.steigernd;
         } else if (stadium[2].istDrin(x, y)) {
-            inhalt.diagramm.farben[2] = 
-                    ((Color) inhalt.diagramm.farben[2]).darker();
+            inhalt.diagramm.farben[2]
+                    = ((Color) inhalt.diagramm.farben[2]).darker();
             istInStadium = Elemente.optimal;
         } else if (stadium[3].istDrin(x, y)) {
-            inhalt.diagramm.farben[3] = 
-                    ((Color) inhalt.diagramm.farben[3]).darker();
+            inhalt.diagramm.farben[3]
+                    = ((Color) inhalt.diagramm.farben[3]).darker();
             istInStadium = Elemente.ueberlagert;
         }
-        
+
         // Bei Aenderung wird neugezeichnet
         if (altesStadium != istInStadium) {
             inhalt.repaint();
@@ -111,8 +112,7 @@ public class MausAktion implements MouseListener, MouseMotionListener {
     }
 
     /**
-     * Gibt einen Text aus, der bei einem Mausklick in einem Reifestadium die
-     * entsprechenden Eigenschaften liefert.
+     * Gibt einen Text aus, der bei einem Mausklick in einem Reifestadium die entsprechenden Eigenschaften liefert.
      *
      * @param me MouseEvent
      */
@@ -125,22 +125,22 @@ public class MausAktion implements MouseListener, MouseMotionListener {
             case unreif:
                 stadium = inhalt.diagramm.stadien[0];
                 System.out.printf("\n\tIn den Jahren %d - %d ist es für den "
-                        + "Wein noch zu früh.\n", 
-                        stadium.beginn, 
+                        + "Wein noch zu früh.\n",
+                        stadium.beginn,
                         stadium.beginn + ((int) stadium.dauer) - 1);
                 break;
             case steigernd:
                 stadium = inhalt.diagramm.stadien[1];
                 System.out.printf("\n\tIn den Jahren %d - %d steigert sich der "
-                        + "Geschmack des Weins noch.\n", 
-                        stadium.beginn, 
+                        + "Geschmack des Weins noch.\n",
+                        stadium.beginn,
                         stadium.beginn + ((int) stadium.dauer) - 1);
                 break;
             case optimal:
                 stadium = inhalt.diagramm.stadien[2];
                 System.out.printf("\n\tIn den Jahren %d – %d hat der Wein sein "
-                        + "geschmackliches Optimum.\n", 
-                        stadium.beginn, 
+                        + "geschmackliches Optimum.\n",
+                        stadium.beginn,
                         stadium.beginn + ((int) stadium.dauer) - 1);
                 break;
             case ueberlagert:

@@ -775,7 +775,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         Collections.sort(countries);
         cbAnbaugebietSelectLand.setModel(new DefaultComboBoxModel(countries.toArray()));
     }
-    
+
     public HashMap parseDataSet(String s) {
         return new DataSetManager().parseFile(s);
     }
