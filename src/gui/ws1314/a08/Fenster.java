@@ -49,6 +49,10 @@ public class Fenster extends javax.swing.JFrame {
         saveAsMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
+        selectAllMenuItem = new javax.swing.JMenuItem();
+        cutMenuItem = new javax.swing.JMenuItem();
+        copyMenuItem = new javax.swing.JMenuItem();
+        pasteMenuItem = new javax.swing.JMenuItem();
         costumerMenu = new javax.swing.JMenu();
         addCostumerMenuItem = new javax.swing.JMenuItem();
         editCostumerMenuItem = new javax.swing.JMenuItem();
@@ -64,6 +68,9 @@ public class Fenster extends javax.swing.JFrame {
                 formWindowClosing(evt);
             }
         });
+
+        dpInhalt.setDoubleBuffered(true);
+        dpInhalt.setDragMode(javax.swing.JDesktopPane.OUTLINE_DRAG_MODE);
 
         ifWeinAufnehmen.setClosable(true);
         ifWeinAufnehmen.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -117,6 +124,7 @@ public class Fenster extends javax.swing.JFrame {
         });
 
         openMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        openMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/icons/document-open.png"))); // NOI18N
         openMenuItem.setMnemonic('f');
         openMenuItem.setText("Öffnen");
         openMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -127,6 +135,7 @@ public class Fenster extends javax.swing.JFrame {
         fileMenu.add(openMenuItem);
 
         saveMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        saveMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/icons/document-save.png"))); // NOI18N
         saveMenuItem.setMnemonic('S');
         saveMenuItem.setText("Speichern");
         saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -137,6 +146,7 @@ public class Fenster extends javax.swing.JFrame {
         fileMenu.add(saveMenuItem);
 
         saveAsMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        saveAsMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/icons/document-save-as.png"))); // NOI18N
         saveAsMenuItem.setMnemonic('u');
         saveAsMenuItem.setText("Speichern unter...");
         saveAsMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -161,14 +171,44 @@ public class Fenster extends javax.swing.JFrame {
 
         editMenu.setMnemonic('B');
         editMenu.setText("Bearbeiten");
+
+        selectAllMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        selectAllMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/icons/edit-select-all.png"))); // NOI18N
+        selectAllMenuItem.setMnemonic('M');
+        selectAllMenuItem.setText("Alles Markieren");
+        selectAllMenuItem.setEnabled(false);
+        editMenu.add(selectAllMenuItem);
+
+        cutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        cutMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/icons/edit-cut.png"))); // NOI18N
+        cutMenuItem.setMnemonic('A');
+        cutMenuItem.setText("Ausschneiden");
+        cutMenuItem.setToolTipText("");
+        cutMenuItem.setEnabled(false);
+        editMenu.add(cutMenuItem);
+
+        copyMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        copyMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/icons/edit-copy.png"))); // NOI18N
+        copyMenuItem.setMnemonic('K');
+        copyMenuItem.setText("Kopieren");
+        copyMenuItem.setEnabled(false);
+        editMenu.add(copyMenuItem);
+
+        pasteMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        pasteMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/icons/edit-paste.png"))); // NOI18N
+        pasteMenuItem.setMnemonic('E');
+        pasteMenuItem.setText("Einfügen");
+        pasteMenuItem.setEnabled(false);
+        editMenu.add(pasteMenuItem);
+
         mbMenu.add(editMenu);
 
         costumerMenu.setMnemonic('K');
         costumerMenu.setText("Kunden");
 
-        addCostumerMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        addCostumerMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         addCostumerMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/icons/add.png"))); // NOI18N
-        addCostumerMenuItem.setMnemonic('A');
+        addCostumerMenuItem.setMnemonic('n');
         addCostumerMenuItem.setText("Aufnehmen");
         addCostumerMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,6 +221,7 @@ public class Fenster extends javax.swing.JFrame {
         editCostumerMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/icons/stock_properties.png"))); // NOI18N
         editCostumerMenuItem.setMnemonic('e');
         editCostumerMenuItem.setText("Ändern");
+        editCostumerMenuItem.setEnabled(false);
         editCostumerMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editCostumerMenuItemActionPerformed(evt);
@@ -192,6 +233,7 @@ public class Fenster extends javax.swing.JFrame {
         deleteCostumerMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/icons/edit-delete.png"))); // NOI18N
         deleteCostumerMenuItem.setMnemonic('L');
         deleteCostumerMenuItem.setText("Löschen");
+        deleteCostumerMenuItem.setEnabled(false);
         costumerMenu.add(deleteCostumerMenuItem);
 
         mbMenu.add(costumerMenu);
@@ -199,10 +241,11 @@ public class Fenster extends javax.swing.JFrame {
         wineMenu.setMnemonic('W');
         wineMenu.setText("Wein");
 
-        addWineMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        addWineMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         addWineMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/icons/add.png"))); // NOI18N
-        addWineMenuItem.setMnemonic('A');
+        addWineMenuItem.setMnemonic('n');
         addWineMenuItem.setText("Aufnehmen");
+        addWineMenuItem.setToolTipText("");
         addWineMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addWineMenuItemActionPerformed(evt);
@@ -219,6 +262,7 @@ public class Fenster extends javax.swing.JFrame {
         infoMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/utilities/icons/help-faq.png"))); // NOI18N
         infoMenuItem.setMnemonic('I');
         infoMenuItem.setText("Info");
+        infoMenuItem.setEnabled(false);
         infoMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 infoMenuItemActionPerformed(evt);
@@ -415,7 +459,9 @@ public class Fenster extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addCostumerMenuItem;
     private javax.swing.JMenuItem addWineMenuItem;
+    private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenu costumerMenu;
+    private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JMenuItem deleteCostumerMenuItem;
     private javax.swing.JDesktopPane dpInhalt;
     private javax.swing.JMenuItem editCostumerMenuItem;
@@ -428,8 +474,10 @@ public class Fenster extends javax.swing.JFrame {
     private javax.swing.JMenuItem infoMenuItem;
     private javax.swing.JMenuBar mbMenu;
     private javax.swing.JMenuItem openMenuItem;
+    private javax.swing.JMenuItem pasteMenuItem;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
+    private javax.swing.JMenuItem selectAllMenuItem;
     private javax.swing.JTabbedPane tpKundeAnlegenTabs;
     private javax.swing.JTabbedPane tpWeinAufnehmenTabs;
     private javax.swing.JMenu wineMenu;

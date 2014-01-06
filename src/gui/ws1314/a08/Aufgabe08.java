@@ -36,7 +36,8 @@ public class Aufgabe08 {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Fenster().setVisible(true);
+                Fenster f = new Fenster();
+                f.setVisible(true);
             }
         });
     }
