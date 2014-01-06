@@ -103,6 +103,7 @@ public class DatenImport {
                             "Dateifehler!", JOptionPane.ERROR_MESSAGE);
         }
 
+        // Ausgabe der Datensätze
         this.printKunden(dataSet.get("Kunde"));
         this.printWeine(dataSet.get("Wein"));
     }
