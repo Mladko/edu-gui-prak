@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gui.ws1314.a08;
 
 /**
@@ -40,6 +39,6 @@ public class Aufgabe08 {
                 new Fenster().setVisible(true);
             }
         });
-    }    
-    
+    }
+
 }

@@ -5,11 +5,11 @@
  */
 package gui.ws1314.a08;
 
+import utilities.DatenImport;
+import utilities.DatenExport;
 import java.awt.Dimension;
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -276,11 +276,11 @@ public class Fenster extends javax.swing.JFrame {
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
-        // TODO add your handling code here:
+        this.openFile("");
     }//GEN-LAST:event_openMenuItemActionPerformed
 
     private void saveAsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsMenuItemActionPerformed
-        this.saveAs("");
+        this.fileSaveAs("");
     }//GEN-LAST:event_saveAsMenuItemActionPerformed
 
     private void postInitComponents() {
@@ -324,10 +324,30 @@ public class Fenster extends javax.swing.JFrame {
         return antwort;
     }
 
-    private boolean saveAs(String pfad) {
-        
-//        System.out.println("Fenster.java:saveAs:\n" + hmDataMap + "\n\n");
+    private void openFile(String pfad) {
+        JFileChooser chooser;
+        if (pfad == null) {
+            pfad = System.getProperty("user.home");
+        }
+        File file = new File(pfad.trim());
 
+        chooser = new JFileChooser(pfad);
+        chooser.setDialogTitle("Datei öffnen...");
+        FileNameExtensionFilter plainFilter = new FileNameExtensionFilter(
+                "Wein Kunden Daten: *.wkd", "wkd");
+        chooser.removeChoosableFileFilter(chooser.getAcceptAllFileFilter());
+        chooser.setFileFilter(plainFilter);
+        int result = chooser.showOpenDialog(this);
+        chooser.setVisible(true);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            file = chooser.getSelectedFile();
+            new DatenImport(file, this);
+            chooser.setVisible(false);
+        }
+    }
+
+    private boolean fileSaveAs(String pfad) {
         JFileChooser chooser;
         if (pfad == null) {
             pfad = System.getProperty("user.home");

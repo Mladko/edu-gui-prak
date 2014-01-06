@@ -1,6 +1,5 @@
  - try-catch bisher ohne catch Implementierung vom Integer.parseInt!
  - dynamische Jahreszahlen stimmen nicht, auch Tooltips nicht
- - Umlaute im Name nicht möglich
  
 
 Optional:
@@ -12,7 +11,6 @@ Optional:
     parsen und in HasHMap schreiben
     zähle alle Semiklons
     regex prüfung (5. Speicherplatz korrupt)
-    FileNotFound Ex
 BLZ parsen
 Input überprüfen beim Speichern klicken isEmpty
 prüfe alle ActionPerforms 
