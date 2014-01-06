@@ -36,7 +36,7 @@ public class DatenImport {
         this.importData();
     }
 
-    public void importData() {
+    private void importData() {
         ArrayList<String> singleLine;
         ArrayList<ArrayList<String>> al = new ArrayList<>();
 
@@ -58,9 +58,7 @@ public class DatenImport {
                     int numOfTokens = 1;
                     String currentToken = "";
 
-//                    // Entferne trailing whitespace der Rebsorten, welches für die textuelle Ausgabe beim Speichern notwendig war
-//                    s = s.replaceAll(" ;", ";");
-                    // Prüfe auf fehlende bzw. unvollständige Einträge
+                    // Prüfe auf Vollständigkeit
                     if (s.contains(";;")) {
                         printErrMsg(lineNo, -1, "", "Die Zeile umfasst nicht alle erwarteten Einträge!");
                         return;
@@ -89,6 +87,13 @@ public class DatenImport {
                     }
 
                     dataSet.get(key).add(singleLine);
+                }
+                
+                if (lineNo == 0) {
+                    JOptionPane.showMessageDialog(null, "Dateifehler!\n\n "
+                            + "Die angegebene Datei ist leer!\n\n"
+                            + "Das Einlesen der Datei wird nun abgebrochen.", 
+                            "Dateifehler!", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } catch (IOException e) {
