@@ -97,7 +97,10 @@ public class DatenImport {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Dateifehler!\n\n"
+                    + e.getMessage() + "\n\n"
+                            + "Das Einlesen der Datei wird nun abgebrochen.", 
+                            "Dateifehler!", JOptionPane.ERROR_MESSAGE);
         }
 
         this.printKunden(dataSet.get("Kunde"));
