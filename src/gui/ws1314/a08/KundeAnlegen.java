@@ -355,7 +355,6 @@ public class KundeAnlegen extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         add(lbKreditInstitut, gridBagConstraints);
 
-        tfKreditInstitut.setEditable(false);
         tfKreditInstitut.setMinimumSize(new java.awt.Dimension(120, 24));
         tfKreditInstitut.setName("Kreditinstitut"); // NOI18N
         tfKreditInstitut.setPreferredSize(new java.awt.Dimension(120, 24));
@@ -501,7 +500,7 @@ public class KundeAnlegen extends javax.swing.JPanel {
 
     private HashMap setFormatHashMap() {
         HashMap<Component, ArrayList<String>> hm = new HashMap<>();
-        Component[] nameFields = {this.tfVorname, this.tfNachname, this.tfStrasse, this.tfOrt, this.tfKtInhaber};
+        Component[] nameFields = {this.tfVorname, this.tfNachname, this.tfStrasse, this.tfOrt, this.tfKtInhaber, this.tfKreditInstitut};
 
         for (Component c : nameFields) {
             hm.put(c, new ArrayList<String>());
@@ -551,7 +550,7 @@ public class KundeAnlegen extends javax.swing.JPanel {
         this.tfKtInhaber.setToolTipText("Der Name des Kontoinhabers kann aus allen (ebenfalls fremdländischen) Buchstaben, sowie Leerzeichen bestehen.");
         this.tfKtNr.setToolTipText("Die Kontonummer kann entweder neun oder 10 Ziffern umfassen.");
         this.tfBLZ.setToolTipText("Die Bankleitzahl umfasst acht Ziffern.");
-        this.tfKreditInstitut.setToolTipText("Das Kreditinstitut wird mit Hilfe der Informationen zur Kontonummer und Bankleitzahl automatisch generiert.");
+        this.tfKreditInstitut.setToolTipText("Der Name des Kreditinstituts kann aus allen (ebenfalls fremdländischen) Buchstaben, sowie Leerzeichen und Bindestrichen bestehen.");
     }
 
     private void saveContent() {
@@ -570,7 +569,6 @@ public class KundeAnlegen extends javax.swing.JPanel {
         alKunde.add(tfBLZ.getText());
         alKunde.add(tfKreditInstitut.getText());
 
-//        System.out.println("KundenAnlegen.java:saveContent():\n" + alKunde + "\n\n");
         parentFenster.setDataMap("Kunden", alKunde);
         this.addCounter++;
     }

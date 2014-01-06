@@ -7,10 +7,5 @@ Optional:
  - bearbeitungsmodus der textfelder auf copy/paste/cut einarbeiten mit shortcuts
  - zusätzlich: STRG+A markiert den text
 
-Öffnen
-    parsen und in HasHMap schreiben
-    zähle alle Semiklons
-    regex prüfung (5. Speicherplatz korrupt)
-BLZ parsen
 Input überprüfen beim Speichern klicken isEmpty
 prüfe alle ActionPerforms 

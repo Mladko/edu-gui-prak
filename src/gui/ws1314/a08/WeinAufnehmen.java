@@ -714,6 +714,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     private void postInitComponents() {
         this.hmFormat = setFormatHashMap();
         this.setValues();
+        this.addListener();
         this.setDefaults();
         this.setTooltips();
     }
@@ -722,7 +723,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         HashMap<Component, ArrayList<String>> hm = new HashMap<>();
 
         hm.put(tfJahrgang, new ArrayList<String>());
-        hm.get(tfJahrgang).add(0, "(((198[8-9])|(199\\d{1}))|((200\\d{1})|(201[0-3])))?");
+        hm.get(tfJahrgang).add(0, "(((1989)|(199\\d{1}))|((200\\d{1})|(201[0-4])))?");
         hm.get(tfJahrgang).add(1, "\\d+");
 
         hm.put(tfName, new ArrayList<String>());
@@ -730,7 +731,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         hm.get(tfName).add(1, "(?U)[\\p{Alpha}-'.\\s]+");
 
         hm.put(tfLagerfaehigkeit, new ArrayList<String>());
-        hm.get(tfLagerfaehigkeit).add(0, "((201[3-9])|(202\\d{1})|(203[0-8]))?");
+        hm.get(tfLagerfaehigkeit).add(0, "((201[4-9])|(202\\d{1})|(203[0-9]))?");
         hm.get(tfLagerfaehigkeit).add(1, "\\d+");
 
         hm.put(tfFlaschenpreis, new ArrayList<String>());
@@ -751,8 +752,8 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     }
 
     private void setValues() {
-        this.hmRebsorten = new DataSetManager().parseFile("src/utilities/datasets/reb.txt");
-        this.hmLocations = new DataSetManager().parseFile("src/utilities/datasets/loc.txt");
+        this.hmRebsorten = parseDataSet("src/utilities/datasets/reb.txt");
+        this.hmLocations = parseDataSet("src/utilities/datasets/loc.txt");
 
         this.hmLocations.put("", new ArrayList<String>()); // Empty Selection for Index 0
 
@@ -773,8 +774,10 @@ public class WeinAufnehmen extends javax.swing.JPanel {
 
         Collections.sort(countries);
         cbAnbaugebietSelectLand.setModel(new DefaultComboBoxModel(countries.toArray()));
-
-        addListener();
+    }
+    
+    public HashMap parseDataSet(String s) {
+        return new DataSetManager().parseFile(s);
     }
 
     private void setTooltips() {
@@ -849,9 +852,9 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         alWein.add(tfJahrgang.getText());
         alWein.add(tfName.getText());
         alWein.add(this.rbSelectedColor);
-        alWein.add((cbRebsorteSelect1.getSelectedIndex() == 0) ? "" : (cbRebsorteSelect1.getSelectedItem().toString() + " "));
-        alWein.add((cbRebsorteSelect2.getSelectedIndex() == 0) ? "" : (cbRebsorteSelect2.getSelectedItem().toString() + " "));
-        alWein.add((cbRebsorteSelect3.getSelectedIndex() == 0) ? "" : cbRebsorteSelect3.getSelectedItem().toString());
+        alWein.add((cbRebsorteSelect1.getSelectedIndex() == 0) ? " " : (cbRebsorteSelect1.getSelectedItem().toString() + " "));
+        alWein.add((cbRebsorteSelect2.getSelectedIndex() == 0) ? " " : (cbRebsorteSelect2.getSelectedItem().toString() + " "));
+        alWein.add((cbRebsorteSelect3.getSelectedIndex() == 0) ? " " : cbRebsorteSelect3.getSelectedItem().toString());
         alWein.add(cbAnbaugebietSelectLand.getSelectedItem().toString());
         alWein.add(cbAnbaugebietSelectRegion.getSelectedItem().toString());
         alWein.add(cbAlkohol.getSelectedItem().toString());
@@ -995,8 +998,8 @@ public class WeinAufnehmen extends javax.swing.JPanel {
 
     // Post-Adding Variables
     private HashMap hmFormat;
-    private HashMap hmRebsorten;
-    private HashMap hmLocations;
+    public HashMap hmRebsorten;
+    public HashMap hmLocations;
     private String rbSelectedColor;
     private int addCounter = 0;
     private UniversalChangeListener uniChangeListener = new UniversalChangeListener();

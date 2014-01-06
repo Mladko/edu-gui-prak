@@ -87,6 +87,10 @@ public class Fenster extends javax.swing.JFrame {
         dpInhalt.add(ifWeinAufnehmen);
         ifWeinAufnehmen.setBounds(20, 10, 670, 490);
 
+        ifKundeAnlegen.setClosable(true);
+        ifKundeAnlegen.setIconifiable(true);
+        ifKundeAnlegen.setMaximizable(true);
+        ifKundeAnlegen.setResizable(true);
         ifKundeAnlegen.setTitle("Kunde anlegen");
         ifKundeAnlegen.setVisible(false);
 
@@ -432,7 +436,7 @@ public class Fenster extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private Dimension dim;
-    private WeinAufnehmen pWeinAufnehmen;
+    public WeinAufnehmen pWeinAufnehmen;
     private WeinDiagramm pWeinDiagramm;
     private KundeAnlegen pKundeAnlegen;
     private UniversalChangeListener ucl;

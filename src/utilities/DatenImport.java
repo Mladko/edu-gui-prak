@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
-import javax.swing.text.JTextComponent;
 
 /**
  *
@@ -24,13 +23,15 @@ import javax.swing.text.JTextComponent;
  */
 public class DatenImport {
 
-    private HashMap<String, ArrayList<ArrayList<String>>> dataSet;
-    private File file;
+    private final HashMap<String, ArrayList<ArrayList<String>>> dataSet;
+    private final File file;
     private Fenster parentFenster;
+    private final DatenCheck dc;
 
     public DatenImport(File file, Fenster f) {
         this.file = file;
         this.parentFenster = f;
+        this.dc = new DatenCheck(this.parentFenster);
         dataSet = new HashMap<>();
         this.importData();
     }
@@ -54,24 +55,40 @@ public class DatenImport {
                     singleLine = new ArrayList<>();
                     String s = strLine;
                     StringTokenizer st = new StringTokenizer(s, ";");
-                    int numOfTokens = 0;
+                    int numOfTokens = 1;
+                    String currentToken = "";
+                    
+//                    // Entferne trailing whitespace der Rebsorten, welches für die textuelle Ausgabe beim Speichern notwendig war
+//                    s = s.replaceAll(" ;", ";");
+                    
+                    // Prüfe auf fehlende bzw. unvollständige Einträge
+                    if (s.contains(";;")) {
+                        printErrMsg(lineNo, -1, "", "Die Zeile umfasst nicht alle erwarteten Einträge!");
+                        return;
+                    }
 
                     while (st.hasMoreTokens()) {
-
+                        // Setze Identifier
                         if (singleLine.isEmpty()) {
                             key = st.nextToken();
-
+                            currentToken = key;
                             if (!dataSet.containsKey(key)) {
                                 dataSet.put(key, new ArrayList<ArrayList<String>>());
                             }
-                            singleLine.add(st.nextToken());
-                        } else {
-                            singleLine.add(st.nextToken());
                         }
+                        
+                        // Prüfe den jeweilgen Eintrag (Token)
+                        if (this.dc.checkFormat(numOfTokens, key, currentToken) != -1) {
+                            printErrMsg(lineNo, numOfTokens, "Eintrag: \"" + currentToken + "\"", "Der oben aufgeführte Eintrag erfüllt nicht das erwartete Format");
+                            return;
+                        }
+                        
+                        currentToken = st.nextToken();
+                        singleLine.add(currentToken);
                         
                         numOfTokens++;
                     }
-                    if (this.pruefeDaten(key, numOfTokens, lineNo)) return;
+
                     dataSet.get(key).add(singleLine);
                 }
             }
@@ -83,24 +100,24 @@ public class DatenImport {
         this.printWeine(dataSet.get("Wein"));
     }
     
-    private boolean pruefeDaten(String key, int numOTokens, int lineNo) {
-        DatenCheck dc = new DatenCheck();
-        Boolean isBroken = false;
-        if(!(dc.checkNumOfTokens(key, numOTokens))) {
-            JOptionPane.showMessageDialog(null, "Dateifehler: " + this.file.getAbsolutePath() + " Zeile: " + lineNo + "\n"
-                    + "Ursache: Die Zeile umfasst nicht alle erwarteten Einträge!\n"
-                    + "Das Einlesen der Datei wird nun abgebrochen.",
-                    "Dateifehler!", JOptionPane.ERROR_MESSAGE);
-            isBroken = true;
-        }
-        return isBroken;
+    private void printErrMsg(int lineNo, int tokenNo, String token, String errMsg) {
+        JOptionPane.showMessageDialog(null, "Dateifehler!\n\n"
+                + "Datei: " + this.file.getAbsolutePath() + "\n"
+                + "Zeile: " + lineNo + "\n"
+                + ((tokenNo != -1) ? "Eintrag Nr: " + tokenNo + "\n" : "") 
+                +  token + "\n"
+                + "Ursache: " + errMsg + "\n\n"
+                + "Das Einlesen der Datei wird nun abgebrochen.",
+                "Dateifehler!", JOptionPane.ERROR_MESSAGE);
     }
 
     private void printWeine(ArrayList<ArrayList<String>> hm) {
+        if (hm == null) return;
+        
         System.out.println("%%%%%%%%%");
         System.out.println("% Weine %");
         System.out.println("%%%%%%%%%" + "\n");
-
+        
         ArrayList<ArrayList<String>> alWeine = hm;
 
         for (ArrayList<String> wein : alWeine) {
@@ -121,6 +138,8 @@ public class DatenImport {
     }
 
     private void printKunden(ArrayList<ArrayList<String>> hm) {
+        if (hm == null) return;
+        
         System.out.println("%%%%%%%%%%");
         System.out.println("% Kunden %");
         System.out.println("%%%%%%%%%%" + "\n");
