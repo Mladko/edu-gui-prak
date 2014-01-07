@@ -480,14 +480,13 @@ public class KundeAnlegen extends javax.swing.JPanel {
                 return;
             }
         }
-        
+
         if (this.cbAnrede.getSelectedIndex() == 0) {
-                JOptionPane.showMessageDialog(this, "Bitte wählen Sie eine Anrede!", "Fehlerhafte Eingabe!", JOptionPane.ERROR_MESSAGE);
-                cbAnrede.requestFocus();
-                return;
+            JOptionPane.showMessageDialog(this, "Bitte wählen Sie eine Anrede!", "Fehlerhafte Eingabe!", JOptionPane.ERROR_MESSAGE);
+            cbAnrede.requestFocus();
+            return;
         }
-        
-        
+
         this.saveContent();
         this.setDefaults();
     }//GEN-LAST:event_btSpeichernActionPerformed
@@ -516,7 +515,7 @@ public class KundeAnlegen extends javax.swing.JPanel {
                 + this.DECIMAL_FORMAT.format(this.addCounter)
                 + "K"
         );
-        
+
         this.cbAnrede.setSelectedIndex(0);
         this.tfVorname.setText("");
         this.tfNachname.setText("");
@@ -529,7 +528,7 @@ public class KundeAnlegen extends javax.swing.JPanel {
         this.tfKtNr.setText("");
         this.tfBLZ.setText("");
         this.tfKreditInstitut.setText("");
-        
+
     }
 
     private void addListener() {
@@ -658,7 +657,7 @@ public class KundeAnlegen extends javax.swing.JPanel {
     private Fenster parentFenster;
     private HashMap hmFormat;
     private int addCounter = 0;
-    private UniversalChangeListener uniChangeListener = new UniversalChangeListener();
+    private final UniversalChangeListener uniChangeListener = new UniversalChangeListener();
 
     // Inner classes
     class UniversalDocument extends PlainDocument {

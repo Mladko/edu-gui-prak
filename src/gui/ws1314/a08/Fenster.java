@@ -358,7 +358,7 @@ public class Fenster extends javax.swing.JFrame {
         this.ifWeinAufnehmen.setVisible(false);
         clearAll();
     }
-    
+
     public void closeKundeAnlegen(UniversalChangeListener ucl) {
         this.ucl = ucl;
 
@@ -451,14 +451,14 @@ public class Fenster extends javax.swing.JFrame {
         this.saveFile = file;
         return false;
     }
-    
+
     private void fileSave(File file) {
-            if (file == null) {
-                this.fileSaveAs("");
-            } else if (file.exists()) {
-                this.dataExport = new DatenExport(hmDataMap, file, this);
-                this.dataExport.saveToFile();
-            }
+        if (file == null) {
+            this.fileSaveAs("");
+        } else if (file.exists()) {
+            this.dataExport = new DatenExport(hmDataMap, file, this);
+            this.dataExport.saveToFile();
+        }
     }
 
     public void clearAll() {
@@ -466,14 +466,12 @@ public class Fenster extends javax.swing.JFrame {
 
         this.getContentPane().removeAll();
         initComponents();
-        //pWeinAufnehmen.postInitComponents();
 
         this.setSize(dim);
         this.ucl.reset();
     }
 
     public void setDataMap(String identifier, ArrayList<String> al) {
-//        System.out.println("Fenster.java:setDataMap:\n" + identifier + "@" + al + "\n\n");
         hmDataMap.get(identifier).add(al);
     }
 
@@ -509,7 +507,7 @@ public class Fenster extends javax.swing.JFrame {
     private WeinDiagramm pWeinDiagramm;
     private KundeAnlegen pKundeAnlegen;
     private UniversalChangeListener ucl;
-    private HashMap<String, ArrayList<ArrayList<String>>> hmDataMap = new HashMap<>();
+    private final HashMap<String, ArrayList<ArrayList<String>>> hmDataMap = new HashMap<>();
     private DatenExport dataExport;
     private File saveFile;
 

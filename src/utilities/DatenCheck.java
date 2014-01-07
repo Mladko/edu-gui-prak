@@ -96,58 +96,60 @@ public class DatenCheck {
 
     public int checkFormat(int pos, String key, String token) {
         int errCode = -1;
-
-        if (key.equals("Wein")) {
-            // Siehe setWeinFormat() für die logischen Zusammenhänge zu den jeweiligen Prüfungen.
-            if (this.weinFormat.get(pos) != null && !token.matches(this.weinFormat.get(pos))) {
+        switch (key) {
+            case "Wein":
+                // Siehe setWeinFormat() für die logischen Zusammenhänge zu den jeweiligen Prüfungen.
+                if (this.weinFormat.get(pos) != null && !token.matches(this.weinFormat.get(pos))) {
+                    // REGEX
+                    errCode = pos;
+                } else if (pos == 6 || pos == 7 || pos == 8) {
+                    // REBSORTEN
+                    if (!(((ArrayList<String>) this.hmRebsorten.get("Rot")).contains(token.trim())
+                            || ((ArrayList<String>) this.hmRebsorten.get("Weiß")).contains(token.trim())
+                            || ((ArrayList<String>) this.hmRebsorten.get("Rose")).contains(token.trim())
+                            || token.equals(" "))) {
+                        errCode = pos;
+                    }
+                } else if (pos == 9 && !this.alCountries.contains(token)) {
+                    // LÄNDER
+                    errCode = pos;
+                } else if (pos == 10) {
+                    // REGIONEN
+                    for (int i = 0; i < this.alRegions.size(); i++) {
+                        ArrayList<String> al = this.alRegions.get(i);
+                        if (al.contains(token)) {
+                            return -1;
+                        }
+                        errCode = pos;
+                    }
+                } else if (pos == 11) {
+                    // ALKOHOLGEHALT
+                    Boolean included = false;
+                    for (String alk : this.alkoholGehalt) {
+                        included = alk.equals(token);
+                        if (included) {
+                            break;
+                        }
+                    }
+                    errCode = (included) ? -1 : pos;
+                } else if (pos == 13) {
+                    // FLASCHENGRÖßE
+                    Boolean included = false;
+                    for (String alk : this.flaschenGr) {
+                        included = alk.equals(token);
+                        if (included) {
+                            break;
+                        }
+                    }
+                    errCode = (included) ? -1 : pos;
+                }
+                break;
+            case "Kunde":
                 // REGEX
-                errCode = pos;
-            } else if (pos == 6 || pos == 7 || pos == 8) {
-                // REBSORTEN
-                if (!(((ArrayList<String>) this.hmRebsorten.get("Rot")).contains(token.trim())
-                        || ((ArrayList<String>) this.hmRebsorten.get("Weiß")).contains(token.trim())
-                        || ((ArrayList<String>) this.hmRebsorten.get("Rose")).contains(token.trim())
-                        || token.equals(" "))) {
+                if (!token.matches(this.kundenFormat.get(pos))) {
                     errCode = pos;
                 }
-            } else if (pos == 9 && !this.alCountries.contains(token)) {
-                // LÄNDER
-                errCode = pos;
-            } else if (pos == 10) {
-                // REGIONEN
-                for (int i = 0; i < this.alRegions.size(); i++) {
-                    ArrayList<String> al = this.alRegions.get(i);
-                    if (al.contains(token)) {
-                        return -1;
-                    }
-                    errCode = pos;
-                }
-            } else if (pos == 11) {
-                // ALKOHOLGEHALT
-                Boolean included = false;
-                for (String alk : this.alkoholGehalt) {
-                    included = alk.equals(token);
-                    if (included) {
-                        break;
-                    }
-                }
-                errCode = (included) ? -1 : pos;
-            } else if (pos == 13) {
-                // FLASCHENGRÖßE
-                Boolean included = false;
-                for (String alk : this.flaschenGr) {
-                    included = alk.equals(token);
-                    if (included) {
-                        break;
-                    }
-                }
-                errCode = (included) ? -1 : pos;
-            }
-        } else if (key.equals("Kunde")) {
-            // REGEX
-            if (!token.matches(this.kundenFormat.get(pos))) {
-                errCode = pos;
-            }
+                break;
         }
         return errCode;
     }

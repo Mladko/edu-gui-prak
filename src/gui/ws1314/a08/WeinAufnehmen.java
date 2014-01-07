@@ -526,8 +526,12 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     }//GEN-LAST:event_rbRoseActionPerformed
 
     private void btCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelActionPerformed
-        if (this.uniChangeListener.hasChanged()) {
-            parentFenster.closeWeinAufnehmen(this.uniChangeListener);
+        try {
+            if (this.uniChangeListener.hasChanged()) {
+                parentFenster.closeWeinAufnehmen(this.uniChangeListener);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Fehler!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btCancelActionPerformed
 
@@ -847,7 +851,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     }
 
     private void saveContent() {
-        ArrayList<String> alWein = new ArrayList<String>();
+        ArrayList<String> alWein = new ArrayList<>();
         alWein.add(tfBestellNr.getText());
         alWein.add(tfJahrgang.getText());
         alWein.add(tfName.getText());
@@ -884,7 +888,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
     }
 
     private Vector getOrder() {
-        Vector<Component> order = new Vector<Component>(5);
+        Vector<Component> order = new Vector<>(5);
         order.add(this.cbFlaschenGr);
         order.add(this.tfFlaschenpreis);
         order.add(this.buttonDown);
@@ -923,7 +927,6 @@ public class WeinAufnehmen extends javax.swing.JPanel {
                 }
                 break;
             default:
-                return;
         }
 
     }
@@ -1126,7 +1129,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
 
     private ButtonRichtung richtung = ButtonRichtung.UNTEN;
 
-    private InputVerifier decimalVerifier = new InputVerifier() {
+    private final InputVerifier decimalVerifier = new InputVerifier() {
         @Override
         public boolean verify(JComponent input) {
             String format = "(^\\d+((,)?\\d{1,2})?$)?";
@@ -1152,7 +1155,7 @@ public class WeinAufnehmen extends javax.swing.JPanel {
         Vector<Component> order;
 
         public FocusOrder(Vector<Component> order) {
-            this.order = new Vector<Component>(order.size());
+            this.order = new Vector<>(order.size());
             this.order.addAll(order);
         }
 
