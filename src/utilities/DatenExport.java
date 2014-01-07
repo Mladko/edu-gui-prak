@@ -60,7 +60,7 @@ public class DatenExport {
     public void saveToFile() {
         String outputFilePath = outputFile.getAbsolutePath();
         String outputFileName = outputFile.getName();
-        System.out.println("Die Daten werden in " + outputFilePath + " gespeichert.\nDie Datei hat den Namen " + outputFileName);
+        System.out.println("Die Daten wurden in " + outputFilePath + " gespeichert.\n");
 
         try {
             //Datei anlegen

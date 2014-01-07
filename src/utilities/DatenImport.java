@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
 
@@ -67,7 +68,15 @@ public class DatenImport {
                     while (st.hasMoreTokens()) {
                         // Setze Identifier
                         if (singleLine.isEmpty()) {
-                            key = st.nextToken();
+                            try {
+                                key = st.nextToken();
+                            } catch (NoSuchElementException e) {
+                                JOptionPane.showMessageDialog(null, "Dateifehler!\n\n"
+                                        + "Das Inhaltsformat der Datei scheint beschädigt zu sein!\n\n"
+                                        + "Das Einlesen der Datei wird nun abgebrochen.", 
+                                        "Dateifehler!", JOptionPane.ERROR_MESSAGE);
+                                return;
+                            }
                             currentToken = key;
                             if (!dataSet.containsKey(key)) {
                                 dataSet.put(key, new ArrayList<ArrayList<String>>());
@@ -80,7 +89,15 @@ public class DatenImport {
                             return;
                         }
 
-                        currentToken = st.nextToken();
+                        try {
+                            currentToken = st.nextToken();
+                        } catch (NoSuchElementException e) {
+                            JOptionPane.showMessageDialog(null, "Dateifehler!\n\n"
+                                    + "Das Inhaltsformat der Datei scheint beschädigt zu sein!\n\n"
+                                    + "Das Einlesen der Datei wird nun abgebrochen.", 
+                                    "Dateifehler!", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
                         singleLine.add(currentToken);
 
                         numOfTokens++;
@@ -90,7 +107,7 @@ public class DatenImport {
                 }
                 
                 if (lineNo == 0) {
-                    JOptionPane.showMessageDialog(null, "Dateifehler!\n\n "
+                    JOptionPane.showMessageDialog(null, "Dateifehler!\n\n"
                             + "Die angegebene Datei ist leer!\n\n"
                             + "Das Einlesen der Datei wird nun abgebrochen.", 
                             "Dateifehler!", JOptionPane.ERROR_MESSAGE);
@@ -136,7 +153,7 @@ public class DatenImport {
                     + "\t" + "Jahrgang" + ":\t" + wein.get(1) + "\n"
                     + "\t" + "Name" + ":\t\t" + wein.get(2) + "\n"
                     + "\t" + "Farbe" + ":\t\t" + wein.get(3) + "\n"
-                    + "\t" + "Rebsorte" + ":\t" + wein.get(4) + wein.get(5) + wein.get(6) + "\n"
+                    + "\t" + "Rebsorte" + ":\t" + this.rebsorteOutput(4, wein) + this.rebsorteOutput(5, wein) + this.rebsorteOutput(6, wein) + "\n"
                     + "\t" + "Anbaugebiet" + ":\t" + wein.get(7) + " - " + wein.get(8) + "\n"
                     + "\t" + "Alkoholgehalt" + ":\t" + wein.get(9) + "\n"
                     + "\t" + "Lagerfähigkeit" + ":\t" + wein.get(10) + "\n"
@@ -145,6 +162,10 @@ public class DatenImport {
                     + "\t" + "Preis pro l" + ":\t" + wein.get(13) + " €" + "\n"
                     + "\t" + "-----------------------------------" + "\n");
         }
+    }
+    
+    private String rebsorteOutput(int index, ArrayList<String> wein) {
+        return (wein.get(index).equals(" ")) ? "" : ((index == 4) ? "" : " , ") + wein.get(index);
     }
 
     private void printKunden(ArrayList<ArrayList<String>> hm) {

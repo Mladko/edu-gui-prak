@@ -7,9 +7,5 @@ Optional:
  - bearbeitungsmodus der textfelder auf copy/paste/cut einarbeiten mit shortcuts
  - zusätzlich: STRG+A markiert den text
 
-ClearAll nach dem Speichern
-Input überprüfen beim Speichern klicken isEmpty
-Prüfe alle ActionPerforms 
-
 DatenCheck.java:
 Da die Wahrscheinlichkeit gering ist, dass jemand Zusammenhänge zwischen Land und Region verfälschen kann, wurde darauf verzichtet diese zu prüfen.

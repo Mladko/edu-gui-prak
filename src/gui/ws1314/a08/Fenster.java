@@ -320,7 +320,7 @@ public class Fenster extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
-        // TODO add your handling code here:
+        this.fileSave(this.saveFile);
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
@@ -356,6 +356,16 @@ public class Fenster extends javax.swing.JFrame {
             return;
         }
         this.ifWeinAufnehmen.setVisible(false);
+        clearAll();
+    }
+    
+    public void closeKundeAnlegen(UniversalChangeListener ucl) {
+        this.ucl = ucl;
+
+        if (beenden() != JOptionPane.YES_OPTION) {
+            return;
+        }
+        this.ifKundeAnlegen.setVisible(false);
         clearAll();
     }
 
@@ -434,10 +444,21 @@ public class Fenster extends javax.swing.JFrame {
                 this.dataExport.saveToFile();
             }
             chooser.setVisible(false);
+            this.saveFile = file;
             return true;
         }
         chooser.setVisible(false);
+        this.saveFile = file;
         return false;
+    }
+    
+    private void fileSave(File file) {
+            if (file == null) {
+                this.fileSaveAs("");
+            } else if (file.exists()) {
+                this.dataExport = new DatenExport(hmDataMap, file, this);
+                this.dataExport.saveToFile();
+            }
     }
 
     public void clearAll() {
@@ -490,5 +511,6 @@ public class Fenster extends javax.swing.JFrame {
     private UniversalChangeListener ucl;
     private HashMap<String, ArrayList<ArrayList<String>>> hmDataMap = new HashMap<>();
     private DatenExport dataExport;
+    private File saveFile;
 
 }

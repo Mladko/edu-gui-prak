@@ -377,6 +377,11 @@ public class KundeAnlegen extends javax.swing.JPanel {
         add(btSpeichern, gridBagConstraints);
 
         btAbbrechen.setText("Abbrechen");
+        btAbbrechen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAbbrechenActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 12;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -465,8 +470,33 @@ public class KundeAnlegen extends javax.swing.JPanel {
     }//GEN-LAST:event_tfBLZFocusLost
 
     private void btSpeichernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSpeichernActionPerformed
+        JTextComponent[] tfList = {this.tfVorname, this.tfNachname, this.tfStrasse, this.tfHausnr, this.tfPLZ, this.tfOrt, this.tfTeleNr, this.tfKtInhaber, this.tfKtNr, this.tfBLZ, this.tfKreditInstitut};
+
+        for (JTextComponent tf : tfList) {
+            if (tf.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Feld nicht ausgefüllt!" + tf.getToolTipText(), "Fehlerhafte Eingabe!", JOptionPane.ERROR_MESSAGE);
+                tf.setBackground(Color.decode("#FAA598"));
+                tf.requestFocus();
+                return;
+            }
+        }
+        
+        if (this.cbAnrede.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "Bitte wählen Sie eine Anrede!", "Fehlerhafte Eingabe!", JOptionPane.ERROR_MESSAGE);
+                cbAnrede.requestFocus();
+                return;
+        }
+        
+        
         this.saveContent();
+        this.setDefaults();
     }//GEN-LAST:event_btSpeichernActionPerformed
+
+    private void btAbbrechenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbbrechenActionPerformed
+        if (this.uniChangeListener.hasChanged()) {
+            parentFenster.closeKundeAnlegen(this.uniChangeListener);
+        }
+    }//GEN-LAST:event_btAbbrechenActionPerformed
 
     private void postInitComponents() {
         this.hmFormat = setFormatHashMap();
@@ -486,6 +516,20 @@ public class KundeAnlegen extends javax.swing.JPanel {
                 + this.DECIMAL_FORMAT.format(this.addCounter)
                 + "K"
         );
+        
+        this.cbAnrede.setSelectedIndex(0);
+        this.tfVorname.setText("");
+        this.tfNachname.setText("");
+        this.tfStrasse.setText("");
+        this.tfHausnr.setText("");
+        this.tfPLZ.setText("");
+        this.tfOrt.setText("");
+        this.tfTeleNr.setText("");
+        this.tfKtInhaber.setText("");
+        this.tfKtNr.setText("");
+        this.tfBLZ.setText("");
+        this.tfKreditInstitut.setText("");
+        
     }
 
     private void addListener() {
